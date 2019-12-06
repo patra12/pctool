@@ -1,0 +1,153 @@
+<template>
+  <div>
+    <v-row class="form pt-0">
+      <v-col class="pt-0">
+        <v-row>
+          <v-col outlined class="head">
+            <h4 class="font-weight-light text-light">Add Category</h4>
+            <nuxt-link to="/admin/category">
+              <v-icon title="back" class="right" color="white darken-1"
+                >mdi-arrow-left-bold</v-icon
+              >
+            </nuxt-link>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="bg-content">
+            <v-form ref="form" v-model="valid" lazy-validation>
+              <v-text-field
+                v-model="categoryName"
+                label="Category Name"
+              ></v-text-field>
+
+              <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
+
+              <p class="grey--text text--darken-1 pt-3 mb-0">
+                Category Description
+              </p>
+
+              <div
+                v-model="categoryDescription"
+                v-quill:page=""
+                class="quill-editor"
+              ></div>
+
+              <v-text-field
+                v-model="metaTitle"
+                label="Meta title"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="metaKeyword"
+                label="Meta keyword"
+              ></v-text-field>
+
+              <p class="grey--text text--darken-1 pt-3 mb-0">
+                Meta Description
+              </p>
+
+              <div
+                v-model="metaDescription"
+                v-quill:meta=""
+                class="quill-editor"
+              ></div>
+
+              <v-file-input
+                ref="img_name"
+                @change="onFileChange"
+                name="img_name"
+                label="Category Image"
+              ></v-file-input>
+
+              <v-text-field
+                v-model="bannerImageLoc"
+                label="Banner Image Location"
+              ></v-text-field>
+
+              <v-text-field
+                v-model="displayOrder"
+                type="number"
+                label="Display Order"
+              ></v-text-field>
+
+              <v-select
+                v-model="status"
+                :items="items"
+                label="Status"
+              ></v-select>
+
+              <v-btn
+                @click="addData()"
+                class="my-5 float-right"
+                large
+                color="primary"
+                >Save</v-btn
+              >
+            </v-form>
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </div>
+</template>
+<script>
+export default {
+  name: 'AddPages',
+  layout: 'admin/defaultAdmin',
+  data: () => ({
+    valid: true,
+    categoryName: '',
+    seoUrl: '',
+    categoryDescription: '',
+    metaTitle: '',
+    metaKeyword: '',
+    metaDescription: '',
+    categoryImage: '',
+    bannerImageLoc: '',
+    displayOrder: '',
+    status: '',
+
+    /* form static select data */
+
+    items: ['Active', 'Not Active']
+  }),
+
+  methods: {
+    onFileChange() {
+      const file = this.$refs.image.files[0]
+      this.categoryImage = file
+    },
+    addData() {
+      const form = new FormData()
+      form.append('product_name', this.product_name)
+      form.append('product_alias', this.product_alias)
+      form.append('product_description', this.product_description)
+      form.append('feature_benefitas', this.feature_benefitas)
+      form.append('feature_description', this.feature_description)
+      form.append('price', this.price)
+      form.append('image', this.image)
+      form.append('meta_title', this.meta_title)
+      form.append('meta_description', this.meta_description)
+      form.append('meta_keywords', this.meta_keywords)
+      form.append('pdf_name', this.pdf_name)
+      // axios({
+      //   url: ' /addproduct',
+      //   method: 'POST',
+      //   headers: {
+      //     header: { 'Content-Type': 'multipart/form-data' }
+      //   },
+      //   data: form
+      // })
+      //   .then((res) => {
+      //     this.$router.push({
+      //       path: '/admin/product/productlist'
+      //     })
+      //   })
+      //   .catch((error) => {
+      //     // handle error
+      //     console.log(error)
+      //   })
+    }
+  }
+}
+</script>

@@ -1,0 +1,110 @@
+  
+    /*============ login style ============*/
+    
+    .login{
+          h2{
+              color: #413a3a;
+            }
+
+          .bg {
+              background: white;
+            }
+
+            .clearfix::after {
+              content: '';
+              clear: both;
+              display: table;
+            }
+
+            .rounded-card {
+              border-radius: 10px;
+            }
+
+        }   
+
+
+    /*============ list style ============*/
+    
+    /***** list head style  */
+
+    .bg {
+      background-color: #60bb23;
+      position: relative;
+      border-top-left-radius: 5px;
+      color: white;
+      border-top-right-radius: 5px;
+    }
+    h4 {
+      padding: 12px 35px;
+      margin-bottom: 0px;
+      font-size: 25px;
+    }
+
+
+
+    /***** list body style  */
+
+    .list{
+        
+        .bg-content {
+          background: white;
+        }
+
+        .right {
+          position: absolute;
+          right: 35px;
+          top: 10px;
+          font-size: 33px;
+        }
+        .w-100{
+          width: 100%;
+        }
+        .border.font-weight-light {
+          font-size: 13px;
+          font-weight: bold;
+        }
+        .border {
+            border: 1px solid #dee2e6!important;
+            a{
+              text-decoration: none;
+            }
+            a:hover{
+              text-decoration: underline;
+            }
+        }
+    }
+
+    /*============ Add form and settings style ============*/
+
+    .form,.settings{
+
+      .head {
+        background-color: #60bb23;
+        position: relative;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+      .bg-content {
+        background: white;
+      }
+      h4 {
+        padding: 0px 14px;
+        margin-bottom: 0px;
+        color:white;
+      }
+      .right {
+        position: absolute;
+        right: 35px;
+        top: 10px;
+        font-size: 33px;
+      }
+    }
+    
+    /*============ Backend quill editor sytle ============*/
+
+    .quill-editor {
+
+      height: 200px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
