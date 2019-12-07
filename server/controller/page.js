@@ -33,8 +33,6 @@ module.exports = {
         // insertQuery += status + "'"
         // insertQuery += ')'
 
-        console.log(insertQuery)
-
         con.query(insertQuery,[menuTitle,title,seoUrl,showTitle,pageDescription,metaTitle,metaKeyword,metaDescription,displayOrder,status], (err, result) => {
           // When done with the connection, release it.
           con.release()
