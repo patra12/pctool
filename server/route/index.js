@@ -4,4 +4,8 @@ const app = require('express').Router();
 const test = require('./page.js');
 app.use(test);
 
+// Importing settings routes
+const settings = require('./settings.js');
+app.use(settings);
+
 module.exports = app;

@@ -13,64 +13,71 @@
           <v-col class="bg-content">
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field
-                v-model="email"
-                :rules="emailRules"
-                label="Company"
+                v-model="siteName"
+                :rules="siteNameRules"
+                label="Site Name"
                 required
               ></v-text-field>
+
               <v-text-field
-                v-model="phone"
-                :rules="phoneRules"
-                label="Phone"
+                v-model="siteUrl"
+                :rules="siteUrlRules"
+                label="Site URL"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="adminEmail"
+                :rules ="adminEmailRules"
+                label="Admin Email"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="paypalEmail"
+                  
+                label="Paypal Email"
+                required
+              ></v-text-field>
+
+              <v-text-field
+                v-model="results"
+                :rules="resultsRules"
+                label="Results"
                 required
               >
               </v-text-field>
               <v-text-field
-                v-model="telephone"
-                :rules="telephoneRules"
-                label="Telephone"
+                v-model="homeMetaTitle"
+                label="Home Meta Title"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="contact_email"
-                :rules="contact_emailRules"
-                label="Contact Email"
+                v-model="homeMetaKeyword"
+                label="Home Meta Keyword"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="contact_phone"
-                :rules="contact_phoneRules"
-                label="Contact Phone"
+                v-model="ganalytyc"
+                label="ganalytyc"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="contact_telephone"
-                :rules="contact_telephoneRules"
-                label="Contact Telephone"
+                v-model="fbUrl"
+                :rules="fbUrlRules"
+                label="Facebook URL"
                 required
               ></v-text-field>
               <v-text-field
-                v-model="contact_address"
-                :rules="contact_addressRules"
-                label="Contact Address"
+                v-model="instagramUrl"
+                :rules="instagramUrlRules"
+                label="Instagram URL"
                 required
               ></v-text-field>
-              <v-text-field
-                v-model="copyrights"
-                :rules="copyrightsRules"
-                label="Copyrights"
-                required
-              ></v-text-field>
-              <v-textarea
-                :rules="copyrightsRules"
-                v-model="map_location"
-                type="text"
-                label="Map Location"
-                required
-              ></v-textarea>
+
               <p style="color:blue;">{{ message }}</p>
 
-              <v-btn class="my-5 float-right" large color="primary">
+              <v-btn class="my-5 float-right" large color="primary" @click="snackbar = true">
                 Update
               </v-btn>
             </v-form>
@@ -78,6 +85,19 @@
         </v-row>
       </v-col>
     </v-row>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      {{ text }}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -89,24 +109,62 @@ export default {
     return {
       valid: true,
       message: '',
-      email: '',
-      emailRules: [(v) => !!v || 'Title is email'],
-      phone: '',
-      phoneRules: [(v) => !!v || 'phone is required'],
-      telephone: '',
-      telephoneRules: [(v) => !!v || 'telephone is required'],
-      contact_email: '',
-      contact_emailRules: [(v) => !!v || 'contact email is required'],
-      contact_phone: '',
-      contact_phoneRules: [(v) => !!v || 'contact phone is required'],
-      contact_telephone: '',
-      contact_telephoneRules: [(v) => !!v || 'contact_telephone is required'],
-      contact_address: '',
-      contact_addressRules: [(v) => !!v || 'Title is required'],
-      copyrights: '',
-      copyrightsRules: [(v) => !!v || 'Title is required'],
-      map_location: ''
+      // email: '',
+      // emailRules: [(v) => !!v || 'Title is email'],
+      siteName:'',
+      siteNameRules:[(v) => !!v || 'Site title is Required'],
+      siteUrl:'',
+      siteUrlRules: [(v) => !!v || 'Site URl is Required'],
+      adminEmail:'',
+      adminEmailRules: [(v) => !!v || 'Admin Email is Required'],
+      paypalEmail:'',
+      paypalEmailRules:[(v) => !!v || 'Paypal Email is Required'],
+      results: '',
+      resultsRules: [(v) => !!v || 'Results is required'],
+      homeMetaTitle: '',
+      // homeMetaTitleRules: [(v) => !!v || 'Home Meta-Title is required'],
+      homeMetaKeyword: '',
+      // homeMetaKeywordRules: [(v) => !!v || 'Home Meta Keyword is required'],
+      ganalytyc: '',
+      // ganalytycRules: [(v) => !!v || 'ganalytyc is required'],
+      fbUrl: '',
+      fbUrlRules: [(v) => !!v || 'Facebook URL is required'],
+      instagramUrl: '',
+      instagramUrlRules: [(v) => !!v || 'Instagram URL is required'],
+
+      // SNACK BAR
+            snackbar: false,
+            text: 'Data is Updated',
+            timeout: 2000,
+    };
+  },
+    methods:{
+      fetchSettings(){
+          this.$axios({
+          method:"GET",
+          url:"/fetchSetings",
+        })
+        .then((res)=>{
+          this.siteName = res.data[0].site_name;
+          this.siteUrl = res.data[0].site_url;
+          this.adminEmail = res.data[0].admin_email;
+          this.paypalEmail = res.data[0].paypal_email;
+          this.paypalEmailRules = res.data[0].site_name;
+          this.results = res.data[0].results;
+          this.homeMetaTitle = res.data[0].homemetatitle;
+          this.homeMetaKeyword = res.data[0].homemetakeyword;
+          this.ganalytyc = res.data[0].ganalytyc;
+          this.fbUrl = res.data[0].fburl;
+          this.instagramUrl = res.data[0].instagramurl;
+        })
+        .catch((err)=>{
+          console.log(err);
+        });
+      }
+    },
+    mounted(){
+      this.fetchSettings();
     }
   }
-}
+
 </script>
