@@ -4,7 +4,7 @@
       <v-col class="pt-0">
         <v-row>
           <v-col outlined class="head">
-            <h4 class="font-weight-light text-light">Add Page</h4>
+            <h4 class="font-weight-light text-light">Edit Page</h4>
             <nuxt-link to="/admin/pages">
               <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
             </nuxt-link>
@@ -37,7 +37,7 @@
 
               <v-select :items="statusItems" v-model="status" label="Status"></v-select>
 
-              <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
+              <v-btn @click="putData()" class="my-5 float-right" large color="primary">Update</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -75,7 +75,7 @@ export default {
     setShowTitle() {
       return this.showTitle === "Yes" ? "Y" : "N";
     },
-    addData() {
+    putData() {
       const form = {
         title: this.title,
         menuTitle: this.menuTitle,

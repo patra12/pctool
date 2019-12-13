@@ -8,4 +8,8 @@ app.use(test);
 const settings = require('./settings.js');
 app.use(settings);
 
+// Importing settings user
+const user = require('./user.js');
+app.use(user);
+
 module.exports = app;

@@ -4,7 +4,7 @@
       <v-col class="pt-0">
         <v-row>
           <v-col outlined class="head">
-            <h4 class="font-weight-light text-light">Add User</h4>
+            <h4 class="font-weight-light text-light">Edit User</h4>
             <nuxt-link to="/admin/user">
               <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
             </nuxt-link>
@@ -25,7 +25,7 @@
 
               <v-select v-model="status" :items="items" label="Status"></v-select>
 
-              <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
+              <v-btn @click="putData()" class="my-5 float-right" large color="primary">Update</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -41,6 +41,7 @@ export default {
   data() {
     return {
       valid: true,
+      id: "",
       firstName: "",
       lastNname: "",
       password: "",
@@ -56,10 +57,13 @@ export default {
     getSatus() {
       return this.status === "Active" ? "Y" : "N";
     },
-    addData() {
+    setStatus(status) {
+      status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+    },
+    putData() {
       this.$axios({
-        method: "POST",
-        url: "/adduser",
+        method: "PUT",
+        url: "/putuser/" + this.id,
         data: {
           firstName: this.firstName,
           lastNname: this.lastNname,
@@ -70,13 +74,34 @@ export default {
         }
       })
         .then(res => {
-          console.log("data inserted");
+          console.log("Updated inserted");
           this.$router.push("/admin/user");
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    monoFetch() {
+      this.$axios({
+        method: "GET",
+        url: "/monouser/" + this.$route.params.id
+      })
+        .then(res => {
+          (this.id = res.data[0].userId),
+            (this.firstName = res.data[0].first_name),
+            (this.lastNname = res.data[0].last_name),
+            (this.password = res.data[0].password),
+            (this.email = res.data[0].email),
+            (this.phone = res.data[0].phone),
+            this.setStatus(res.data[0].status);
+          console.log(res.data);
+        })
+        .catch(err => {});
     }
+  },
+  mounted() {
+    this.monoFetch();
+    console.log("/monouser/" + this.$route.params.id);
   }
 };
 </script>

@@ -2,65 +2,72 @@ const pool = require('../db')
 
 module.exports = {
   // View settings
-  fetchSetings:(req,res)=>{
-  	pool.getConnection((err,con)=>{
-  		if(!err){
-  			selectQuery = "SELECT * FROM `settings`";
-  			con.query(selectQuery,(err,row)=>{
-  				if(!err){
-  					res.send(row);	
-  				}
-  				else{
-  					throw err;		
-  				}
-  				
-  			});
-  		}
-  		else{
-  			console.log(err);
-  		}
-  	})
+  getSetings: (req, res) => {
+    pool.getConnection((err, con) => {
+      if (!err) {
+        selectQuery = "SELECT * FROM `settings`";
+        con.query(selectQuery, (err, row) => {
+          con.release()
+          if (!err) {
+            res.send(row);
+          }
+          else {
+            console.log("query Error getSetings", err)
+          }
+        });
+      }
+      else {
+        console.log("DB Error getSetings", err)
+      }
+    })
   },
 
   // Update settings
   updateSettings: (req, res) => {
     pool.getConnection((err, con) => {
       if (!err) {
-        const siteName = req.body.siteName
-        const siteUrl = req.body.siteUrl
-        const adminEmail = req.body.adminEmail
-        const paypalEmail = req.body.paypalEmail
+        const siteName = req.body.site_name
+        const siteUrl = req.body.site_name
+        const adminEmail = req.body.admin_email
+        const paypalEmail = req.body.paypal_email
         const results = req.body.results
-        const homeMetaTitle = req.body.homeMetaTitle
-        const homeMetaKeyword = req.body.homeMetaKeyword
+        const homeMetaTitle = req.body.homemetatitle
+        const homeMetaKeyword = req.body.homemetakeyword
+        const homeMetaDescription = req.body.homemetadescription
         const ganalytyc = req.body.ganalytyc
-        const fbUrl = req.body.fbUrl
-        const instagramUrl = req.body.instagramUrl
+        const fbUrl = req.body.fburl
+        const instagramUrl = req.body.instagramurl
 
-        let insertQuery = 'UPDATE `settings` SET `site_name`=?,`site_url`=?,`admin_email`=?,`paypal_email`=?,`results`=?,`homemetatitle`=?,`homemetakeyword`=?,`homemetadescription`=?,`ganalytyc`=?,`fburl`=?,`instagramurl`=? WHERE id = ?'
-        insertQuery +=
-          ' `showtitle`, `description`, `metatitle`, `metakeyword`, '
-        insertQuery += '`metadescription`, `displayorder`, `status`) VALUES '
-        insertQuery += "(?,?,?,?,?,?,?,?,?,?)";
+        let updateQuery = 'UPDATE `settings` SET ';
+        updateQuery += "`site_name`=?,";
+        updateQuery += "`site_url`=?,";
+        updateQuery += "`admin_email`=?,";
+        updateQuery += "`paypal_email`=?,";
+        updateQuery += "`results`=?,";
+        updateQuery += "`homemetatitle`=?,";
+        updateQuery += "`homemetakeyword`=?,";
+        updateQuery += "`homemetadescription`=?,";
+        updateQuery += "`ganalytyc`=?,";
+        updateQuery += "`fburl`=?,";
+        updateQuery += "`instagramurl`=?";
 
-        console.log(insertQuery)
+        console.log(updateQuery)
 
-        con.query(insertQuery,[siteName,siteUrl,adminEmail,paypalEmail,results,homeMetaTitle,homeMetaKeyword,ganalytyc,fbUrl,instagramUrl], (err, result) => {
+        con.query(updateQuery, [siteName, siteUrl, adminEmail, paypalEmail, results, homeMetaTitle, homeMetaKeyword, homeMetaDescription, ganalytyc, fbUrl, instagramUrl], (err, result) => {
           // When done with the connection, release it.
           con.release()
 
           // Handle error after the release.
           if (!err) {
-            res.send('data inserted')
+            res.send('data updated')
           } else {
-            throw err
+            console.log("Query Error updateSettings", err);
           }
         })
       } else {
-        console.log(err)
+        console.log("DB Error updateSettings", err)
       }
     })
-    // res.send('test page controller' )
   }
 }
 
