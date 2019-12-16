@@ -76,12 +76,12 @@ module.exports = {
         const displayOrder = req.body.displayOrder
         const status = req.body.status
         // query
-        let insertQuery = 'INSERT INTO `pages`(`menutitle`, `title`, `seourl`,'
+        let insertQuery = 'INSERT INTO `pages`(`menutitle`, `title`, `seourl`,';
         insertQuery +=
-          ' `showtitle`, `description`, `metatitle`, `metakeyword`, '
-        insertQuery += '`metadescription`, `displayorder`, `status`) VALUES '
+          ' `showtitle`, `description`, `metatitle`, `metakeyword`, ';
+        insertQuery += '`metadescription`, `displayorder`, `status`) VALUES ';
         insertQuery += "(?,?,?,?,?,?,?,?,?,?)";
-        con.query(inserQuery, [title, menuTitle, showTitle, seoUrl,
+        con.query(insertQuery, [menuTitle, title, seoUrl, showTitle,
           pageDescription, metaTitle, metaKeyword, metaDescription,
           displayOrder, status], (err, row) => {
             // When done with the connection, release it.
@@ -112,7 +112,7 @@ module.exports = {
     pool.getConnection((err, con) => {
       if (!err) {
         // query
-        deleteQuery = "DELETE FROM `pages` WHERE 	pageId = " + req.params.id;
+        deleteQuery = "DELETE FROM `pages` WHERE `pageId` = " + req.params.id;
         con.query(deleteQuery, (err, row) => {
           // When done with the connection, release it.
           con.release()
@@ -136,7 +136,7 @@ module.exports = {
   },
 
   // update a Record in table
-  putUsre: (req, res) => {
+  putPage: (req, res) => {
     //creating connection
     pool.getConnection((err, con) => {
       if (!err) {
@@ -149,21 +149,24 @@ module.exports = {
         const metaKeyword = req.body.metaKeyword
         const metaDescription = req.body.metaDescription
         const displayOrder = req.body.displayOrder
-        const status = req.body.status
+        const status = req.body.status;
+        const id = req.params.id;
+
         // query
         updateQuery = "UPDATE `pages` SET";
-        updateQuery += "`menutitle`= ?,";
-        updateQuery += "`title`= ?,";
-        updateQuery += "`seourl`= ?,";
-        updateQuery += "`showtitle`= ?,";
-        updateQuery += "`description`= ?,";
-        updateQuery += "`metatitle`= ?,";
-        updateQuery += "`metakeyword`= ?,";
-        updateQuery += "`metadescription`= ?,";
-        updateQuery += "`displayorder`= ?,";
-        updateQuery += "`status`= ? ";
-        updateQuery += "WHERE `	pageId` = ?";
-        con.query(updateQuery, [title, menuTitle, showTitle, seoUrl, pageDescription, status, metaTitle, metaKeyword, metaDescription, displayOrder, id], (err, row) => {
+        updateQuery += "`menutitle`= '" + menuTitle + "',";
+        updateQuery += "`title`= '" + title + "',";
+        updateQuery += "`seourl`= '" + seoUrl + "',";
+        updateQuery += "`showtitle`= '" + showTitle + "',";
+        updateQuery += "`description`= '" + pageDescription + "',";
+        updateQuery += "`metatitle`= '" + metaTitle + "',";
+        updateQuery += "`metakeyword`= '" + metaKeyword + "',";
+        updateQuery += "`metadescription`= '" + metaDescription + "',";
+        updateQuery += "`displayorder`= '" + displayOrder + "',";
+        updateQuery += "`status`= '" + status + "' ";
+        updateQuery += "WHERE `pageId` = " + id + "";
+
+        con.query(updateQuery, (err, row) => {
           // When done with the connection, release it.
           con.release()
           if (!err) {
@@ -171,11 +174,12 @@ module.exports = {
             res.send("Data Updated successfully");
           }
           else {
-            //log query error message to server and stop execution
+            // log query error message to server and stop execution
             console.log("putUser Query Error ", err);
             res.end();
           }
         })
+        // res.send(req.body);
       }
       else {
         //log db error message to server and stop execution

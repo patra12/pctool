@@ -7,7 +7,7 @@ const page = require('../controller/page');
 app.get('/getpage', page.getPage);
 app.get('/monopage/:id', page.monoPage);
 app.post('/addpage', page.addPage);
-// app.put('/putpage/:id', page.putPage);
+app.put('/putpage/:id', page.putPage);
 app.delete('/delpage/:id', page.delPage);
 
 module.exports = app

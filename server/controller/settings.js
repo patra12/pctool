@@ -3,23 +3,12 @@ const pool = require('../db')
 module.exports = {
   // View settings
   getSetings: (req, res) => {
-    pool.getConnection((err, con) => {
+    selectQuery = "SELECT * FROM `settings`";
+    pool.query(selectQuery, (err, row) => {
       if (!err) {
-        selectQuery = "SELECT * FROM `settings`";
-        con.query(selectQuery, (err, row) => {
-          con.release()
-          if (!err) {
-            res.send(row);
-          }
-          else {
-            console.log("query Error getSetings", err)
-          }
-        });
+        res.send(row);
       }
-      else {
-        console.log("DB Error getSetings", err)
-      }
-    })
+    });
   },
 
   // Update settings

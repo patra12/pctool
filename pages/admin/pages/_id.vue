@@ -51,6 +51,7 @@ export default {
   layout: "admin/defaultAdmin",
   data: () => ({
     valid: true,
+    id: "",
     title: "",
     menuTitle: "",
     showTitle: "",
@@ -69,41 +70,73 @@ export default {
     showTitleItems: ["Yes", "No"]
   }),
   methods: {
-    setStatus() {
+    getStatus() {
       return this.status === "Active" ? "Y" : "N";
     },
-    setShowTitle() {
+    setStatus(status) {
+      status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+    },
+    getShowTitle() {
       return this.showTitle === "Yes" ? "Y" : "N";
+    },
+    setShowTitle(status) {
+      status === "Y" ? (this.showTitle = "Yes") : (this.showTitle = "No");
     },
     putData() {
       const form = {
         title: this.title,
         menuTitle: this.menuTitle,
-        showTitle: this.setShowTitle(),
+        showTitle: this.getShowTitle(),
         seoUrl: this.seoUrl,
         pageDescription: this.pageDescription,
         metaTitle: this.metaTitle,
         metaKeyword: this.metaKeyword,
         metaDescription: this.metaDescription,
         displayOrder: this.displayOrder,
-        status: this.setStatus()
+        status: this.getStatus()
       };
       this.$axios({
-        url: "/addpage",
-        method: "POST",
+        url: "/putpage/" + this.id,
+        method: "PUT",
         headers: {
           header: { "Content-Type": "application/x-www-form-urlencoded" }
         },
         data: form
       })
         .then(res => {
+          this.$router.push("/admin/pages");
           console.log(res.data);
         })
         .catch(error => {
           // handle error
           console.log(error);
         });
+    },
+    monoFetch() {
+      this.$axios({
+        method: "GET",
+        url: "/monopage/" + this.$route.params.id
+      })
+        .then(res => {
+          (this.id = res.data[0].pageId),
+            (this.title = res.data[0].title),
+            (this.menuTitle = res.data[0].menutitle),
+            this.setShowTitle(res.data[0].showtitle),
+            (this.seoUrl = res.data[0].seourl),
+            (this.pageDescription = res.data[0].description),
+            (this.metaTitle = res.data[0].metatitle),
+            (this.metaKeyword = res.data[0].metakeyword),
+            (this.metaDescription = res.data[0].metadescription),
+            (this.displayOrder = res.data[0].displayorder),
+            this.setStatus(res.data[0].status);
+          console.log(res.data);
+        })
+        .catch(err => {});
     }
+  },
+  mounted() {
+    this.monoFetch();
+    console.log("/monouser/" + this.$route.params.id);
   }
 };
 </script>

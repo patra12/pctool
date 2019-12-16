@@ -97,7 +97,7 @@ export default {
         data: form
       })
         .then(res => {
-          console.log(res.data);
+          this.$router.push("/admin/pages");
         })
         .catch(error => {
           // handle error

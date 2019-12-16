@@ -26,19 +26,33 @@
       </div>
       <div v-for="(page, index) in pages" :key="index" class="row w-100 ma-0">
         <v-col class="border font-weight-light">{{ index + 1 }}</v-col>
-        <v-col class="border font-weight-light">{{ page.product_name }}</v-col>
-        <v-col class="border font-weight-light">{{ page.product_alias }}</v-col>
-        <v-col class="border font-weight-light">{{ page.status }}</v-col>
+        <v-col class="border font-weight-light">{{ page.title }}</v-col>
+        <v-col class="border font-weight-light">{{ page.menutitle }}</v-col>
+        <v-col class="border font-weight-light">{{ setStatus(page.status) }}</v-col>
         <v-col class="border">
-          <nuxt-link :to="'/admin/pages/' + page.id">
+          <nuxt-link :to="'/admin/pages/' + page.pageId">
             <v-icon title="Edit" color="purple darken-1">mdi-pencil</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
-            <v-icon @click="delete_data(page.id)" color="red darken-2" title="Delete">mdi-close</v-icon>
+            <v-icon @click="setId(page.pageId)" color="red darken-2" title="Delete">mdi-close</v-icon>
           </nuxt-link>
         </v-col>
       </div>
     </v-row>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="headline">Delete Dialog</v-card-title>
+          <v-card-text>Do you really want to Delete this data.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="delData()">yes</v-btn>
+            <v-btn color="green darken-1" text @click="dialog = false">no</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+    <v-snackbar v-model="snack" :timeout="timeout">Data Deleted Successfully</v-snackbar>
   </v-container>
 </template>
 
@@ -48,23 +62,20 @@ export default {
   layout: "admin/defaultAdmin",
   data() {
     return {
-      // id: "",
+      id: "",
       // firstName: "",
       // lastNname: "",
       // password: "",
       // email: "",
       // phone: "",
       // status: "",
-      users: "",
+      pages: "",
       dialog: false,
       snack: false,
       timeout: 1000
     };
   },
   methods: {
-    fullName(fname, lname) {
-      return fname + " " + lname;
-    },
     setStatus(status) {
       return status === "Y" ? "Active" : "Not Active";
     },
@@ -75,11 +86,11 @@ export default {
     getData() {
       this.$axios({
         method: "GET",
-        url: "/getuser"
+        url: "/getpage"
       })
         .then(res => {
-          this.users = res.data;
-          console.log(this.users);
+          this.pages = res.data;
+          console.log("ok", this.pages);
         })
         .catch(err => {
           console.log(err);
@@ -89,11 +100,11 @@ export default {
       this.dialog = false;
       this.$axios({
         method: "DELETE",
-        url: "/deluser/" + this.id
+        url: "/delpage/" + this.id
       })
         .then(res => {
-          this.users = res.data;
-          this.$router.go("/admin/user");
+          this.pages = res.data;
+          this.$router.go("/admin/page");
         })
         .catch(err => {
           console.log(err);

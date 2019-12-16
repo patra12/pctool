@@ -12,4 +12,12 @@ app.use(settings);
 const user = require('./user.js');
 app.use(user);
 
+// Importing settings page
+const page = require('./page.js');
+app.use(page);
+
+// Importing settings page
+const category = require('./category.js');
+app.use(category);
+
 module.exports = app;

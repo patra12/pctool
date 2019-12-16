@@ -4,7 +4,7 @@ const app = require('express').Router()
 const settings = require('../controller/settings');
 
 //All Routes for API
-app.get('/getSetings', settings.getSetings);
+app.get('/getsetings', settings.getSetings);
 app.put('/updateSetings', settings.updateSettings);
 
 module.exports = app
