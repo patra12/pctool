@@ -20,4 +20,8 @@ app.use(page);
 const category = require('./category.js');
 app.use(category);
 
+// Importing settings page
+const product = require('./product.js');
+app.use(product);
+
 module.exports = app;
