@@ -6,55 +6,30 @@
           <v-col outlined class="head">
             <h4 class="font-weight-light text-light">Add Product</h4>
             <nuxt-link to="/admin/product">
-              <v-icon title="back" class="right" color="white darken-1"
-                >mdi-arrow-left-bold</v-icon
-              >
+              <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
             </nuxt-link>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="bg-content">
             <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field
-                v-model="productName"
-                label="Product Name"
-              ></v-text-field>
+              <v-text-field v-model="productName" label="Product Name"></v-text-field>
 
-              <v-text-field
-                v-model="productCode"
-                label="Product Code"
-              ></v-text-field>
+              <v-text-field v-model="productCode" label="Product Code"></v-text-field>
 
-              <p class="grey--text text--darken-1 pt-3 mb-0">
-                Product Description
-              </p>
+              <p class="grey--text text--darken-1 pt-3 mb-0">Product Description</p>
 
-              <div
-                v-model="categoryDescription"
-                v-quill:product=""
-                class="quill-editor"
-              ></div>
+              <div v-model="categoryDescription" v-quill:product class="quill-editor"></div>
 
               <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
 
               <v-text-field v-model="price" label="price"></v-text-field>
 
-              <v-text-field
-                v-model="sellPrice"
-                label="Sell Price"
-              ></v-text-field>
+              <v-text-field v-model="sellPrice" label="Sell Price"></v-text-field>
 
-              <v-text-field
-                v-model="sellQuantity"
-                label="Sell Quantity"
-                type="number"
-              ></v-text-field>
+              <v-text-field v-model="sellQuantity" label="Sell Quantity" type="number"></v-text-field>
 
-              <v-select
-                v-model="availability"
-                :items="availabilityVal"
-                label="Availability"
-              ></v-select>
+              <v-select v-model="availability" :items="availabilityVal" label="Availability"></v-select>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Return Policy</p>
 
@@ -63,49 +38,94 @@
                 <v-radio label="No" value="No"></v-radio>
               </v-radio-group>
 
-              <v-text-field
-                v-model="stoneName"
-                label="Stone Name"
-              ></v-text-field>
+              <v-text-field v-model="stoneName" label="Stone Name"></v-text-field>
 
               <v-text-field v-model="plating" label="Plating"></v-text-field>
 
-              <v-text-field
-                v-model="colorCode"
-                label="Color Code"
-              ></v-text-field>
+              <v-text-field v-model="colorCode" label="Color Code"></v-text-field>
 
-              <v-text-field
-                v-model="collectionName"
-                label="Collection Name "
-              ></v-text-field>
+              <v-text-field v-model="collectionName" label="Collection Name "></v-text-field>
 
-              <v-text-field
-                v-model="featureProduct"
-                label="Feature Product"
-              ></v-text-field>
+              <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field>
 
               <v-text-field v-model="addedOn" label="Added On"></v-text-field>
 
-              <v-text-field
-                v-model="displayOrder"
-                type="number"
-                label="Display Order"
-              ></v-text-field>
+              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
 
-              <v-select
-                v-model="status"
-                :items="items"
-                label="Status"
-              ></v-select>
+              <v-select v-model="status" :items="items" label="Status"></v-select>
+              <v-col class="borer pa-0 px-2">
+                <v-row>
+                  <v-col class="border">Image location</v-col>
+                  <v-col class="border">Caption</v-col>
+                  <v-col class="border">Status</v-col>
+                  <v-col class="border">
+                    Is Primary
+                    <v-btn color="warning" @click="statusarr()">add</v-btn>
+                  </v-col>
+                </v-row>
+                <!-- ++++++++++++++++++++ -->
+                <v-row>
+                  <v-col class="border">
+                    <input type="file" name="filename" ref="image" @change="onFileChange" />
+                  </v-col>
+                  <v-col class="border">
+                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
+                  </v-col>
+                </v-row>
 
-              <v-btn
-                @click="addData()"
-                class="my-5 float-right"
-                large
-                color="primary"
-                >Save</v-btn
-              >
+                <v-row>
+                  <v-col class="border">
+                    <input type="file" name="filename" ref="image1" @change="onFileChange" />
+                  </v-col>
+                  <v-col class="border">
+                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col class="border">
+                    <input type="file" name="filename" ref="image2" @change="onFileChange" />
+                  </v-col>
+                  <v-col class="border">
+                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
+                  </v-col>
+                </v-row>
+
+                <v-row>
+                  <v-col class="border">
+                    <input type="file" name="filename" ref="image3" @change="onFileChange" />
+                  </v-col>
+                  <v-col class="border">
+                    <v-text-field label="Image Caption" ref="status3" @change="statusarr"></v-text-field>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
+                  </v-col>
+                  <v-col class="border">
+                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
+                  </v-col>
+                </v-row>
+
+                <!-- +++++++++++++++ -->
+              </v-col>
+              <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -114,54 +134,71 @@
   </div>
 </template>
 <script>
+var imagex = [];
+var statusx = [];
 export default {
-  name: 'AddPages',
-  layout: 'admin/defaultAdmin',
+  name: "AddPages",
+  layout: "admin/defaultAdmin",
   data: () => ({
     valid: true,
-    productName: '',
-    productCode: '',
-    categoryDescription: '',
-    seoUrl: '',
-    price: '',
-    sellPrice: '',
-    sellQuantity: '',
-    availability: '',
-    returnPolicy: '',
-    stoneName: '',
-    plating: '',
-    colorCode: '',
-    collectionName: '',
-    featureProduct: '',
-    addedOn: '',
-    displayOrder: '',
-    status: '',
-
+    productName: "",
+    productCode: "",
+    categoryDescription: "",
+    seoUrl: "",
+    price: "",
+    sellPrice: "",
+    sellQuantity: "",
+    availability: "",
+    returnPolicy: "",
+    stoneName: "",
+    plating: "",
+    colorCode: "",
+    collectionName: "",
+    featureProduct: "",
+    addedOn: "",
+    displayOrder: "",
+    status: "",
+    statusx: [],
+    categoryImage: "",
+    isPrimary: "",
+    imagestatus: "",
     /* form static select data */
 
-    items: ['Active', 'Not Active'],
+    items: ["Active", "Not Active"],
 
-    availabilityVal: ['Available', 'Not Available']
+    availabilityVal: ["Available", "Not Available"]
   }),
 
   methods: {
     onFileChange() {
-      const file = this.$refs.image.files[0]
-      this.categoryImage = file
+      var file = this.$refs.image.files[0];
+
+      imagex.push(file);
+      console.log(this.categoryImage);
+      console.log(imagex);
+    },
+    statusarr() {
+      var sx = this.$refs.status3.lazyValue;
+      // console.log(sx);
+      statusx.push(sx);
+    },
+    show() {
+      this.statusarr();
+      console.log(imagex, statusx);
     },
     addData() {
-      const form = new FormData()
-      form.append('product_name', this.product_name)
-      form.append('product_alias', this.product_alias)
-      form.append('product_description', this.product_description)
-      form.append('feature_benefitas', this.feature_benefitas)
-      form.append('feature_description', this.feature_description)
-      form.append('price', this.price)
-      form.append('image', this.image)
-      form.append('meta_title', this.meta_title)
-      form.append('meta_description', this.meta_description)
-      form.append('meta_keywords', this.meta_keywords)
-      form.append('pdf_name', this.pdf_name)
+      const form = new FormData();
+      form.append("product_name", this.product_name);
+      form.append("product_alias", this.product_alias);
+      form.append("product_description", this.product_description);
+      form.append("feature_benefitas", this.feature_benefitas);
+      form.append("feature_description", this.feature_description);
+      form.append("price", this.price);
+      form.append("image", this.image);
+      form.append("meta_title", this.meta_title);
+      form.append("meta_description", this.meta_description);
+      form.append("meta_keywords", this.meta_keywords);
+      form.append("pdf_name", this.pdf_name);
       // axios({
       //   url: ' /addproduct',
       //   method: 'POST',
@@ -181,5 +218,13 @@ export default {
       //   })
     }
   }
-}
+};
 </script>
+<style>
+.border {
+  border: 1px solid blue;
+}
+.brigrt {
+  border-right: 1px solid blue;
+}
+</style>
