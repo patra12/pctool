@@ -92,10 +92,31 @@ module.exports = {
         inserQuery += ")VALUES";
         inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId, ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename, plating, colorcode,
-            collectionname, displayorder, featureproduct, addedon, status], (err, row) => {
+        // for (i in req.files) {
+        //     console.log(req.files[i].originalname);
+        // }
 
+
+        pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
+            ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename,
+            plating, colorcode, collectionname, displayorder, featureproduct,
+            addedon, status], (err, row) => {
                 if (!err) {
+                    pid = row.insertId;
+                    status = req.body.imgstatus;
+                    is_primary = req.body.is_primary;
+
+
+                    innerInsert = "INSERT INTO `product_image`(`productId`, "
+                    innerInsert += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
+                    innerInsert += "(?,?,?,?,?)"
+                    for (i in req.files) {
+                        pool.query(innerInsert, [pid, "caption", req.files[i].originalname, status, is_primary], (err, row) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                        })
+                    }
                     //send data to frontend
                     res.send("Date is inserted");
                 }
@@ -162,7 +183,7 @@ module.exports = {
                 addedon = req.body.addedon;
                 status = req.body.status;
                 id = req.params.id;
-                console.log(req.body);
+                // console.log(req.body);
                 // query
                 updateQuery = "UPDATE " + tableName + " SET";
                 updateQuery += "`product_name`= ?,";
