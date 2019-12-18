@@ -3,7 +3,7 @@ var multer = require("multer");
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'upload/categories/')
+        cb(null, 'upload/products/')
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname + '-' + Date.now())
@@ -17,7 +17,7 @@ const product = require('../controller/product');
 // All Routes for API
 app.get('/getproduct', product.getProduct);
 app.get('/monoproduct/:id', product.monoProduct);
-app.post('/addproduct', product.addProduct);
+app.post('/addproduct', upload.array('productImage', 5), product.addProduct);
 app.put('/putproduct/:id', product.putProduct);
 app.delete('/delproduct/:id', product.delProduct);
 
