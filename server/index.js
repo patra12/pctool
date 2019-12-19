@@ -3,10 +3,14 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const bodyParser = require('body-parser');
+const cors = require('cors')
+
+
+app.use(cors())
 
 // create application/json parser
 app.use(bodyParser.json())
- 
+
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: true }))
 
