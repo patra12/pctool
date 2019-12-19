@@ -61,6 +61,10 @@ module.exports = {
     },
 
     // insert Record into table
+    /**
+     * insert record to product table but this table has relation hence 
+     * in this function there is inner query present 
+     */
     addProduct: (req, res) => {
         product_name = req.body.product_name;
         product_code = req.body.product_code;
@@ -79,39 +83,37 @@ module.exports = {
         collectionname = req.body.collectionname;
         displayorder = req.body.displayorder;
         featureproduct = req.body.featureproduct;
-        addedon = req.body.addedon;
+        // addedon = req.body.addedon;
         status = req.body.status;
 
 
-        // query
+        //outer query
         inserQuery = "INSERT INTO " + tableName + "(`product_name`, ";
         inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`, `ptype`, `price`,";
         inserQuery += "`sellprice`, `availability`, `sellingqnt`, `returnpolicy`, `stonename`,";
         inserQuery += "`plating`, `colorcode`, `collectionname`, `displayorder`, `featureproduct`,";
-        inserQuery += " `addedon`, `status`";
+        inserQuery += " `status`";
         inserQuery += ")VALUES";
-        inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        // for (i in req.files) {
-        //     console.log(req.files[i].originalname);
-        // }
-
-
+        //outer query executiion
         pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
             ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename,
             plating, colorcode, collectionname, displayorder, featureproduct,
-            addedon, status], (err, row) => {
+            status], (err, row) => {
                 if (!err) {
                     pid = row.insertId;
-                    status = req.body.imgstatus;
-                    is_primary = req.body.is_primary;
+                    imageStatus = req.body.imgstatus;
+                    is_primary = req.body.imgstatus;
 
-
-                    innerInsert = "INSERT INTO `product_image`(`productId`, "
-                    innerInsert += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-                    innerInsert += "(?,?,?,?,?)"
+                    //inner query
+                    innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
+                    innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
+                    innerInsertQuery += "(?,?,?,?,?)"
+                    //we need to insert multiple image so looping according to the number of images
                     for (i in req.files) {
-                        pool.query(innerInsert, [pid, "caption", req.files[i].originalname, status, is_primary], (err, row) => {
+                        //inner query execution
+                        pool.query(innerInsertQuery, [pid, "caption", req.files[i].originalname, imageStatus, is_primary], (err, row) => {
                             if (err) {
                                 console.log(err);
                             }

@@ -19,7 +19,7 @@
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Product Description</p>
 
-              <div v-model="categoryDescription" v-quill:product class="quill-editor"></div>
+              <div v-model="productDescription" v-quill:product class="quill-editor"></div>
 
               <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
 
@@ -48,13 +48,21 @@
 
               <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field>
 
-              <v-text-field v-model="addedOn" label="Added On"></v-text-field>
+              <!-- <v-text-field v-model="addedOn" label="Added On"></v-text-field> -->
 
               <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
 
               <v-select v-model="status" :items="items" label="Status"></v-select>
+              <input
+                type="file"
+                multiple
+                name="productImage"
+                ref="productimg"
+                @change="onFileChange()"
+              />
+              <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select>
               <v-col class="borer pa-0 px-2">
-                <v-row>
+                <!-- <v-row>
                   <v-col class="border">Image location</v-col>
                   <v-col class="border">Caption</v-col>
                   <v-col class="border">Status</v-col>
@@ -62,9 +70,9 @@
                     Is Primary
                     <v-btn color="warning" @click="statusarr()">add</v-btn>
                   </v-col>
-                </v-row>
+                </v-row>-->
                 <!-- ++++++++++++++++++++ -->
-                <v-row>
+                <!-- <v-row>
                   <v-col class="border">
                     <input type="file" name="filename" ref="image" @change="onFileChange" />
                   </v-col>
@@ -121,7 +129,7 @@
                   <v-col class="border">
                     <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
                   </v-col>
-                </v-row>
+                </v-row>-->
 
                 <!-- +++++++++++++++ -->
               </v-col>
@@ -143,7 +151,7 @@ export default {
     valid: true,
     productName: "",
     productCode: "",
-    categoryDescription: "",
+    productDescription: "",
     seoUrl: "",
     price: "",
     sellPrice: "",
@@ -161,7 +169,7 @@ export default {
     statusx: [],
     categoryImage: "",
     isPrimary: "",
-    imagestatus: "",
+    imgstatus: "",
     /* form static select data */
 
     items: ["Active", "Not Active"],
@@ -171,16 +179,11 @@ export default {
 
   methods: {
     onFileChange() {
-      var file = this.$refs.image.files[0];
+      var file = this.$refs.productimg.files;
 
       imagex.push(file);
       console.log(this.categoryImage);
       console.log(imagex);
-    },
-    statusarr() {
-      var sx = this.$refs.status3.lazyValue;
-      // console.log(sx);
-      statusx.push(sx);
     },
     show() {
       this.statusarr();
@@ -188,34 +191,46 @@ export default {
     },
     addData() {
       const form = new FormData();
-      form.append("product_name", this.product_name);
-      form.append("product_alias", this.product_alias);
-      form.append("product_description", this.product_description);
-      form.append("feature_benefitas", this.feature_benefitas);
-      form.append("feature_description", this.feature_description);
+      form.append("product_name", this.productName);
+      form.append("product_code", this.productCode);
+      form.append("product_desc", this.productDescription);
+      form.append("seourl", this.seoUrl);
+      // form.append("ptype", this.feature_description);
       form.append("price", this.price);
-      form.append("image", this.image);
-      form.append("meta_title", this.meta_title);
-      form.append("meta_description", this.meta_description);
-      form.append("meta_keywords", this.meta_keywords);
-      form.append("pdf_name", this.pdf_name);
-      // axios({
-      //   url: ' /addproduct',
-      //   method: 'POST',
-      //   headers: {
-      //     header: { 'Content-Type': 'multipart/form-data' }
-      //   },
-      //   data: form
-      // })
-      //   .then((res) => {
-      //     this.$router.push({
-      //       path: '/admin/product/productlist'
-      //     })
-      //   })
-      //   .catch((error) => {
-      //     // handle error
-      //     console.log(error)
-      //   })
+      form.append("sellprice", this.sellPrice);
+      form.append("availability", this.availability);
+      form.append("sellingqnt", this.sellQuantity);
+      form.append("returnpolicy", this.returnPolicy);
+      form.append("stonename", this.stoneName);
+      form.append("plating", this.plating);
+      form.append("colorcode", this.colorCode);
+      form.append("collectionname", this.collectionName);
+      form.append("displayorder	", this.displayOrder);
+      form.append("featureproduct		", this.featureProduct);
+      form.append("status", this.status);
+      form.append("images", imagex);
+      form.append("image_status", this.imgstatus);
+      for (var datax of form.entries()) {
+        console.log(datax[0], "=>", datax[1]);
+      }
+      this.$axios({
+        url: "/addproduct",
+        method: "POST",
+        headers: {
+          header: { "Content-Type": "multipart/form-data" }
+        },
+
+        data: form
+      })
+        .then(res => {
+          this.$router.push({
+            path: "/admin/product/productlist"
+          });
+        })
+        .catch(error => {
+          // handle error
+          console.log(error);
+        });
     }
   }
 };
