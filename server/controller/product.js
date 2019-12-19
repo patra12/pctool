@@ -83,7 +83,6 @@ module.exports = {
         collectionname = req.body.collectionname;
         displayorder = req.body.displayorder;
         featureproduct = req.body.featureproduct;
-        // addedon = req.body.addedon;
         status = req.body.status;
 
         //outer query
@@ -91,8 +90,8 @@ module.exports = {
         inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`, `ptype`, `price`,";
         inserQuery += "`sellprice`, `availability`, `sellingqnt`, `returnpolicy`, `stonename`,";
         inserQuery += "`plating`, `colorcode`, `collectionname`, `displayorder`, `featureproduct`,";
-        inserQuery += " `status`";
-        inserQuery += ")VALUES";
+        inserQuery += " `status`)";
+        inserQuery += "VALUES";
         inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //outer query executiion
@@ -105,6 +104,7 @@ module.exports = {
                     imageStatus = req.body.imgstatus;
                     is_primary = req.body.imgstatus;
 
+                    console.log(req);
                     //inner query
                     innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
                     innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";

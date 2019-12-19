@@ -21,21 +21,30 @@
 
               <div v-model="productDescription" v-quill:product class="quill-editor"></div>
 
+              <v-select
+                :items="category"
+                v-model="categoryName"
+                @change="getCategoryId()"
+                label="Category"
+              ></v-select>
+
               <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
 
-              <v-text-field v-model="price" label="price"></v-text-field>
+              <v-text-field v-model="ptype" label="ptype"></v-text-field>
 
-              <v-text-field v-model="sellPrice" label="Sell Price"></v-text-field>
+              <v-text-field v-model="price" label="price" type="number"></v-text-field>
+
+              <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
 
               <v-text-field v-model="sellQuantity" label="Sell Quantity" type="number"></v-text-field>
 
-              <v-select v-model="availability" :items="availabilityVal" label="Availability"></v-select>
+              <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Return Policy</p>
 
               <v-radio-group v-model="returnPolicy" row>
-                <v-radio label="Yes" value="Yes"></v-radio>
-                <v-radio label="No" value="No"></v-radio>
+                <v-radio label="Yes" value="Y"></v-radio>
+                <v-radio label="No" value="N"></v-radio>
               </v-radio-group>
 
               <v-text-field v-model="stoneName" label="Stone Name"></v-text-field>
@@ -46,13 +55,25 @@
 
               <v-text-field v-model="collectionName" label="Collection Name "></v-text-field>
 
-              <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field>
+              <!-- <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field> -->
+              <p class="grey--text text--darken-1 pt-3 mb-0">Feature Product</p>
+              <v-radio-group v-model="featureProduct" row>
+                <v-radio label="Yes" value="Y"></v-radio>
+                <v-radio label="No" value="N"></v-radio>
+              </v-radio-group>
 
               <!-- <v-text-field v-model="addedOn" label="Added On"></v-text-field> -->
 
               <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
 
-              <v-select v-model="status" :items="items" label="Status"></v-select>
+              <!-- <v-select v-model="status" :items="items" label="Status"></v-select> -->
+              <p class="grey--text text--darken-1 pt-3 mb-0">Status</p>
+              <v-radio-group v-model="status" row>
+                <v-radio label="Active" value="Y"></v-radio>
+                <v-radio label="Not Active" value="N"></v-radio>
+              </v-radio-group>
+
+              <p class="grey--text text--darken-1 pt-3 mb-0">Select Image</p>
               <input
                 type="file"
                 multiple
@@ -60,7 +81,12 @@
                 ref="productimg"
                 @change="onFileChange()"
               />
-              <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select>
+              <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
+              <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
+              <v-radio-group v-model="imgstatus" row>
+                <v-radio label="Active" value="Y"></v-radio>
+                <v-radio label="Not Active" value="N"></v-radio>
+              </v-radio-group>
               <v-col class="borer pa-0 px-2">
                 <!-- <v-row>
                   <v-col class="border">Image location</v-col>
@@ -153,6 +179,7 @@ export default {
     productCode: "",
     productDescription: "",
     seoUrl: "",
+    ptype: "",
     price: "",
     sellPrice: "",
     sellQuantity: "",
@@ -170,11 +197,9 @@ export default {
     categoryImage: "",
     isPrimary: "",
     imgstatus: "",
-    /* form static select data */
-
-    items: ["Active", "Not Active"],
-
-    availabilityVal: ["Available", "Not Available"]
+    category: [],
+    categoryName: "",
+    categoryId: ""
   }),
 
   methods: {
@@ -195,7 +220,7 @@ export default {
       form.append("product_code", this.productCode);
       form.append("product_desc", this.productDescription);
       form.append("seourl", this.seoUrl);
-      // form.append("ptype", this.feature_description);
+      form.append("ptype", this.ptype);
       form.append("price", this.price);
       form.append("sellprice", this.sellPrice);
       form.append("availability", this.availability);
@@ -205,9 +230,10 @@ export default {
       form.append("plating", this.plating);
       form.append("colorcode", this.colorCode);
       form.append("collectionname", this.collectionName);
-      form.append("displayorder	", this.displayOrder);
-      form.append("featureproduct		", this.featureProduct);
+      form.append("displayorder", this.displayOrder);
+      form.append("featureproduct", this.featureProduct);
       form.append("status", this.status);
+      form.append("categoryId", this.categoryId);
       form.append("images", imagex);
       form.append("image_status", this.imgstatus);
       for (var datax of form.entries()) {
@@ -224,14 +250,46 @@ export default {
       })
         .then(res => {
           this.$router.push({
-            path: "/admin/product/productlist"
+            // path: "/admin/product"
           });
         })
         .catch(error => {
           // handle error
           console.log(error);
         });
+    },
+    getCategoryNames() {
+      this.$axios({
+        method: "GET",
+        url: "/getallctegoryname"
+      })
+        .then(res => {
+          this.category = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getCategoryId() {
+      this.$axios({
+        method: "POST",
+        url: "/getctegoryid",
+        header: {
+          "content-type": { "Content-Type": "multipart/form-data" }
+        },
+        data: { categoryname: this.categoryName }
+      })
+        .then(res => {
+          this.categoryId = res.data;
+          console.log(this.categoryId);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  },
+  mounted() {
+    this.getCategoryNames();
   }
 };
 </script>
