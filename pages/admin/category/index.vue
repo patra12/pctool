@@ -3,9 +3,7 @@
     <v-row class="bg">
       <h4 class="font-weight-light">Category List</h4>
       <nuxt-link to="/admin/category/addCategory">
-        <v-icon class="right" color="white darken-1" title="Add page"
-          >mdi-plus-box</v-icon
-        >
+        <v-icon class="right" color="white darken-1" title="Add page">mdi-plus-box</v-icon>
       </nuxt-link>
     </v-row>
     <v-row class="bg-content text-center">
@@ -26,57 +24,101 @@
           <b>Action</b>
         </v-col>
       </div>
-      <div v-for="(page, index) in pages" :key="index" class="row w-100 ma-0">
+      <div v-for="(category, index) in categories" :key="index" class="row w-100 ma-0">
         <v-col class="border font-weight-light">{{ index + 1 }}</v-col>
-        <v-col class="border font-weight-light">{{ page.product_name }}</v-col>
-        <v-col class="border font-weight-light">{{ page.product_alias }}</v-col>
-        <v-col class="border font-weight-light">{{ page.status }}</v-col>
+        <v-col class="border font-weight-light">{{ category.categoryname }}</v-col>
+        <v-col class="border font-weight-light">{{ category.description }}</v-col>
+        <v-col class="border font-weight-light">{{ setStatus(category.status) }}</v-col>
         <v-col class="border">
           <!-- <nuxt-link to="./editProduct">-->
-          <nuxt-link :to="'./editProduct/' + page.id">
+          <nuxt-link :to="'/admin/category/' + category.categoryId">
             <v-icon title="Edit" color="purple darken-1">mdi-pencil</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
             <v-icon
-              @click="delete_data(page.id)"
+              @click="setId(category.categoryId)"
               color="red darken-2"
               title="Delete"
-              >mdi-close</v-icon
-            >
+            >mdi-close</v-icon>
           </nuxt-link>
         </v-col>
       </div>
     </v-row>
+    <v-row justify="center">
+      <v-dialog v-model="dialog" persistent max-width="290">
+        <v-card>
+          <v-card-title class="headline">Delete Dialog</v-card-title>
+          <v-card-text>Do you really want to Delete this data.</v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" text @click="delData()">yes</v-btn>
+            <v-btn color="green darken-1" text @click="dialog = false">no</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
+    <v-snackbar v-model="snack" :timeout="timeout">Data Deleted Successfully</v-snackbar>
   </v-container>
 </template>
 
 <script>
 export default {
-  name: 'Catagory',
-  layout: 'admin/defaultAdmin',
+  name: "Pages",
+  layout: "admin/defaultAdmin",
   data() {
     return {
-      pages: [
-        {
-          id: 1,
-          product_name: 'test',
-          product_alias: 'alias test',
-          status: 'active'
-        },
-        {
-          id: 2,
-          product_name: 'test1',
-          product_alias: 'alias test1',
-          status: 'disabled'
-        },
-        {
-          id: 3,
-          product_name: 'test2',
-          product_alias: 'alias test2',
-          status: 'active'
-        }
-      ]
+      id: "",
+      // firstName: "",
+      // lastNname: "",
+      // password: "",
+      // email: "",
+      // phone: "",
+      // status: "",
+      categories: "",
+      dialog: false,
+      snack: false,
+      timeout: 1000
+    };
+  },
+  methods: {
+    setStatus(status) {
+      return status === "Y" ? "Active" : "Not Active";
+    },
+    setId(id) {
+      this.dialog = true;
+      this.id = id;
+    },
+    getData() {
+      this.$axios({
+        method: "GET",
+        url: "/getcategory"
+      })
+        .then(res => {
+          this.categories = res.data;
+          console.log("ok", this.categories);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    delData() {
+      this.dialog = false;
+      this.$axios({
+        method: "DELETE",
+        url: "/delcategory/" + this.id
+      })
+        .then(res => {
+          this.pages = res.data;
+          this.$router.go("/admin/category/");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  },
+
+  mounted() {
+    this.getData();
   }
-}
+};
 </script>
