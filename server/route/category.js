@@ -21,4 +21,7 @@ app.post('/addcategory', upload.single('categoryimage'), category.addCategory);
 app.put('/putcategory/:id', upload.single('categoryimage'), category.putCategory);
 app.delete('/delcategory/:id', category.delCategory);
 
+app.get('/getallctegoryname', category.getCategoryName);
+app.post('/getctegoryid', category.getCategoryId);
+
 module.exports = app;

@@ -24,6 +24,48 @@ module.exports = {
 		});
 	},
 
+	// get all Category name from category table
+	getCategoryName: (req, res) => {
+		// query
+		selectQuery = "SELECT `categoryname` FROM " + tableName;
+		pool.query(selectQuery, (err, row) => {
+			if (!err) {
+
+				var categoryArray = [];
+
+				//converting indivisual objects to a single array
+				for (var i in row) {
+					categoryArray.push(row[i].categoryname);
+				}
+				//send array data to frontend
+				res.send(categoryArray);
+			}
+			else {
+				//log query error message to server and stop execution
+				console.log(' Query Error', err)
+				res.end();
+			}
+		});
+	},
+
+	// get single Categoryid agianest category name
+	getCategoryId: (req, res) => {
+		// query
+		categoryname = req.body.categoryname;
+		selectQuery = "SELECT `categoryId` FROM " + tableName + " where `categoryname`= ?";
+		pool.query(selectQuery, [categoryname], (err, row) => {
+			if (!err) {
+				//send data to frontend
+				res.json(row[0].categoryId);
+			}
+			else {
+				//log query error message to server and stop execution
+				console.log('getCategory Query Error', err)
+				res.end();
+			}
+		});
+	},
+
 	// get single Record from table
 	monoCategory: (req, res) => {
 		// query
