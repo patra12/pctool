@@ -44,14 +44,14 @@ module.exports = {
 
 	// insert Record into table
 	addCategory: (req, res) => {
-		parentId = req.body.parentId;
-		categoryname = req.body.categoryName;
+		parentId = '1';
+		categoryname = req.body.categoryname;
 		description = req.body.description;
-		metatitle = req.body.metaTitle;
-		metakeywords = req.body.metaKeywords;
-		metadescription = req.body.metaDescription;
-		seourl = req.body.seoUrl;
-		displayorder = req.body.displayOrder;
+		metatitle = req.body.metatitle;
+		metakeywords = req.body.metakeywords;
+		metadescription = req.body.metadescription;
+		seourl = req.body.seourl;
+		displayorder = req.body.displayorder;
 		categoryimage = req.file.originalname;
 		bannerimageloc = req.body.bannerimageloc;
 		status = req.body.status;
@@ -115,14 +115,14 @@ module.exports = {
 		//creating connection
 		pool.getConnection((err, con) => {
 			if (!err) {
-				parentId = req.body.parentId;
-				categoryname = req.body.categoryName;
+				parentId = "1";
+				categoryname = req.body.categoryname;
 				description = req.body.description;
-				metatitle = req.body.metaTitle;
-				metakeywords = req.body.metaKeywords;
-				metadescription = req.body.metaDescription;
-				seourl = req.body.seoUrl;
-				displayorder = req.body.displayOrder;
+				metatitle = req.body.metatitle;
+				metakeywords = req.body.metakeywords;
+				metadescription = req.body.metadescription;
+				seourl = req.body.seourl;
+				displayorder = req.body.displayorder;
 				categoryimage = req.file.originalname;
 				bannerimageloc = req.body.bannerimageloc;
 				status = req.body.status;
