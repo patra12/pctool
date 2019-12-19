@@ -86,7 +86,6 @@ module.exports = {
         // addedon = req.body.addedon;
         status = req.body.status;
 
-
         //outer query
         inserQuery = "INSERT INTO " + tableName + "(`product_name`, ";
         inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`, `ptype`, `price`,";
