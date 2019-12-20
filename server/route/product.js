@@ -21,4 +21,6 @@ app.post('/addproduct', upload.array('productImage', 5), product.addProduct);
 app.put('/putproduct/:id', product.putProduct);
 app.delete('/delproduct/:id', product.delProduct);
 
+// app.post('/test', product.callx);
+
 module.exports = app;

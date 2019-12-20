@@ -3,9 +3,7 @@
     <v-row class="bg">
       <h4 class="font-weight-light">Product List</h4>
       <nuxt-link to="/admin/product/addProduct">
-        <v-icon class="right" color="white darken-1" title="Add page"
-          >mdi-plus-box</v-icon
-        >
+        <v-icon class="right" color="white darken-1" title="Add page">mdi-plus-box</v-icon>
       </nuxt-link>
     </v-row>
     <v-row class="bg-content text-center">
@@ -33,16 +31,11 @@
         <v-col class="border font-weight-light">{{ page.status }}</v-col>
         <v-col class="border">
           <!-- <nuxt-link to="./editProduct">-->
-          <nuxt-link :to="'./editProduct/' + page.id">
+          <nuxt-link :to="'./product/' + page.id">
             <v-icon title="Edit" color="purple darken-1">mdi-pencil</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
-            <v-icon
-              @click="delete_data(page.id)"
-              color="red darken-2"
-              title="Delete"
-              >mdi-close</v-icon
-            >
+            <v-icon @click="delete_data(page.id)" color="red darken-2" title="Delete">mdi-close</v-icon>
           </nuxt-link>
         </v-col>
       </div>
@@ -52,31 +45,31 @@
 
 <script>
 export default {
-  name: 'Product',
-  layout: 'admin/defaultAdmin',
+  name: "Product",
+  layout: "admin/defaultAdmin",
   data() {
     return {
       pages: [
         {
           id: 1,
-          product_name: 'test',
-          product_alias: 'alias test',
-          status: 'active'
+          product_name: "test",
+          product_alias: "alias test",
+          status: "active"
         },
         {
           id: 2,
-          product_name: 'test1',
-          product_alias: 'alias test1',
-          status: 'disabled'
+          product_name: "test1",
+          product_alias: "alias test1",
+          status: "disabled"
         },
         {
           id: 3,
-          product_name: 'test2',
-          product_alias: 'alias test2',
-          status: 'active'
+          product_name: "test2",
+          product_alias: "alias test2",
+          status: "active"
         }
       ]
-    }
+    };
   }
-}
+};
 </script>

@@ -71,6 +71,7 @@ export default {
     onFileChange() {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
+      console.log(file);
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -91,23 +92,23 @@ export default {
       for (var datax of form.entries()) {
         console.log(datax[0], "=>", datax[1]);
       }
-      this.$axios({
-        url: "/addcategory",
-        method: "POST",
-        headers: {
-          header: { "Content-Type": "multipart/form-data" }
-        },
-        data: form
-      })
-        .then(res => {
-          this.$router.push({
-            path: "/admin/category"
-          });
-        })
-        .catch(error => {
-          // handle error
-          console.log(error);
-        });
+      //   this.$axios({
+      //     url: "/addcategory",
+      //     method: "POST",
+      //     headers: {
+      //       header: { "Content-Type": "multipart/form-data" }
+      //     },
+      //     data: form
+      //   })
+      //     .then(res => {
+      //       this.$router.push({
+      //         path: "/admin/category"
+      //       });
+      //     })
+      //     .catch(error => {
+      //       // handle error
+      //       console.log(error);
+      //     });
     }
   }
 };

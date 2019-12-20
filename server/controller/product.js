@@ -1,36 +1,27 @@
 var pool = require("../db")
 var tableName = 'product';
+const fs = require('fs');
+
 
 module.exports = {
     // get all Record from a table
     getProduct: (req, res) => {
-        //creating connection
-        pool.getConnection((err, con) => {
+        // query
+        selectQuery = "SELECT * FROM " + tableName;
+
+        pool.query(selectQuery, (err, row) => {
+            // When done with the connection, release it.
             if (!err) {
-                // query
-                selectQuery = "SELECT * FROM " + tableName;
-                con.query(selectQuery, (err, row) => {
-                    // When done with the connection, release it.
-                    con.release()
-                    if (!err) {
-                        //send data to frontend
-                        res.send(row);
-                    }
-                    else {
-                        //log query error message to server and stop execution
-                        console.log(' Query Error', err)
-                        res.end();
-                    }
-                });
+                //send data to frontend
+                res.send(row);
             }
             else {
-                //log db error message to server and stop execution
-                console.log(" Db Error", err);
+                //log query error message to server and stop execution
+                console.log(' Query Error', err)
                 res.end();
             }
-        })
+        });
     },
-
     // get single Record from table
     monoProduct: (req, res) => {
         //creating connection
@@ -104,7 +95,8 @@ module.exports = {
                     imageStatus = req.body.imgstatus;
                     is_primary = req.body.imgstatus;
 
-                    console.log(req);
+                    console.log(req.body);
+                    console.log(req.files);
                     //inner query
                     innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
                     innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
@@ -129,34 +121,40 @@ module.exports = {
             })
 
     },
+    // DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId = 13 AND pi.productId = 13
+
 
     // delete Record from table
     delProduct: (req, res) => {
-        //creating connection
-        pool.getConnection((err, con) => {
+        imageNameQuery = "SELECT imageloc FROM `product_image` WHERE productId =" + req.params.id;
+        pool.query(imageNameQuery, (err, row) => {
             if (!err) {
-                // query
-                deleteQuery = "DELETE FROM " + tableName + " WHERE productId = " + req.params.id;
-                con.query(deleteQuery, (err, row) => {
-                    // When done with the connection, release it.
-                    con.release()
-                    if (!err) {
-                        //send data to frontend
-                        res.send("Data deleted successfully");
-                    }
-                    else {
-                        //log query error message to server and stop execution
-                        console.log("delProduct Query Error ", err);
-                        res.end();
-                    }
-                })
+                for (i in row) {
+                    path = "/home/kus3/current_project/gith/upload/products/" + row[i].imageloc;
+                    fs.unlink(path, (err) => {
+                        if (err) throw err;
+                        console.log("/upload/products/" + row[i].imageloc + ' was deleted');
+                    });
+                    // console.log("/upload/products/" + row[i].imageloc);
+
+                    res.send(__dirname +);
+                }
             }
-            else {
-                //log db error message to server and stop execution
-                console.log("delProduct DB ERROR", err);
-                res.end();
-            }
-        });
+        })
+        // query
+        // deleteQuery = "DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId =" + req.params.id + " AND pi.productId = " + req.params.id;
+        // pool.query(deleteQuery, (err, row) => {
+        //     if (!err) {
+
+        //         res.send("Data deleted successfully");
+        //     }
+        //     else {
+        //         //log query error message to server and stop execution
+        //         console.log("delProduct Query Error ", err);
+        //         res.end();
+        //     }
+        // })
+
     },
 
     // update a Record in table

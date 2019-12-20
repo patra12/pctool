@@ -4,7 +4,7 @@
       <v-col class="pt-0">
         <v-row>
           <v-col outlined class="head">
-            <h4 class="font-weight-light text-light">Add Product</h4>
+            <h4 class="font-weight-light text-light">Edit Product</h4>
             <nuxt-link to="/admin/product">
               <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
             </nuxt-link>
@@ -204,18 +204,18 @@ export default {
   }),
 
   methods: {
-    onFileChange() {
-      var file = this.$refs.productimg.files;
+    // onFileChange() {
+    //   var file = this.$refs.productimg.files;
 
-      imagex.push(file);
-      console.log(this.categoryImage);
-      console.log(file);
-      this.image = file;
-    },
-    show() {
-      this.statusarr();
-      console.log(imagex, statusx);
-    },
+    //   imagex.push(file);
+    //   console.log(this.categoryImage);
+    //   console.log(file);
+    //   this.image = file;
+    // },
+    // show() {
+    //   this.statusarr();
+    //   console.log(imagex, statusx);
+    // },
     addData() {
       const form = new FormData();
       form.append("product_name", this.productName);
@@ -250,7 +250,7 @@ export default {
       }
 
       this.$axios({
-        url: "/addproduct",
+        url: "/putproduct",
         method: "POST",
         headers: {
           header: { "Content-Type": "multipart/form-data" }
