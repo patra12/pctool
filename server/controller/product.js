@@ -127,20 +127,20 @@ module.exports = {
     // delete Record from table
     delProduct: (req, res) => {
         imageNameQuery = "SELECT imageloc FROM `product_image` WHERE productId =" + req.params.id;
-        pool.query(imageNameQuery, (err, row) => {
-            if (!err) {
-                for (i in row) {
-                    path = "/home/kus3/current_project/gith/upload/products/" + row[i].imageloc;
-                    fs.unlink(path, (err) => {
-                        if (err) throw err;
-                        console.log("/upload/products/" + row[i].imageloc + ' was deleted');
-                    });
-                    // console.log("/upload/products/" + row[i].imageloc);
+        // pool.query(imageNameQuery, (err, row) => {
+        //     if (!err) {
+        //         for (i in row) {
+        //             path = "/home/kus3/current_project/gith/upload/products/" + row[i].imageloc;
+        //             fs.unlink(path, (err) => {
+        //                 if (err) throw err;
+        //                 console.log("/upload/products/" + row[i].imageloc + ' was deleted');
+        //             });
+        //             // console.log("/upload/products/" + row[i].imageloc);
 
-                    res.send(__dirname);
-                }
-            }
-        })
+        //             res.send(__dirname);
+        //         }
+        //     }
+        // })
         // query
         // deleteQuery = "DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId =" + req.params.id + " AND pi.productId = " + req.params.id;
         // pool.query(deleteQuery, (err, row) => {
@@ -154,6 +154,16 @@ module.exports = {
         //         res.end();
         //     }
         // })
+
+
+        path = "upload/products/"
+        fs.unlink(path, (err) => {
+            if (err) throw err;
+            console.log(path + ' was deleted');
+        });
+        // console.log("/upload/products/" + row[i].imageloc);
+
+        res.send(path);
 
     },
 
