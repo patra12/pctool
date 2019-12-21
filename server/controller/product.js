@@ -137,7 +137,7 @@ module.exports = {
                     });
                     // console.log("/upload/products/" + row[i].imageloc);
 
-                    res.send(__dirname +);
+                    res.send(__dirname);
                 }
             }
         })
