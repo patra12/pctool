@@ -3,7 +3,6 @@ var tableName = 'product';
 const fs = require('fs');
 
 
-
 module.exports = {
     // get all Record from a table
     async getProduct(req, res) {
@@ -13,7 +12,7 @@ module.exports = {
             .then(row => { return row })
             // .then(row => { return pool.close() })
             .catch(err => { console.log(err) });
-        res.send(req.data);
+        console.log(req.data);
     },
     // get single Record from table
     async monoProduct(req, res) {
@@ -30,100 +29,105 @@ module.exports = {
      * insert record to product table but this table has relation hence 
      * in this function there is inner query present 
      */
-    addProduct(req, res) {
-        res.send('woring');
-        // product_name = req.body.product_name;
-        // product_code = req.body.product_code;
-        // product_desc = req.body.product_desc;
-        // seourl = req.body.seourl;
-        // categoryId = req.body.categoryId;
-        // ptype = req.body.ptype;
-        // price = req.body.price;
-        // sellprice = req.body.sellprice;
-        // availability = req.body.availability;
-        // sellingqnt = req.body.sellingqnt;
-        // returnpolicy = req.body.returnpolicy;
-        // stonename = req.body.stonename;
-        // plating = req.body.plating;
-        // colorcode = req.body.colorcode;
-        // collectionname = req.body.collectionname;
-        // displayorder = req.body.displayorder;
-        // featureproduct = req.body.featureproduct;
-        // status = req.body.status;
+    async addProduct(req, res) {
+        product_name = req.body.product_name;
+        product_code = req.body.product_code;
+        product_desc = req.body.product_desc;
+        seourl = req.body.seourl;
+        categoryId = req.body.categoryId;
+        ptype = req.body.ptype;
+        price = req.body.price;
+        sellprice = req.body.sellprice;
+        availability = req.body.availability;
+        sellingqnt = req.body.sellingqnt;
+        returnpolicy = req.body.returnpolicy;
+        stonename = req.body.stonename;
+        plating = req.body.plating;
+        colorcode = req.body.colorcode;
+        collectionname = req.body.collectionname;
+        displayorder = req.body.displayorder;
+        featureproduct = req.body.featureproduct;
+        status = req.body.status;
 
-        // //outer query
-        // inserQuery = "INSERT INTO " + tableName + "(`product_name`, ";
-        // inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`, `ptype`, `price`,";
-        // inserQuery += "`sellprice`, `availability`, `sellingqnt`, `returnpolicy`, `stonename`,";
-        // inserQuery += "`plating`, `colorcode`, `collectionname`, `displayorder`, `featureproduct`,";
-        // inserQuery += " `status`)";
-        // inserQuery += "VALUES";
-        // inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        //outer query
+        inserQuery = "INSERT INTO " + tableName + "(`product_name`, ";
+        inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`, `ptype`, `price`,";
+        inserQuery += "`sellprice`, `availability`, `sellingqnt`, `returnpolicy`, `stonename`,";
+        inserQuery += "`plating`, `colorcode`, `collectionname`, `displayorder`, `featureproduct`,";
+        inserQuery += " `status`)";
+        inserQuery += "VALUES";
+        inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        // //outer query executiion
-        // pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
-        //     ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename,
-        //     plating, colorcode, collectionname, displayorder, featureproduct,
-        //     status], (err, row) => {
-        //         if (!err) {
-        //             pid = row.insertId;
-        //             imageStatus = req.body.imgstatus;
-        //             is_primary = req.body.imgstatus;
+        //outer query executiion
+        insertId = await pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
+            ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename,
+            plating, colorcode, collectionname, displayorder, featureproduct,
+            status])
+            .then(row => {
+                return row.insertId;
+            })
+            .catch(err => {
+                console.log(err)
+            });
+        // img = req.files.productImage[3];
 
-        //             console.log(req.body);
-        //             console.log(req.files);
-        //             //inner query
-        //             innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
-        //             innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-        //             innerInsertQuery += "(?,?,?,?,?)"
-        //             //we need to insert multiple image so looping according to the number of images
-        //             for (i in req.files) {
-        //                 //inner query execution
-        //                 // pool.query(innerInsertQuery, [pid, "caption", req.files[i].originalname, imageStatus, is_primary], (err, row) => {
-        //                 //     if (err) {
-        //                 //         console.log(err);
-        //                 //     }
-        //                 // })
-        //                 console.log(req.files[i]);
-        //             }
-        //             //send data to frontend
-        //             res.send("Date is inserted");
-        //         }
-        //         else {
-        //             //log query error message to server and stop execution
-        //             console.log("addProduct Query Error", err);
-        //             res.end();
-        //         }
-        //     })
-        // path = "/upload/products/" + x[1].name;
-        // x[i].mv(path, function (err) {
-        //     if (err)
-        //         res.send(err);
+        images = req.files.productImage;
+        // path = `upload/products/${images.name}`
+        for (image in images) {
+            path = `upload/products/${images[image].name}`
+            images[image].mv(path, err => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                else {
+                    fs.chown(path, 1000, 1000, (err) => {
+                        if (err) {
+                            cansole.log(err);
+                        }
+                    });
+                }
+            });
+            res.send('File uploaded!,and changesd permission');
+        }
 
-        //     // res.send('File uploaded!');
-        // });
+        res.end();
 
-        // let x = req.files.productImage;
-        // for (i in x) {
-        //     path = "/upload/products/" + x[1].name;
-        //     // fs.unlink(path, (err) => {
-        //     //     if (err) throw err;
-        //     //     console.log("/upload/products/" + row[i].imageloc + ' was deleted');
-        //     // });
-        //     // // console.log("/upload/products/" + row[i].imageloc);
+        // pid = row.insertId;
+        // imageStatus = req.body.imgstatus;
+        // is_primary = req.body.imgstatus;
 
-        //     // res.send(__dirname);
-        //     console.log(path);
-        //     x[i].mv(path, function (err) {
-        //         if (err)
-        //             res.send(err);
+        // (err, row) => {
+        //     if (!err) {
+        //         pid = row.insertId;
+        //         imageStatus = req.body.imgstatus;
+        //         is_primary = req.body.imgstatus;
 
-        //         // res.send('File uploaded!');
-        //     });
-        // }
+        //         console.log(req.body);
+        //         console.log(req.files);
+        //         // //inner query
+        //         // innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
+        //         // innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
+        //         // innerInsertQuery += "(?,?,?,?,?)"
+        //         // //we need to insert multiple image so looping according to the number of images
+        //         // for (i in req.files) {
+        //         //     //inner query execution
+        //         //     pool.query(innerInsertQuery, [pid, "caption", req.files[i].originalname, imageStatus, is_primary], (err, row) => {
+        //         //         if (err) {
+        //         //             console.log(err);
+        //         //         }
+        //         //     })
+        //         // }
+        //         // //send data to frontend
+        //         // res.send("Date is inserted");
+        //     }
+        //     else {
+        //         //log query error message to server and stop execution
+        //         console.log("addProduct Query Error", err);
+        //         res.end();
+        //     }
+        // })
 
     },
-
     // DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId = 13 AND pi.productId = 13
 
 
@@ -131,11 +135,11 @@ module.exports = {
     async delProduct(req, res) {
         imageNameQuery = "SELECT imageloc FROM `product_image` WHERE productId = ?";
         test = await pool.query(imageNameQuery, [req.params.id])
-            .then(row => { return row })
-            // .then(row => { return pool.close() })
+            .then(row => { res.send(row) })
+            .then(row => { return pool.close() })
             .catch(err => { console.log(err) });
         // res.send(req.data);
-        res.send(test);
+        console.log(test);
         // pool.query(imageNameQuery, (err, row) => {
         //     if (!err) {
         //         for (i in row) {
