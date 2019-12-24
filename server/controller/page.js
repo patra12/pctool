@@ -32,7 +32,7 @@ module.exports = {
   },
 
   // get single Record from table
-  monoPage: (req, res) => {
+  monoPage(req, res) {
     //creating connection
     pool.getConnection((err, con) => {
       if (!err) {
@@ -61,7 +61,7 @@ module.exports = {
   },
 
   // insert Record into table
-  addPage: (req, res) => {
+  addPage(req, res) {
     //creating connection
     pool.getConnection((err, con) => {
       if (!err) {
@@ -107,7 +107,7 @@ module.exports = {
   },
 
   // delete Record from table
-  delPage: (req, res) => {
+  delPage(req, res) {
     //creating connection
     pool.getConnection((err, con) => {
       if (!err) {
@@ -136,7 +136,7 @@ module.exports = {
   },
 
   // update a Record in table
-  putPage: (req, res) => {
+  putPage(req, res) {
     //creating connection
     pool.getConnection((err, con) => {
       if (!err) {
@@ -187,6 +187,30 @@ module.exports = {
         res.end();
       }
     });
+  },
+  testval(req, res) {
+    // query
+    selectQuery = "SELECT * FROM `pages`";
+    return new Promise((resolve, reject) => {
+
+
+      con.query(selectQuery, (err, row) => {
+        // When done with the connection, release it.
+        con.release()
+        if (!err) {
+          //send data to frontend
+          resolve(row);
+        }
+        else {
+          //log query error message to server and stop execution
+          reject(' Query Error', err)
+        }
+      });
+    })
+  },
+  delay({ data }, res) {
+    res.send(data);
+    res.end();
   }
 
 }
