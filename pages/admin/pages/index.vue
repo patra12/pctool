@@ -90,7 +90,7 @@ export default {
       })
         .then(res => {
           this.pages = res.data;
-          console.log("ok", this.pages);
+          // console.log("ok", this.pages);
         })
         .catch(err => {
           console.log(err);
@@ -114,6 +114,8 @@ export default {
 
   mounted() {
     this.getData();
+    const x = this.$store.dispatch("getpage");
+    console.log(x);
   }
 };
 </script>
