@@ -83,7 +83,10 @@ module.exports = {
 
         // multiple image upload with normal user permission in linux platform
         images = req.files.productImage;
-        path = "/upload/products/" + images;
+        // path = "/upload/products/" + images;
+
+        images = req.files.productImage;
+        path = `upload/products/${images}`
         for (image in images) {
             imageName = fpath.parse(images[image].name).name;
             imageExt = fpath.parse(images[image].name).ext;
@@ -91,24 +94,24 @@ module.exports = {
 
             // console.log(modifiedImageName);
             //file upload
-            path = `/upload/products/${images[image].name}`
+            path = `upload/products/${modifiedImageName}`
             images[image].mv(path, err => {
                 if (err) console.log(`upload error ${err}`);
             });
 
 
             //file permission
-            fs.chown(path, 1000, 1000, (err) => {
+            await fs.chown(path, 1000, 1000, (err) => {
                 if (err) {
                     console.log(`permission error ${err}`)
                 };
             });
 
-            imageName = fpath.parse(images[image].name).name;
-            imageExt = fpath.parse(images[image].name).ext;
-            modifiedImageName = imageName + pid + imageExt;
+            // imageName = fpath.parse(images[image].name).name;
+            // imageExt = fpath.parse(images[image].name).ext;
+            // modifiedImageName = imageName + pid + imageExt;
 
-            console.log(modifiedImageName);
+            // console.log(modifiedImageName);
 
             // insert into db
             //inner query
