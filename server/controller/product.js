@@ -1,6 +1,8 @@
 var pool = require("../db/db")
 var tableName = 'product';
 const fs = require('fs');
+const fpath = require('path');
+const productImg = "upload/products/"
 
 
 module.exports = {
@@ -69,24 +71,57 @@ module.exports = {
             .catch(err => {
                 console.log(err)
             });
-        // img = req.files.productImage[3];
 
+        pid = insertId;
+        imageStatus = req.body.imgstatus;
+        is_primary = req.body.imgstatus;
+
+        //inner query
+        innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
+        innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
+        innerInsertQuery += "(?,?,?,?,?)"
+
+        // multiple image upload with normal user permission in linux platform
         images = req.files.productImage;
-        path = `upload/products/${images}`
+        path = "/upload/products/" + images;
         for (image in images) {
-            path = `upload/products/${images[image].name}`
+            imageName = fpath.parse(images[image].name).name;
+            imageExt = fpath.parse(images[image].name).ext;
+            modifiedImageName = imageName + pid + imageExt;
+
+            // console.log(modifiedImageName);
+            //file upload
+            path = `/upload/products/${images[image].name}`
             images[image].mv(path, err => {
-                if (err) {
-                    console.log(`upload error ${err}`);
-                }
+                if (err) console.log(`upload error ${err}`);
             });
+
+
+            //file permission
             fs.chown(path, 1000, 1000, (err) => {
                 if (err) {
-                    cansole.log(`permission error ${err}`);
-                }
+                    console.log(`permission error ${err}`)
+                };
             });
+
+            imageName = fpath.parse(images[image].name).name;
+            imageExt = fpath.parse(images[image].name).ext;
+            modifiedImageName = imageName + pid + imageExt;
+
+            console.log(modifiedImageName);
+
+            // insert into db
+            //inner query
+            var test = await pool.query(innerInsertQuery, [pid, "caption", modifiedImageName, imageStatus, is_primary], (err, row) => {
+                if (err) {
+                    console.log(err);
+                }
+            })
+
         }
-        console.log(images);
+        /**
+         * sinle image upload with permission
+         */
         // image = req.files.productImage[2];
         // images = req.files.productImage[2].name;
         // path = `upload/products/${images}`
@@ -101,54 +136,37 @@ module.exports = {
 
         res.end();
 
-        // pid = row.insertId;
-        // imageStatus = req.body.imgstatus;
-        // is_primary = req.body.imgstatus;
-
-        // (err, row) => {
-        //     if (!err) {
-        //         pid = row.insertId;
-        //         imageStatus = req.body.imgstatus;
-        //         is_primary = req.body.imgstatus;
-
-        //         console.log(req.body);
-        //         console.log(req.files);
-        //         // //inner query
-        //         // innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
-        //         // innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-        //         // innerInsertQuery += "(?,?,?,?,?)"
-        //         // //we need to insert multiple image so looping according to the number of images
-        //         // for (i in req.files) {
-        //         //     //inner query execution
-        //         //     pool.query(innerInsertQuery, [pid, "caption", req.files[i].originalname, imageStatus, is_primary], (err, row) => {
-        //         //         if (err) {
-        //         //             console.log(err);
-        //         //         }
-        //         //     })
-        //         // }
-        //         // //send data to frontend
-        //         // res.send("Date is inserted");
-        //     }
-        //     else {
-        //         //log query error message to server and stop execution
-        //         console.log("addProduct Query Error", err);
-        //         res.end();
-        //     }
-        // })
-
     },
     // DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId = 13 AND pi.productId = 13
 
 
     // delete Record from table
     async delProduct(req, res) {
+        deleteQuery = "DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId =" + req.params.id + " AND pi.productId = " + req.params.id;
+        delresponse = await pool.query(deleteQuery)
+            .then(row => { return row.affectedRows })
+            .catch(err => { console.log(err) });
+
+        if (delresponse) {
+            console.log(`${delresponse} Rows are deleted from DB `);
+        }
+
+
         imageNameQuery = "SELECT imageloc FROM `product_image` WHERE productId = ?";
-        test = await pool.query(imageNameQuery, [req.params.id])
-            .then(row => { res.send(row) })
-            .then(row => { return pool.close() })
+        images = await pool.query(imageNameQuery, [req.params.id])
+            .then(row => { return row })
             .catch(err => { console.log(err) });
         // res.send(req.data);
-        console.log(test);
+        // console.log(images.length);
+        // res.end();
+        for (image in images) {
+            pathx = productImg + images[image].imageloc;
+            fs.unlink(pathx, (err) => {
+                if (err) throw err;
+                console.log(pathx + ' was deleted');
+            });
+        }
+
         // pool.query(imageNameQuery, (err, row) => {
         //     if (!err) {
         //         for (i in row) {
