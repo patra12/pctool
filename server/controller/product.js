@@ -72,23 +72,32 @@ module.exports = {
         // img = req.files.productImage[3];
 
         images = req.files.productImage;
-        // path = `upload/products/${images.name}`
+        path = `upload/products/${images}`
         for (image in images) {
             path = `upload/products/${images[image].name}`
             images[image].mv(path, err => {
                 if (err) {
-                    return res.status(500).send(err);
-                }
-                else {
-                    fs.chown(path, 1000, 1000, (err) => {
-                        if (err) {
-                            cansole.log(err);
-                        }
-                    });
+                    console.log(`upload error ${err}`);
                 }
             });
-            res.send('File uploaded!,and changesd permission');
+            fs.chown(path, 1000, 1000, (err) => {
+                if (err) {
+                    cansole.log(`permission error ${err}`);
+                }
+            });
         }
+        console.log(images);
+        // image = req.files.productImage[2];
+        // images = req.files.productImage[2].name;
+        // path = `upload/products/${images}`
+        // image.mv(path, err => {
+        //     if (!err) {
+        //         fs.chown(path, 1000, 1000, (err) => {
+        //             console.log(err);
+        //         });
+        //     }
+        // });
+        // res.send(path);
 
         res.end();
 
