@@ -24,18 +24,22 @@
           <b>Action</b>
         </v-col>
       </div>
-      <div v-for="(page, index) in pages" :key="index" class="row w-100 ma-0">
+      <div v-for="(product, index) in products" :key="index" class="row w-100 ma-0">
         <v-col class="border font-weight-light">{{ index + 1 }}</v-col>
-        <v-col class="border font-weight-light">{{ page.product_name }}</v-col>
-        <v-col class="border font-weight-light">{{ page.product_alias }}</v-col>
-        <v-col class="border font-weight-light">{{ page.status }}</v-col>
+        <v-col class="border font-weight-light">{{ product.product_name }}</v-col>
+        <v-col class="border font-weight-light">{{ product.product_desc }}</v-col>
+        <v-col class="border font-weight-light">{{ product.status }}</v-col>
         <v-col class="border">
           <!-- <nuxt-link to="./editProduct">-->
-          <nuxt-link :to="'./product/' + page.id">
+          <nuxt-link :to="'/admin/product/' + product.productId">
             <v-icon title="Edit" color="purple darken-1">mdi-pencil</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
-            <v-icon @click="delete_data(page.id)" color="red darken-2" title="Delete">mdi-close</v-icon>
+            <v-icon
+              @click="delete_data(product.productId)"
+              color="red darken-2"
+              title="Delete"
+            >mdi-close</v-icon>
           </nuxt-link>
         </v-col>
       </div>
@@ -49,27 +53,26 @@ export default {
   layout: "admin/defaultAdmin",
   data() {
     return {
-      pages: [
-        {
-          id: 1,
-          product_name: "test",
-          product_alias: "alias test",
-          status: "active"
-        },
-        {
-          id: 2,
-          product_name: "test1",
-          product_alias: "alias test1",
-          status: "disabled"
-        },
-        {
-          id: 3,
-          product_name: "test2",
-          product_alias: "alias test2",
-          status: "active"
-        }
-      ]
+      products: ""
     };
+  },
+  methods: {
+    getData() {
+      this.$axios({
+        method: "GET",
+        url: "/getproduct"
+      })
+        .then(res => {
+          this.products = res.data;
+          console.log("ok", this.products);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
+  },
+  mounted() {
+    this.getData();
   }
 };
 </script>

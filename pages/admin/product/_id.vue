@@ -194,7 +194,7 @@ export default {
     displayOrder: "",
     status: "",
     statusx: [],
-    categoryImage: "",
+    productImage: "",
     isPrimary: "",
     imgstatus: "",
     category: [],
@@ -204,63 +204,43 @@ export default {
   }),
 
   methods: {
-    // onFileChange() {
-    //   var file = this.$refs.productimg.files;
-
-    //   imagex.push(file);
-    //   console.log(this.categoryImage);
-    //   console.log(file);
-    //   this.image = file;
-    // },
-    // show() {
-    //   this.statusarr();
-    //   console.log(imagex, statusx);
-    // },
-    addData() {
+    onFileChange() {
+      const file = this.$refs.productimg.files[0];
+      this.productImage = file;
+    },
+    getStatus() {
+      return this.status === "Active" ? "Y" : "N";
+    },
+    setStatus(status) {
+      status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+    },
+    putData() {
       const form = new FormData();
-      form.append("product_name", this.productName);
-      form.append("product_code", this.productCode);
-      form.append("product_desc", this.productDescription);
+      form.append("productName", this.product_name);
       form.append("seourl", this.seoUrl);
-      form.append("ptype", this.ptype);
-      form.append("price", this.price);
-      form.append("sellprice", this.sellPrice);
-      form.append("availability", this.availability);
-      form.append("sellingqnt", this.sellQuantity);
-      form.append("returnpolicy", this.returnPolicy);
-      form.append("stonename", this.stoneName);
-      form.append("plating", this.plating);
-      form.append("colorcode", this.colorCode);
-      form.append("collectionname", this.collectionName);
+      form.append("description", this.categoryDescription);
+      form.append("metatitle", this.metaTitle);
+      form.append("metakeywords", this.metaKeyword);
+      form.append("metadescription", this.metaDescription);
+      form.append("categoryimage", this.categoryImage);
+      form.append("bannerimageloc", this.bannerImageLoc);
       form.append("displayorder", this.displayOrder);
-      form.append("featureproduct", this.featureProduct);
-      form.append("status", this.status);
-      form.append("categoryId", this.categoryId);
-      // form.append("images", imagex);
-      form.append("imgstatus", this.imgstatus);
-
-      for (var i = 0; i < this.$refs.productimg.files.length; i++) {
-        let file = this.$refs.productimg.files[i];
-        console.log(file);
-        form.append("productImage", file);
-      }
-
+      form.append("status", this.getStatus());
+      // form.append("pdf_name", this.pdf_name);
       for (var datax of form.entries()) {
         console.log(datax[0], "=>", datax[1]);
       }
-
       this.$axios({
-        url: "/putproduct",
-        method: "POST",
+        url: "/putcategory/" + this.$route.params.id,
+        method: "PUT",
         headers: {
           header: { "Content-Type": "multipart/form-data" }
         },
-
         data: form
       })
         .then(res => {
           this.$router.push({
-            // path: "/admin/product"
+            path: "/admin/category"
           });
         })
         .catch(error => {
@@ -268,38 +248,31 @@ export default {
           console.log(error);
         });
     },
-    getCategoryNames() {
+    getData() {
       this.$axios({
-        method: "GET",
-        url: "/getallctegoryname"
+        url: "/monoproduct/" + this.$route.params.id,
+        method: "get"
       })
         .then(res => {
-          this.category = res.data;
+          this.productName = res.data[0].categoryname;
+          this.seoUrl = res.data[0].seourl;
+          this.categoryDescription = res.data[0].description;
+          this.metaTitle = res.data[0].metatitle;
+          this.metaKeyword = res.data[0].metakeywords;
+          this.metaDescription = res.data[0].metadescription;
+          this.categoryImage = res.data[0].categoryimage;
+          this.bannerImageLoc = res.data[0].bannerimageloc;
+          this.displayOrder = res.data[0].displayorder;
+          this.setStatus(res.data[0].status);
         })
         .catch(err => {
-          console.log(err);
-        });
-    },
-    getCategoryId() {
-      this.$axios({
-        method: "POST",
-        url: "/getctegoryid",
-        header: {
-          "content-type": { "Content-Type": "multipart/form-data" }
-        },
-        data: { categoryname: this.categoryName }
-      })
-        .then(res => {
-          this.categoryId = res.data;
-          console.log(this.categoryId);
-        })
-        .catch(err => {
+          // handle error
           console.log(err);
         });
     }
   },
   mounted() {
-    this.getCategoryNames();
+    this.getData();
   }
 };
 </script>
