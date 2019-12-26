@@ -1,7 +1,7 @@
 <template>
-  <v-container class="bv-example-row list pa-0">
+  <v-container :msg="test" class="bv-example-row list pa-0">
     <v-row class="bg">
-      <h4 class="font-weight-light">Page List</h4>
+      <h4 class="font-weight-light">Page List{{this.msg}}</h4>
       <nuxt-link to="/admin/pages/addPages">
         <v-icon class="right" color="white darken-1" title="Add page">mdi-plus-box</v-icon>
       </nuxt-link>
@@ -55,20 +55,13 @@
     <v-snackbar v-model="snack" :timeout="timeout">Data Deleted Successfully</v-snackbar>
   </v-container>
 </template>
-
 <script>
 export default {
   name: "Pages",
-  layout: "admin/defaultAdmin",
+  props: ["msg"],
   data() {
     return {
       id: "",
-      // firstName: "",
-      // lastNname: "",
-      // password: "",
-      // email: "",
-      // phone: "",
-      // status: "",
       pages: "",
       dialog: false,
       snack: false,
@@ -90,7 +83,6 @@ export default {
       })
         .then(res => {
           this.pages = res.data;
-          console.log("ok", this.pages);
         })
         .catch(err => {
           console.log(err);
@@ -109,11 +101,15 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    test() {
+      this.msg = "testing";
     }
   },
 
   mounted() {
     this.getData();
+    this.test();
   }
 };
 </script>

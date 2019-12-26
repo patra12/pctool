@@ -97,7 +97,13 @@ export default {
         data: form
       })
         .then(res => {
-          this.$router.push("/admin/pages");
+          // console.log(res.data);
+          // this.$router.push("/admin/pages");
+          this.$router.push({
+            name: "admin-pages",
+            params: { msg: res.data },
+            props: true
+          });
         })
         .catch(error => {
           // handle error

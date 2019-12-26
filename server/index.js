@@ -3,11 +3,6 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const bodyParser = require('body-parser');
-const cors = require('cors')
-
-
-
-app.use(cors())
 
 // create application/json parser
 app.use(bodyParser.json())
@@ -15,9 +10,18 @@ app.use(bodyParser.json())
 // create application/x-www-form-urlencoded parser
 app.use(bodyParser.urlencoded({ extended: true }))
 
+const cors = require('cors')
+app.use(cors())
+
+const fileUpload = require('express-fileupload');
+app.use(fileUpload());
+
+
+
 // Import All Route's
 const route = require('./route')
 app.use(route)
+
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')

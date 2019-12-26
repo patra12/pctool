@@ -9,14 +9,7 @@
       app
     >
       <v-list>
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          color="#60bb23"
-          exact
-        >
+        <v-list-item v-for="(item, i) in items" :key="i" :to="item.to" router color="#60bb23" exact>
           <v-list-item-action>
             <v-icon class="white--text">{{ item.icon }}</v-icon>
           </v-list-item-action>
@@ -52,7 +45,7 @@
 </template>
 
 <script>
-import '~/assets/admin.scss'
+import "~/assets/admin.scss";
 export default {
   data() {
     return {
@@ -61,44 +54,44 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/admin/dashboard'
+          icon: "mdi-apps",
+          title: "Welcome",
+          to: "/admin/dashboard"
         },
         {
-          icon: 'mdi-book-variant',
-          title: 'Pages',
-          to: '/admin/pages/'
+          icon: "mdi-book-variant",
+          title: "Pages",
+          to: "/admin/pages/list"
         },
         {
-          icon: 'mdi-drawing',
-          title: 'Catagories',
-          to: '/admin/category/'
+          icon: "mdi-drawing",
+          title: "Catagories",
+          to: "/admin/category/"
         },
         {
-          icon: 'mdi-package-variant-closed',
-          title: 'Product',
-          to: '/admin/product/'
+          icon: "mdi-package-variant-closed",
+          title: "Product",
+          to: "/admin/product/"
         },
         {
-          icon: 'mdi-account-multiple-outline',
-          title: 'Users',
-          to: '/admin/user'
+          icon: "mdi-account-multiple-outline",
+          title: "Users",
+          to: "/admin/user"
         },
         {
-          icon: 'mdi-cart-outline',
-          title: 'Orders',
-          to: '/admin/order'
+          icon: "mdi-cart-outline",
+          title: "Orders",
+          to: "/admin/order"
         },
         {
-          icon: 'mdi-settings',
-          title: 'Settings',
-          to: '/admin/settings'
+          icon: "mdi-settings",
+          title: "Settings",
+          to: "/admin/settings"
         }
       ],
       miniVariant: false,
-      title: 'PC - tools'
-    }
+      title: "PC - tools"
+    };
   }
-}
+};
 </script>

@@ -10,6 +10,7 @@ var storage = multer.diskStorage({
     }
 })
 
+
 var upload = multer({ storage: storage });
 // Availing All Required Methods From  Controller For Route
 const category = require('../controller/category');

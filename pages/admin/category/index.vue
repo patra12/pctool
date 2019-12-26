@@ -119,6 +119,7 @@ export default {
 
   mounted() {
     this.getData();
+    this.$store.dispatch("");
   }
 };
 </script>
