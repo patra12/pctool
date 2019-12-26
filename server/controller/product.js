@@ -126,7 +126,7 @@ module.exports = {
                             }
                         })
                     }
-                    //send data to frontend
+                    //send data to frontend 
                     res.send("Date is inserted");
                 }
                 else {
