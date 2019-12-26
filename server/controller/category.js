@@ -25,7 +25,7 @@ module.exports = {
 	},
 
 	// get all Category name from category table
-	getCategoryName: (req, res) => {
+	getCategoryNames: (req, res) => {
 		// query
 		selectQuery = "SELECT `categoryname` FROM " + tableName;
 		pool.query(selectQuery, (err, row) => {
@@ -67,7 +67,7 @@ module.exports = {
 	},
 
 	// get single Record from table
-	monoCategory: (req, res) => {
+	monoCategory(req, res) {
 		// query
 		selectQuery = "SELECT * FROM " + tableName + " where `categoryId`= ?";
 		pool.query(selectQuery, [req.params.id], (err, row) => {
@@ -83,6 +83,8 @@ module.exports = {
 		});
 
 	},
+
+
 
 	// insert Record into table
 	addCategory: (req, res) => {

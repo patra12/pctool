@@ -36,7 +36,7 @@
 
               <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
 
-              <v-text-field v-model="sellQuantity" label="Sell Quantity" type="number"></v-text-field>
+              <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field>
 
               <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
 
@@ -168,7 +168,6 @@
   </div>
 </template>
 <script>
-var imagex = [];
 var statusx = [];
 export default {
   name: "AddPages",
@@ -182,19 +181,20 @@ export default {
     ptype: "",
     price: "",
     sellPrice: "",
-    sellQuantity: "",
     availability: "",
+    sellingQuantity: "",
     returnPolicy: "",
     stoneName: "",
     plating: "",
     colorCode: "",
     collectionName: "",
+    displayOrder: "",
     featureProduct: "",
     addedOn: "",
-    displayOrder: "",
     status: "",
+
     statusx: [],
-    categoryImage: "",
+    productImage: "",
     isPrimary: "",
     imgstatus: "",
     category: [],
@@ -206,15 +206,7 @@ export default {
   methods: {
     onFileChange() {
       var file = this.$refs.productimg.files;
-
-      imagex.push(file);
-      console.log(this.categoryImage);
-      console.log(file);
       this.image = file;
-    },
-    show() {
-      this.statusarr();
-      console.log(imagex, statusx);
     },
     addData() {
       const form = new FormData();
@@ -226,7 +218,7 @@ export default {
       form.append("price", this.price);
       form.append("sellprice", this.sellPrice);
       form.append("availability", this.availability);
-      form.append("sellingqnt", this.sellQuantity);
+      form.append("sellingqnt", this.sellingQuantity);
       form.append("returnpolicy", this.returnPolicy);
       form.append("stonename", this.stoneName);
       form.append("plating", this.plating);
@@ -245,9 +237,9 @@ export default {
         form.append("productImage", file);
       }
 
-      for (var datax of form.entries()) {
-        console.log(datax[0], "=>", datax[1]);
-      }
+      // for (var datax of form.entries()) {
+      //   console.log(datax[0], "=>", datax[1]);
+      // }
 
       this.$axios({
         url: "/addproduct",
@@ -260,7 +252,7 @@ export default {
       })
         .then(res => {
           this.$router.push({
-            // path: "/admin/product"
+            path: "/admin/product"
           });
         })
         .catch(error => {
@@ -271,7 +263,7 @@ export default {
     getCategoryNames() {
       this.$axios({
         method: "GET",
-        url: "/getallctegoryname"
+        url: "/getallctegorynames"
       })
         .then(res => {
           this.category = res.data;

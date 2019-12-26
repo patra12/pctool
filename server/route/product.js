@@ -17,9 +17,11 @@ const product = require('../controller/product');
 // All Routes for API
 app.get('/getproduct', product.getProduct);
 app.get('/monoproduct/:id', product.monoProduct);
-app.post('/addproduct', upload.array('productImage', 5), product.addProduct);
+app.post('/addproduct', product.addProduct);
 app.put('/putproduct/:id', product.putProduct);
 app.delete('/delproduct/:id', product.delProduct);
+
+app.get('/getImages/:id', product.getImages);
 
 // app.post('/test', product.callx);
 
