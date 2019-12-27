@@ -86,10 +86,6 @@ export default {
       })
         .then(res => {
           this.pages = res.data;
-<<<<<<< HEAD
-          // console.log("ok", this.pages);
-=======
->>>>>>> u_copy
         })
         .catch(err => {
           console.log(err);
