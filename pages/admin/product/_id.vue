@@ -164,7 +164,7 @@ export default {
         console.log(datax[0], "=>", datax[1]);
       }
       this.$axios({
-        url: "/putcategory/" + this.$route.params.id,
+        url: "/putproduct/" + this.$route.params.id,
         method: "PUT",
         headers: {
           header: { "Content-Type": "multipart/form-data" }
@@ -233,6 +233,7 @@ export default {
       })
         .then(res => {
           this.categoryName = res.data[0].categoryname;
+          this.categoryId = catId;
         })
         .catch(err => {
           console.log(err);
@@ -249,7 +250,6 @@ export default {
       })
         .then(res => {
           this.categoryId = res.data;
-          console.log(this.categoryId);
         })
         .catch(err => {
           console.log(err);
@@ -258,11 +258,10 @@ export default {
     getimgstatus() {
       this.$axios({
         method: "GET",
-        url: `/getImages/${this.productId}`
+        url: `/getimages/${this.productId}`
       })
         .then(res => {
           this.imgstatus = res.data[0].status;
-          console.log(this.categoryId);
         })
         .catch(err => {
           console.log(err);
@@ -271,7 +270,6 @@ export default {
   },
   mounted() {
     this.getCategoryNames();
-    console.log(this.categoryName);
     this.getData();
   }
 };

@@ -93,7 +93,7 @@ export default {
         console.log(datax[0], "=>", datax[1]);
       }
       this.$axios({
-        url: "/addcategory/" + this.$route.params.id,
+        url: "/addcategory",
         method: "POST",
         headers: {
           header: { "Content-Type": "multipart/form-data" }

@@ -1,17 +1,14 @@
-// var pool = require("./index");
+const pool = require('./db');
 
-// module.exports = {
-//     test: (sq) => {
-//         pool.query(sq, (err, row) => {
-//             if (!err) {
-//                 console.log(row);
-//                 return row;
-//             }
-//             else {
-//                 console.log("query error");
-//             }
-//         })
-//         // return sq;
-//     }
-// }
-
+module.exports = {
+    async sdata(tablename, columname, idcol, idval) {
+        query = `SELECT ${columname} FROM  ${tablename} WHERE ${idcol} = ${idval}`
+        await pool.query(query)
+            .then(row => {
+                return row;
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+}

@@ -247,7 +247,6 @@ export default {
         headers: {
           header: { "Content-Type": "multipart/form-data" }
         },
-
         data: form
       })
         .then(res => {

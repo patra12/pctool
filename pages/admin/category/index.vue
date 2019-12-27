@@ -68,12 +68,6 @@ export default {
   data() {
     return {
       id: "",
-      // firstName: "",
-      // lastNname: "",
-      // password: "",
-      // email: "",
-      // phone: "",
-      // status: "",
       categories: "",
       dialog: false,
       snack: false,
@@ -95,7 +89,6 @@ export default {
       })
         .then(res => {
           this.categories = res.data;
-          console.log("ok", this.categories);
         })
         .catch(err => {
           console.log(err);
@@ -108,8 +101,7 @@ export default {
         url: "/delcategory/" + this.id
       })
         .then(res => {
-          this.pages = res.data;
-          this.$router.go("/admin/category/");
+          this.$router.go("/admin/category");
         })
         .catch(err => {
           console.log(err);
@@ -119,7 +111,6 @@ export default {
 
   mounted() {
     this.getData();
-    this.$store.dispatch("");
   }
 };
 </script>
