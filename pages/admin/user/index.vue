@@ -15,7 +15,7 @@
           <b>Usre Name</b>
         </v-col>
         <v-col class="border">
-          <b>Alias</b>
+          <b>Email</b>
         </v-col>
         <v-col class="border">
           <b>Status</b>
@@ -62,12 +62,6 @@ export default {
   data() {
     return {
       id: "",
-      // firstName: "",
-      // lastNname: "",
-      // password: "",
-      // email: "",
-      // phone: "",
-      // status: "",
       users: "",
       dialog: false,
       snack: false,

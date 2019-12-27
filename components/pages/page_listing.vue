@@ -1,8 +1,8 @@
 <template>
-  <v-container class="bv-example-row list pa-0">
+  <v-container :msg="test" class="bv-example-row list pa-0">
     <v-row class="bg">
-      <h4 class="font-weight-light">Product List</h4>
-      <nuxt-link to="/admin/product/addProduct">
+      <h4 class="font-weight-light">Page List{{this.msg}}</h4>
+      <nuxt-link to="/admin/pages/addPages">
         <v-icon class="right" color="white darken-1" title="Add page">mdi-plus-box</v-icon>
       </nuxt-link>
     </v-row>
@@ -12,30 +12,29 @@
           <b>#</b>
         </v-col>
         <v-col class="border">
-          <b>Product Name</b>
+          <b>Title</b>
         </v-col>
         <v-col class="border">
-          <b>Price</b>
+          <b>Menu Title</b>
         </v-col>
         <v-col class="border">
-          <b>Availavility</b>
+          <b>Status</b>
         </v-col>
         <v-col class="border">
           <b>Action</b>
         </v-col>
       </div>
-      <div v-for="(product, index) in products" :key="index" class="row w-100 ma-0">
+      <div v-for="(page, index) in pages" :key="index" class="row w-100 ma-0">
         <v-col class="border font-weight-light">{{ index + 1 }}</v-col>
-        <v-col class="border font-weight-light">{{ product.product_name }}</v-col>
-        <v-col class="border font-weight-light">{{ product.product_desc }}</v-col>
-        <v-col class="border font-weight-light">{{ product.availability }}</v-col>
+        <v-col class="border font-weight-light">{{ page.title }}</v-col>
+        <v-col class="border font-weight-light">{{ page.menutitle }}</v-col>
+        <v-col class="border font-weight-light">{{ setStatus(page.status) }}</v-col>
         <v-col class="border">
-          <!-- <nuxt-link to="./editProduct">-->
-          <nuxt-link :to="'/admin/product/' + product.productId">
+          <nuxt-link :to="'/admin/pages/' + page.pageId">
             <v-icon title="Edit" color="purple darken-1">mdi-pencil</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
-            <v-icon @click="setId(product.productId)" color="red darken-2" title="Delete">mdi-close</v-icon>
+            <v-icon @click="setId(page.pageId)" color="red darken-2" title="Delete">mdi-close</v-icon>
           </nuxt-link>
         </v-col>
       </div>
@@ -53,21 +52,26 @@
         </v-card>
       </v-dialog>
     </v-row>
+    <v-snackbar v-model="snack" :timeout="timeout">Data Deleted Successfully</v-snackbar>
   </v-container>
 </template>
-
 <script>
 export default {
-  name: "Product",
-  layout: "admin/defaultAdmin",
+  name: "Pages",
+  props: ["msg"],
   data() {
     return {
-      products: "",
+      id: "",
+      pages: "",
       dialog: false,
-      id: ""
+      snack: false,
+      timeout: 1000
     };
   },
   methods: {
+    setStatus(status) {
+      return status === "Y" ? "Active" : "Not Active";
+    },
     setId(id) {
       this.dialog = true;
       this.id = id;
@@ -75,11 +79,10 @@ export default {
     getData() {
       this.$axios({
         method: "GET",
-        url: "/getproduct"
+        url: "/getpage"
       })
         .then(res => {
-          this.products = res.data;
-          console.log("ok", this.products);
+          this.pages = res.data;
         })
         .catch(err => {
           console.log(err);
@@ -89,19 +92,24 @@ export default {
       this.dialog = false;
       this.$axios({
         method: "DELETE",
-        url: `/delproduct/${this.id}`
+        url: "/delpage/" + this.id
       })
         .then(res => {
-          this.products = res.data;
-          this.$router.go("/admin/product/");
+          this.pages = res.data;
+          this.$router.go("/admin/page");
         })
         .catch(err => {
           console.log(err);
         });
+    },
+    test() {
+      this.msg = "testing";
     }
   },
+
   mounted() {
     this.getData();
+    this.test();
   }
 };
 </script>

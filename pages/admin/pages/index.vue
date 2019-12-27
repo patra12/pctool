@@ -1,5 +1,5 @@
 <template>
-  <v-container class="bv-example-row list pa-0">
+  <v-container :msg="test" class="bv-example-row list pa-0">
     <v-row class="bg">
       <h4 class="font-weight-light">Page List</h4>
       <nuxt-link to="/admin/pages/addPages">
@@ -57,18 +57,14 @@
 </template>
 
 <script>
+import Listing from "../../../components/pages/page_listing";
+
 export default {
   name: "Pages",
   layout: "admin/defaultAdmin",
   data() {
     return {
       id: "",
-      // firstName: "",
-      // lastNname: "",
-      // password: "",
-      // email: "",
-      // phone: "",
-      // status: "",
       pages: "",
       dialog: false,
       snack: false,
@@ -90,7 +86,10 @@ export default {
       })
         .then(res => {
           this.pages = res.data;
+<<<<<<< HEAD
           // console.log("ok", this.pages);
+=======
+>>>>>>> u_copy
         })
         .catch(err => {
           console.log(err);

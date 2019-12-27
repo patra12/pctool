@@ -36,16 +36,11 @@
 
               <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
 
-              <v-text-field v-model="sellQuantity" label="Sell Quantity" type="number"></v-text-field>
+              <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field>
 
               <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
 
-              <p class="grey--text text--darken-1 pt-3 mb-0">Return Policy</p>
-
-              <v-radio-group v-model="returnPolicy" class="mt-0" row>
-                <v-radio label="Yes" value="Y"></v-radio>
-                <v-radio label="No" value="N"></v-radio>
-              </v-radio-group>
+              <v-text-field v-model="returnPolicy" label="Return Policy"></v-text-field>
 
               <v-text-field v-model="stoneName" label="Stone Name"></v-text-field>
 
@@ -81,85 +76,16 @@
                 ref="productimg"
                 @change="onFileChange()"
               />
+              <div v-for="(img,index) in all_image_db_" :key="index">
+                <img :src="img.imageloc" />
+              </div>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
               <v-radio-group v-model="imgstatus" class="mt-0" row>
                 <v-radio label="Active" value="Y"></v-radio>
                 <v-radio label="Not Active" value="N"></v-radio>
               </v-radio-group>
-              <v-col class="borer pa-0 px-2">
-                <!-- <v-row>
-                  <v-col class="border">Image location</v-col>
-                  <v-col class="border">Caption</v-col>
-                  <v-col class="border">Status</v-col>
-                  <v-col class="border">
-                    Is Primary
-                    <v-btn color="warning" @click="statusarr()">add</v-btn>
-                  </v-col>
-                </v-row>-->
-                <!-- ++++++++++++++++++++ -->
-                <!-- <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image1" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image2" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image3" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field label="Image Caption" ref="status3" @change="statusarr"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>-->
-
-                <!-- +++++++++++++++ -->
-              </v-col>
-              <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
+              <v-btn @click="putData()" class="my-5 float-right" large color="primary">Save</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -168,13 +94,12 @@
   </div>
 </template>
 <script>
-var imagex = [];
-var statusx = [];
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
   data: () => ({
     valid: true,
+    productId: "",
     productName: "",
     productCode: "",
     productDescription: "",
@@ -182,51 +107,50 @@ export default {
     ptype: "",
     price: "",
     sellPrice: "",
-    sellQuantity: "",
     availability: "",
+    sellingQuantity: "",
     returnPolicy: "",
     stoneName: "",
     plating: "",
     colorCode: "",
     collectionName: "",
+    displayOrder: "",
     featureProduct: "",
     addedOn: "",
-    displayOrder: "",
     status: "",
-    statusx: [],
-    categoryImage: "",
+
+    productImage: "",
     isPrimary: "",
     imgstatus: "",
     category: [],
     categoryName: "",
     categoryId: "",
-    image: ""
+    all_image_db: ""
   }),
 
   methods: {
-    // onFileChange() {
-    //   var file = this.$refs.productimg.files;
-
-    //   imagex.push(file);
-    //   console.log(this.categoryImage);
-    //   console.log(file);
-    //   this.image = file;
-    // },
-    // show() {
-    //   this.statusarr();
-    //   console.log(imagex, statusx);
-    // },
-    addData() {
+    onFileChange() {
+      const file = this.$refs.productimg.files[0];
+      this.productImage = file;
+    },
+    getStatus() {
+      return this.status === "Active" ? "Y" : "N";
+    },
+    setStatus(status) {
+      status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+    },
+    putData() {
       const form = new FormData();
       form.append("product_name", this.productName);
       form.append("product_code", this.productCode);
       form.append("product_desc", this.productDescription);
       form.append("seourl", this.seoUrl);
+      form.append("categoryId", this.categoryId);
       form.append("ptype", this.ptype);
       form.append("price", this.price);
       form.append("sellprice", this.sellPrice);
+      form.append("sellingqnt", this.sellingQuantity);
       form.append("availability", this.availability);
-      form.append("sellingqnt", this.sellQuantity);
       form.append("returnpolicy", this.returnPolicy);
       form.append("stonename", this.stoneName);
       form.append("plating", this.plating);
@@ -235,32 +159,21 @@ export default {
       form.append("displayorder", this.displayOrder);
       form.append("featureproduct", this.featureProduct);
       form.append("status", this.status);
-      form.append("categoryId", this.categoryId);
-      // form.append("images", imagex);
-      form.append("imgstatus", this.imgstatus);
-
-      for (var i = 0; i < this.$refs.productimg.files.length; i++) {
-        let file = this.$refs.productimg.files[i];
-        console.log(file);
-        form.append("productImage", file);
-      }
 
       for (var datax of form.entries()) {
         console.log(datax[0], "=>", datax[1]);
       }
-
       this.$axios({
-        url: "/putproduct",
-        method: "POST",
+        url: "/putproduct/" + this.$route.params.id,
+        method: "PUT",
         headers: {
           header: { "Content-Type": "multipart/form-data" }
         },
-
         data: form
       })
         .then(res => {
           this.$router.push({
-            // path: "/admin/product"
+            path: "/admin/product"
           });
         })
         .catch(error => {
@@ -268,13 +181,60 @@ export default {
           console.log(error);
         });
     },
+    getData() {
+      this.$axios({
+        url: "/monoproduct/" + this.$route.params.id,
+        method: "get"
+      })
+        .then(res => {
+          this.productId = res.data[0].productId;
+          this.productName = res.data[0].product_name;
+          this.productCode = res.data[0].product_code;
+          this.productDescription = res.data[0].product_desc;
+          this.seoUrl = res.data[0].seourl;
+          this.getCategoryName(res.data[0].categoryId);
+          this.ptype = res.data[0].ptype;
+          this.price = res.data[0].price;
+          this.sellPrice = res.data[0].sellprice;
+          this.availability = res.data[0].availability;
+          this.sellingQuantity = res.data[0].sellingqnt;
+          this.returnPolicy = res.data[0].returnpolicy;
+          this.stoneName = res.data[0].stonename;
+          this.plating = res.data[0].plating;
+          this.colorCode = res.data[0].colorcode;
+          this.collectionName = res.data[0].collectionname;
+          this.displayOrder = res.data[0].displayorder;
+          this.featureProduct = res.data[0].featureproduct;
+          this.addedOn = res.data[0].addedon;
+          this.status = res.data[0].status;
+          this.getimgstatus();
+          this.get_images_accordin_productid();
+        })
+        .catch(err => {
+          // handle error
+          console.log(err);
+        });
+    },
     getCategoryNames() {
       this.$axios({
         method: "GET",
-        url: "/getallctegoryname"
+        url: "/getallctegorynames"
       })
         .then(res => {
           this.category = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getCategoryName(catId) {
+      this.$axios({
+        method: "GET",
+        url: `/monocategory/${catId}`
+      })
+        .then(res => {
+          this.categoryName = res.data[0].categoryname;
+          this.categoryId = catId;
         })
         .catch(err => {
           console.log(err);
@@ -291,7 +251,39 @@ export default {
       })
         .then(res => {
           this.categoryId = res.data;
-          console.log(this.categoryId);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getimgstatus() {
+      this.$axios({
+        method: "GET",
+        url: `/getimagestatus/${this.productId}`
+      })
+        .then(res => {
+          this.imgstatus = res.data[0].status;
+          console.log(this.allimage);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    get_images_accordin_productid() {
+      this.$axios({
+        method: "GET",
+        url: `/getimages/${this.productId}`
+      })
+        .then(res => {
+          this.all_image_db = res.data;
+          console.log(this.all_image_db);
+          this.$axios({
+            method: "POST",
+            url: "/readimages",
+            data: res.data
+          }).then(row => {
+            console.log(row);
+          });
         })
         .catch(err => {
           console.log(err);
@@ -300,6 +292,7 @@ export default {
   },
   mounted() {
     this.getCategoryNames();
+    this.getData();
   }
 };
 </script>
