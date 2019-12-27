@@ -211,7 +211,7 @@ export default {
           this.get_images_accordin_productid();
         })
         .catch(err => {
-          // handle error
+          // handle errorr
           console.log(err);
         });
     },
