@@ -61,7 +61,7 @@ export default {
         {
           icon: "mdi-book-variant",
           title: "Pages",
-          to: "/admin/pages/list"
+          to: "/admin/pages"
         },
         {
           icon: "mdi-drawing",
