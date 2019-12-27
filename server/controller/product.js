@@ -12,10 +12,10 @@ module.exports = {
         selectQuery = "SELECT * FROM " + tableName;
         req.data = await pool.query(selectQuery)
             .then(row => { return row })
-            // .then(row => { return pool.close() })
             .catch(err => { console.log(err) });
         res.send(req.data);
     },
+
     // get single Record from table
     async monoProduct(req, res) {
         // query
@@ -26,9 +26,23 @@ module.exports = {
             .catch(err => { console.log(err) });
     },
 
-    getImages: (req, res) => {
+
+    getImageStatus: (req, res) => {
         // query
         selectQuery = `SELECT distinct(status) FROM  \`product_image\`  where productId= ?`;
+        // console.log(selectQuery);
+        pool.query(selectQuery, [req.params.id])
+            .then(row => {
+                res.send(row);
+            })
+            .catch(row => {
+                console.log('getProduct Query Error', err)
+                res.end();
+            })
+    },
+    getImages: (req, res) => {
+        // query
+        selectQuery = `SELECT * FROM  \`product_image\`  where productId= ?`;
         // console.log(selectQuery);
         pool.query(selectQuery, [req.params.id])
             .then(row => {
@@ -79,95 +93,115 @@ module.exports = {
             ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename,
             plating, colorcode, collectionname, displayorder, featureproduct,
             status])
-            .then(row => {
-                return row.insertId;
+            .then(async row => {
+                if (req.files != null) {
+                    pid = row.insertId;
+                    imageStatus = req.body.imgstatus;
+                    is_primary = req.body.imgstatus;
+
+                    //inner query
+                    innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
+                    innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
+                    innerInsertQuery += "(?,?,?,?,?)"
+
+                    // multiple image upload with normal user permission in linux platform
+                    images = req.files.productImage;
+
+                    //getting date for timestamp
+                    time_stamp = new Date().valueOf()
+
+                    images = req.files.productImage;
+                    path = `upload/products/${images}`
+                    for (image in images) {
+                        //spleating image for adding timestamp 
+                        imageParsed = fpath.parse(images[image].name);
+
+                        //making time stamp image
+                        modifiedImageName = imageParsed.name + time_stamp + imageParsed.ext;
+
+
+                        // console.log(modifiedImageName);
+                        //file upload
+                        path = `upload/products/${modifiedImageName}`
+                        images[image].mv(path)
+                            .then(async resolve => {
+                                await fs.chownSync(path, 1000, 1000);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            });
+
+                        //inner query
+                        await pool.query(innerInsertQuery, [pid, "caption", modifiedImageName, imageStatus, is_primary], (err, row) => {
+                            if (err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.send(`data inserted`);
+                            }
+                        })
+                    }
+                }
             })
             .catch(err => {
                 console.log(err)
             });
 
-        pid = insertId;
-        imageStatus = req.body.imgstatus;
-        is_primary = req.body.imgstatus;
-
-        //inner query
-        innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
-        innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-        innerInsertQuery += "(?,?,?,?,?)"
-
-        // multiple image upload with normal user permission in linux platform
-        // images = req.files.productImage;
-        // // path = "/upload/products/" + images;
-
-        // images = req.files.productImage;
-        // path = `upload/products/${images}`
-        // for (image in images) {
-        //     imageName = fpath.parse(images[image].name).name;
-        //     imageExt = fpath.parse(images[image].name).ext;
-        //     modifiedImageName = imageName + pid + imageExt;
-
-        //     // console.log(modifiedImageName);
-        //     //file upload
-        //     path = `upload/products/${modifiedImageName}`
-        //     images[image].mv(path, err => {
-        //         if (err) console.log(`upload error ${err}`);
-        //     });
 
 
-        //     //file permission
-        //     await fs.chown(path, 1000, 1000, (err) => {
-        //         if (err) {
-        //             console.log(`permission error ${err}`)
-        //         };
-        //     });
-
-        //     // imageName = fpath.parse(images[image].name).name;
-        //     // imageExt = fpath.parse(images[image].name).ext;
-        //     // modifiedImageName = imageName + pid + imageExt;
-
-        //     // console.log(modifiedImageName);
-
-        //     // insert into db
-        //     //inner query
-        //     var test = await pool.query(innerInsertQuery, [pid, "caption", modifiedImageName, imageStatus, is_primary], (err, row) => {
-        //         if (err) {
-        //             console.log(err);
-        //         }
-        //     })
-
-        // }
-
-        // res.end();
+        res.end();
 
     },
 
+    read_images(req, res) {
+        image_names_from_frontend = req.body;
+
+        // for (image_name in image_names_from_frontend.length) {
+        //     image_path_on_server = `upload/products/${image_names_from_frontend[image_name]}`;
+        //     fs.readFile(image_path_on_server, (err, data) => {
+        //         res.send(data);
+        //     });
+        // }
+        console.log(image_names_from_frontend);
+        res.send(image_names_from_frontend);
+
+    },
 
     // delete Record from table
     async delProduct(req, res) {
-        deleteQuery = "DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId =" + req.params.id + " AND pi.productId = " + req.params.id;
-        delresponse = await pool.query(deleteQuery)
-            .then(row => { return row.affectedRows })
-            .catch(err => { console.log(err) });
 
-        if (delresponse) {
-            console.log(`${delresponse} Rows are deleted from DB `);
-        }
-
+        //searching image into db
         imageNameQuery = "SELECT imageloc FROM `product_image` WHERE productId = ?";
         images = await pool.query(imageNameQuery, [req.params.id])
             .then(row => { return row })
             .catch(err => { console.log(err) });
-        // res.send(req.data);
-        // console.log(images.length);
-        // res.end();
-        for (image in images) {
-            pathx = productImg + images[image].imageloc;
-            fs.unlink(pathx, (err) => {
-                if (err) throw err;
-                console.log(pathx + ' was deleted');
-            });
-        }
 
+
+        console.log(images.length);
+        //if we get images then delete it
+        if (images.length != 0) {
+            for (image in images) {
+                pathx = productImg + images[image].imageloc;
+                fs.unlink(pathx, (err) => {
+                    if (err) throw err;
+                    console.log(pathx + ' was deleted');
+                });
+            }
+            deleteQuery = "DELETE p,pi FROM `product` p, `product_image` pi WHERE p.productId =" + req.params.id + " AND pi.productId = " + req.params.id;
+            await pool.query(deleteQuery)
+                .then(row => {
+                    res.send(`${row.affectedRows} Rows are deleted from DB `)
+                })
+                .catch(err => { console.log(err) });
+        }
+        else {
+            deleteQuery = "DELETE FROM `product` WHERE productId =" + req.params.id;
+            await pool.query(deleteQuery)
+                .then(row => {
+                    res.send(`${row.affectedRows} Rows are deleted from DB `);
+                })
+                .catch(err => { console.log(err) });
+        }
     },
 
     // update a Record in table

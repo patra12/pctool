@@ -76,6 +76,9 @@
                 ref="productimg"
                 @change="onFileChange()"
               />
+              <div v-for="(img,index) in all_image_db_" :key="index">
+                <img :src="img.imageloc" />
+              </div>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
               <v-radio-group v-model="imgstatus" class="mt-0" row>
@@ -91,8 +94,6 @@
   </div>
 </template>
 <script>
-var imagex = [];
-var statusx = [];
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
@@ -118,14 +119,13 @@ export default {
     addedOn: "",
     status: "",
 
-    statusx: [],
     productImage: "",
     isPrimary: "",
     imgstatus: "",
     category: [],
     categoryName: "",
     categoryId: "",
-    image: ""
+    all_image_db: ""
   }),
 
   methods: {
@@ -208,6 +208,7 @@ export default {
           this.addedOn = res.data[0].addedon;
           this.status = res.data[0].status;
           this.getimgstatus();
+          this.get_images_accordin_productid();
         })
         .catch(err => {
           // handle error
@@ -258,10 +259,31 @@ export default {
     getimgstatus() {
       this.$axios({
         method: "GET",
-        url: `/getimages/${this.productId}`
+        url: `/getimagestatus/${this.productId}`
       })
         .then(res => {
           this.imgstatus = res.data[0].status;
+          console.log(this.allimage);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    get_images_accordin_productid() {
+      this.$axios({
+        method: "GET",
+        url: `/getimages/${this.productId}`
+      })
+        .then(res => {
+          this.all_image_db = res.data;
+          console.log(this.all_image_db);
+          this.$axios({
+            method: "POST",
+            url: "/readimages",
+            data: res.data
+          }).then(row => {
+            console.log(row);
+          });
         })
         .catch(err => {
           console.log(err);

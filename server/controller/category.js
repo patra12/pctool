@@ -1,9 +1,7 @@
 var pool = require("../db/db")
 var tableName = 'category';
-var folderLoc = "/upload/categories/"
 var fpath = require('path');
 var fs = require('fs');
-var lib = require('../db/lib');
 
 
 module.exports = {
@@ -71,8 +69,6 @@ module.exports = {
 			})
 
 	},
-
-
 
 	// insert Record into table
 	async addCategory(req, res) {
@@ -251,8 +247,6 @@ module.exports = {
 				.catch(err => {
 					console.log(err);
 				});
-
-
 
 			// query
 			updateQuery = "UPDATE " + tableName + " SET";
