@@ -76,9 +76,11 @@
                 ref="productimg"
                 @change="onFileChange()"
               />
-              <div v-for="(img,index) in all_image_db_" :key="index">
-                <img :src="img.imageloc" />
-              </div>
+              <v-row>
+                <v-col v-for="(img,index) in all_image_db" :key="index">
+                  <img class="product-images" :src="'http://localhost:3000/product/'+img.imageloc" />
+                </v-col>
+              </v-row>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
               <v-radio-group v-model="imgstatus" class="mt-0" row>
@@ -263,7 +265,6 @@ export default {
       })
         .then(res => {
           this.imgstatus = res.data[0].status;
-          console.log(this.allimage);
         })
         .catch(err => {
           console.log(err);
@@ -276,14 +277,6 @@ export default {
       })
         .then(res => {
           this.all_image_db = res.data;
-          console.log(this.all_image_db);
-          this.$axios({
-            method: "POST",
-            url: "/readimages",
-            data: res.data
-          }).then(row => {
-            console.log(row);
-          });
         })
         .catch(err => {
           console.log(err);
@@ -302,5 +295,9 @@ export default {
 }
 .brigrt {
   border-right: 1px solid blue;
+}
+.product-images {
+  width: 100%;
+  height: 50%;
 }
 </style>

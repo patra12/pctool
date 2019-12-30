@@ -168,7 +168,6 @@
   </div>
 </template>
 <script>
-var statusx = [];
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
@@ -192,15 +191,14 @@ export default {
     featureProduct: "",
     addedOn: "",
     status: "",
-
-    statusx: [],
-    productImage: "",
-    isPrimary: "",
+    image: "",
     imgstatus: "",
+
+    // productImage: "",
+    // isPrimary: "",
     category: [],
     categoryName: "",
-    categoryId: "",
-    image: ""
+    categoryId: ""
   }),
 
   methods: {

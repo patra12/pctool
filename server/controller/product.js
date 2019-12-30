@@ -42,7 +42,7 @@ module.exports = {
     },
     getImages: (req, res) => {
         // query
-        selectQuery = `SELECT * FROM  \`product_image\`  where productId= ?`;
+        selectQuery = `SELECT * FROM  \`product_image\`  where productId = ?`;
         // console.log(selectQuery);
         pool.query(selectQuery, [req.params.id])
             .then(row => {
@@ -153,19 +153,7 @@ module.exports = {
 
     },
 
-    read_images(req, res) {
-        image_names_from_frontend = req.body;
 
-        // for (image_name in image_names_from_frontend.length) {
-        //     image_path_on_server = `upload/products/${image_names_from_frontend[image_name]}`;
-        //     fs.readFile(image_path_on_server, (err, data) => {
-        //         res.send(data);
-        //     });
-        // }
-        console.log(image_names_from_frontend);
-        res.send(image_names_from_frontend);
-
-    },
 
     // delete Record from table
     async delProduct(req, res) {

@@ -16,7 +16,8 @@ app.use(cors())
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
-
+app.use(express.static('upload'))
+app.use('/product', express.static('upload/products'));
 
 // Import All Route's
 const route = require('./route')
