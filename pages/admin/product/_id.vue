@@ -161,10 +161,17 @@ export default {
       form.append("displayorder", this.displayOrder);
       form.append("featureproduct", this.featureProduct);
       form.append("status", this.status);
+      form.append("imgstatus", this.imgstatus);
 
-      for (var datax of form.entries()) {
-        console.log(datax[0], "=>", datax[1]);
+      for (var i = 0; i < this.$refs.productimg.files.length; i++) {
+        let file = this.$refs.productimg.files[i];
+        console.log(file);
+        form.append("productImage", file);
       }
+
+      // for (var datax of form.entries()) {
+      //   console.log(datax[0], "=>", datax[1]);
+      // }
       this.$axios({
         url: "/putproduct/" + this.$route.params.id,
         method: "PUT",

@@ -87,78 +87,6 @@
                 <v-radio label="Active" value="Y"></v-radio>
                 <v-radio label="Not Active" value="N"></v-radio>
               </v-radio-group>
-              <v-col class="borer pa-0 px-2">
-                <!-- <v-row>
-                  <v-col class="border">Image location</v-col>
-                  <v-col class="border">Caption</v-col>
-                  <v-col class="border">Status</v-col>
-                  <v-col class="border">
-                    Is Primary
-                    <v-btn color="warning" @click="statusarr()">add</v-btn>
-                  </v-col>
-                </v-row>-->
-                <!-- ++++++++++++++++++++ -->
-                <!-- <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image1" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image2" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field v-model="displayOrder" label="Image Caption"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>
-
-                <v-row>
-                  <v-col class="border">
-                    <input type="file" name="filename" ref="image3" @change="onFileChange" />
-                  </v-col>
-                  <v-col class="border">
-                    <v-text-field label="Image Caption" ref="status3" @change="statusarr"></v-text-field>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="imagestatus" :items="items" label="image Status"></v-select>
-                  </v-col>
-                  <v-col class="border">
-                    <v-select v-model="isPrimary" :items="items" label="image is primary"></v-select>
-                  </v-col>
-                </v-row>-->
-
-                <!-- +++++++++++++++ -->
-              </v-col>
               <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
             </v-form>
           </v-col>
@@ -194,8 +122,6 @@ export default {
     image: "",
     imgstatus: "",
 
-    // productImage: "",
-    // isPrimary: "",
     category: [],
     categoryName: "",
     categoryId: ""
@@ -226,7 +152,6 @@ export default {
       form.append("featureproduct", this.featureProduct);
       form.append("status", this.status);
       form.append("categoryId", this.categoryId);
-      // form.append("images", imagex);
       form.append("imgstatus", this.imgstatus);
 
       for (var i = 0; i < this.$refs.productimg.files.length; i++) {

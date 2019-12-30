@@ -86,10 +86,11 @@ module.exports = {
 		console.log();
 
 		//image data for upload
-		image = req.files.categoryimage;
+		category_images = (req.files == null) ? 0 : req.files.categoryimage;
+		// req.files.categoryimage;
 
 		//spleating image for adding timestamp 
-		pathx = fpath.parse(image.name);
+		pathx = fpath.parse(category_images.name);
 
 		//getting date for timestamp
 		d = new Date().valueOf()
@@ -101,7 +102,7 @@ module.exports = {
 		path = `upload/categories/${modifiedFie}`
 
 		//moving file to disk
-		image.mv(path)
+		category_images.mv(path)
 			.then(resolve => {
 				fs.chownSync(path, 1000, 1000);
 			})
