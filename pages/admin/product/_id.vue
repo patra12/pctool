@@ -78,7 +78,8 @@
               />
               <v-row>
                 <v-col v-for="(img,index) in all_image_db" :key="index">
-                  <img class="product-images" :src="'http://localhost:3000/product/'+img.imageloc" />
+                  <img class="showing-images" :src="all_image_db" />
+                  <!-- 'http://localhost:3000/product/'+img.imageloc -->
                 </v-col>
               </v-row>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
@@ -121,19 +122,34 @@ export default {
     addedOn: "",
     status: "",
 
-    productImage: "",
+    // productImage: "",
     isPrimary: "",
     imgstatus: "",
+    //for select box
     category: [],
     categoryName: "",
     categoryId: "",
-    all_image_db: ""
+
+    //for showing images
+    all_image_db: "",
+    test: []
   }),
 
   methods: {
     onFileChange() {
-      const file = this.$refs.productimg.files[0];
-      this.productImage = file;
+      const img_files = this.$refs.productimg.files;
+
+      console.log(img_files);
+      // this.productImage = file;
+      for (const i in img_files) {
+        let x = URL.createObjectURL(i);
+
+        console.log(x);
+      }
+      // console.log(createObjectURL(this.$refs.productimg.files));
+      // this.test = img_files;
+      // this.all_image_db = URL.createObjectURL(img_files);
+      // console.log(URL.createObjectURL(img_files));
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -163,11 +179,14 @@ export default {
       form.append("status", this.status);
       form.append("imgstatus", this.imgstatus);
 
+      // This is for apppending all files or images for multiple selection
       for (var i = 0; i < this.$refs.productimg.files.length; i++) {
         let file = this.$refs.productimg.files[i];
         console.log(file);
         form.append("productImage", file);
       }
+
+      /**this is for showing all form app */
 
       // for (var datax of form.entries()) {
       //   console.log(datax[0], "=>", datax[1]);
@@ -224,6 +243,7 @@ export default {
           console.log(err);
         });
     },
+    //get all category names
     getCategoryNames() {
       this.$axios({
         method: "GET",
@@ -236,6 +256,8 @@ export default {
           console.log(err);
         });
     },
+
+    //get seingle record of a category
     getCategoryName(catId) {
       this.$axios({
         method: "GET",
@@ -249,6 +271,7 @@ export default {
           console.log(err);
         });
     },
+    //get category id against the name
     getCategoryId() {
       this.$axios({
         method: "POST",
@@ -284,6 +307,7 @@ export default {
       })
         .then(res => {
           this.all_image_db = res.data;
+          // console.log(res.data.length);
         })
         .catch(err => {
           console.log(err);
@@ -302,9 +326,5 @@ export default {
 }
 .brigrt {
   border-right: 1px solid blue;
-}
-.product-images {
-  width: 100%;
-  height: 50%;
 }
 </style>

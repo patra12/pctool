@@ -54,8 +54,8 @@ module.exports = {
             })
     },
 
-    // insert Record into table
     /**
+     * insert Record into table
      * insert record to product table but this table has relation hence 
      * in this function there is inner query present 
      */

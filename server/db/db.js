@@ -1,12 +1,13 @@
 const mysql = require('mysql');
+require('dotenv').config();
 class Database {
     constructor() {
         this.connection = mysql.createPool({
             connectionLimit: 100, //importent 
-            host: 'localhost',
-            user: 'root',
-            database: 'node_pctool',
-            password: '',
+            host: process.env.HOST, //|| 'localhost',
+            user: process.env.USER,//'root',
+            database: process.env.DB_NAME,//'node_pctool',
+            password: process.env.PASSWORD,// '',
             debug: false,
         });
     }

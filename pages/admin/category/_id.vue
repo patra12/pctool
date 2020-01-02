@@ -29,7 +29,17 @@
 
               <div v-model="metaDescription" v-quill:meta class="quill-editor"></div>
 
-              <input type="file" ref="categoryimage" @change="onFileChange" name="categoryimage" />
+              <input
+                class="pt-5"
+                type="file"
+                ref="categoryimage"
+                @change="onFileChange"
+                name="categoryimage"
+              />
+
+              <img class="showing-cat-image" :src="showCategoryImage" alt="image is not present" />
+
+              <!-- 'http://localhost:3000/categories/'+ -->
 
               <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
 
@@ -46,6 +56,9 @@
   </div>
 </template>
 <script>
+// `import dotenv from "dotenv";
+// dotenv.config();`
+
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
@@ -57,11 +70,17 @@ export default {
     metaTitle: "",
     metaKeyword: "",
     metaDescription: "",
+
+    //for holding and sendind file to db
     categoryImage: "",
+
+    //for showing image after selecting image
+    showCategoryImage: "",
+
     bannerImageLoc: "",
     displayOrder: "",
     status: "",
-
+    image: "",
     /* form static select data */
 
     items: ["Active", "Not Active"]
@@ -71,6 +90,12 @@ export default {
     onFileChange() {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
+      this.showCategoryImage = URL.createObjectURL(file);
+      console.log(URL.createObjectURL(file));
+    },
+    //for showing image coming form server
+    set_image(file) {
+      return "http://localhost:3000/categories/" + file;
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -124,10 +149,11 @@ export default {
           this.metaTitle = res.data[0].metatitle;
           this.metaKeyword = res.data[0].metakeywords;
           this.metaDescription = res.data[0].metadescription;
-          this.categoryImage = res.data[0].categoryimage;
+          this.showCategoryImage = this.set_image(res.data[0].categoryimage);
           this.bannerImageLoc = res.data[0].bannerimageloc;
           this.displayOrder = res.data[0].displayorder;
           this.setStatus(res.data[0].status);
+          console.log(this.showCategoryImage);
         })
         .catch(err => {
           // handle error
