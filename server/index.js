@@ -18,6 +18,7 @@ app.use(fileUpload());
 
 app.use(express.static('upload'))
 app.use('/product', express.static('upload/products'));
+app.use('/category', express.static('upload/categories'));
 
 // Import All Route's
 const route = require('./route')
