@@ -29,7 +29,15 @@
 
               <div v-model="metaDescription" v-quill:meta class="quill-editor"></div>
 
-              <input type="file" ref="categoryimage" @change="onFileChange" name="categoryimage" />
+              <input
+                class="pt-3"
+                type="file"
+                ref="categoryimage"
+                @change="onFileChange"
+                name="categoryimage"
+              />
+
+              <img class="py-5 ctategory-image-selection" :src="show_image" alt="no image is found" />
 
               <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
 
@@ -62,6 +70,9 @@ export default {
     displayOrder: "",
     status: "",
 
+    //for showing image comming from db and also when selecting
+    show_image: "",
+
     /* form static select data */
 
     items: ["Active", "Not Active"]
@@ -71,12 +82,16 @@ export default {
     onFileChange() {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
+      this.show_image = URL.createObjectURL(file);
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
     },
     setStatus(status) {
       status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+    },
+    parseImage(imageName) {
+      return `http://localhost:3000/category/${imageName}`;
     },
     putData() {
       const form = new FormData();
@@ -124,7 +139,11 @@ export default {
           this.metaTitle = res.data[0].metatitle;
           this.metaKeyword = res.data[0].metakeywords;
           this.metaDescription = res.data[0].metadescription;
-          this.categoryImage = res.data[0].categoryimage;
+          //if image is found in db then image will be parsed otherwise it will assign empty
+          this.show_image =
+            res.data[0].categoryimage != null
+              ? this.parseImage(res.data[0].categoryimage)
+              : "";
           this.bannerImageLoc = res.data[0].bannerimageloc;
           this.displayOrder = res.data[0].displayorder;
           this.setStatus(res.data[0].status);
@@ -140,3 +159,5 @@ export default {
   }
 };
 </script>
+<style scoped>
+</style>
