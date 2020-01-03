@@ -31,6 +31,8 @@
 
               <input type="file" ref="categoryimage" @change="onFileChange" name="categoryimage" />
 
+              <img class="py-5 ctategory-image-selection" :src="show_image" />
+
               <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
 
               <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
@@ -62,6 +64,7 @@ export default {
     displayOrder: "",
     status: "",
 
+    show_image: "",
     /* form static select data */
 
     items: ["Active", "Not Active"]
@@ -71,6 +74,7 @@ export default {
     onFileChange() {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
+      this.show_image = URL.createObjectURL(file);
       console.log(file);
     },
     getStatus() {
