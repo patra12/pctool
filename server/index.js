@@ -19,10 +19,6 @@ app.use(fileUpload());
 app.use(express.static('upload'))
 app.use('/product', express.static('upload/products'));
 
-// // Import All Route's
-// const route = require('./route')
-// app.use(route)
-
 
 // Import and Set Nuxt.js options
 const config = require('../nuxt.config.js')
