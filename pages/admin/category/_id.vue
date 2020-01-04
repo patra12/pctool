@@ -54,6 +54,9 @@
   </div>
 </template>
 <script>
+// `import dotenv from "dotenv";
+// dotenv.config();`
+
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
@@ -65,14 +68,24 @@ export default {
     metaTitle: "",
     metaKeyword: "",
     metaDescription: "",
+
+    //for holding and sendind file to db
     categoryImage: "",
+
+    //for showing image after selecting image
+    showCategoryImage: "",
+
     bannerImageLoc: "",
     displayOrder: "",
     status: "",
+<<<<<<< HEAD
 
     //for showing image comming from db and also when selecting
     show_image: "",
 
+=======
+    image: "",
+>>>>>>> frontend
     /* form static select data */
 
     items: ["Active", "Not Active"]
@@ -82,7 +95,16 @@ export default {
     onFileChange() {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
+<<<<<<< HEAD
       this.show_image = URL.createObjectURL(file);
+=======
+      this.showCategoryImage = URL.createObjectURL(file);
+      console.log(URL.createObjectURL(file));
+    },
+    //for showing image coming form server
+    set_image(file) {
+      return "http://localhost:3000/categories/" + file;
+>>>>>>> frontend
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -139,14 +161,19 @@ export default {
           this.metaTitle = res.data[0].metatitle;
           this.metaKeyword = res.data[0].metakeywords;
           this.metaDescription = res.data[0].metadescription;
+<<<<<<< HEAD
           //if image is found in db then image will be parsed otherwise it will assign empty
           this.show_image =
             res.data[0].categoryimage != null
               ? this.parseImage(res.data[0].categoryimage)
               : "";
+=======
+          this.showCategoryImage = this.set_image(res.data[0].categoryimage);
+>>>>>>> frontend
           this.bannerImageLoc = res.data[0].bannerimageloc;
           this.displayOrder = res.data[0].displayorder;
           this.setStatus(res.data[0].status);
+          console.log(this.showCategoryImage);
         })
         .catch(err => {
           // handle error

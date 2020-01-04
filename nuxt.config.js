@@ -29,7 +29,8 @@ module.exports = {
   css: [
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
-    'quill/dist/quill.core.css'
+    'quill/dist/quill.core.css',
+    'bootstrap/dist/css/bootstrap.css'
   ],
   /*
    ** Plugins to load before mounting the App
