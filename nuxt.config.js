@@ -38,7 +38,6 @@ module.exports = {
   plugins: [
       /** For Quill editor*/
       { src: '~/plugins/editor', ssr: false },
-      { src: '~/plugins/bootstrap', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
