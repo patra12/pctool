@@ -83,33 +83,6 @@
   </div>
 </div>
 
-<!-- The flexible grid (content) -->
-<div class="row">
-  <div class="side">
-    <h2>About Me</h2>
-    <h5>Photo of me:</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-    <h3>More Text</h3>
-    <p>Lorem ipsum dolor sit ame.</p>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div><br>
-    <div class="fakeimg" style="height:60px;">Image</div>
-  </div>
-  <div class="main">
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Dec 7, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    <br>
-    <h2>TITLE HEADING</h2>
-    <h5>Title description, Sep 2, 2017</h5>
-    <div class="fakeimg" style="height:200px;">Image</div>
-    <p>Some text..</p>
-    <p>Sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-  </div>
-</div>
 </div>
 </template>
 
@@ -193,90 +166,7 @@ body {
     text-align: left;
   }
 }
-.container {
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right: auto;
-  margin-left: auto;
-}
-@media (min-width: 1600px) {
-    .container {
-        max-width: 1600px;
-    }
-}
-@media (min-width: 1900px) {
-    .container {
-        max-width: 1900px;
-    }
-}
-@media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
-}
-@media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
-}
-@media (min-width: 1200px) {
-  .container {
-    width: 1180px;
-  }
-}
 
-
-.mainOuter {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: Arial;
-  margin: 0;
-}
-
-.navbar a {
-  color: white;
-  padding: 14px 20px;
-  text-decoration: none;
-  text-align: center;
-}
-
-.navbar a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.row {  
-  display: flex;
-  flex-wrap: wrap;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-}
-
-.side {
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-.main {
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
-}
-
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
-.footer {
-  padding: 20px;
-  text-align: center;
-  background: #ddd;
-}
 
 @media screen and (max-width: 700px) {
   .row, .navbar {   
@@ -426,7 +316,7 @@ body {
   padding: 0
 }
 .topnav a:first-child{
-  padding: 8px 16px;
+  padding: 12px 16px;
 }
 .topnav a{
   color: #fff !important;
