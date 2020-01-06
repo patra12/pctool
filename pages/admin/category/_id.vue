@@ -100,7 +100,8 @@ export default {
       status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
     },
     parseImage(imageName) {
-      return `http://localhost:3000/category/${imageName}`;
+      //return `http://localhost:3000/category/${imageName}`;
+      return process.env.BASE_URL + "/category/" + imageName;
     },
     putData() {
       const form = new FormData();
