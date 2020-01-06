@@ -36,8 +36,8 @@ module.exports = {
    ** Plugins to load before mounting the App
    */
   plugins: [
-      /** For Quill editor*/
-      { src: '~/plugins/editor', ssr: false },
+    /** For Quill editor*/
+    { src: '~/plugins/editor', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
@@ -60,7 +60,9 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.HOST
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -83,6 +85,6 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 }
