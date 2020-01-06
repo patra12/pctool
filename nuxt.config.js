@@ -73,7 +73,7 @@ module.exports = {
       light: true,
       themes: {
         light: {
-          primary: colors.blue.darken3
+          primary: "#0a0a1c",
         }
       }
     }
