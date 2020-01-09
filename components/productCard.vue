@@ -4,6 +4,6 @@
 
 <script>
 export default {
-    name:"product card";
-}
+  name: "product card"
+};
 </script>
