@@ -60,17 +60,20 @@
                     <ul class="social">
                       <li>
                         <a href data-tip="Quick View">
-                          <i class="fa fa-search"></i>
+                          <!-- <i class="fa fa-search"></i> -->
+                          <v-icon class="white--text">mdi-magnify</v-icon>
                         </a>
                       </li>
                       <li>
                         <a href data-tip="Add to Wishlist">
-                          <i class="fa fa-shopping-bag"></i>
+                          <!-- <i class="fa fa-shopping-bag"></i> -->
+                          <v-icon class="white--text">mdi-shopping</v-icon>
                         </a>
                       </li>
                       <li>
                         <a href data-tip="Add to Cart">
-                          <i class="fa fa-shopping-cart"></i>
+                          <!-- <i class="fa fa-shopping-cart"></i> -->
+                          <v-icon class="white--text">mdi-cart</v-icon>
                         </a>
                       </li>
                     </ul>
@@ -78,10 +81,16 @@
                     <span class="product-discount-label">20%</span>
                   </div>
                   <ul class="rating">
+                    <v-icon class>mdi-star</v-icon>
+                    <v-icon class>mdi-star</v-icon>
+                    <v-icon class>mdi-star</v-icon>
+                    <v-icon class>mdi-star</v-icon>
+                    <v-icon class>mdi-star</v-icon>
+                    <v-icon class="disable">mdi-star</v-icon>
+                    <!-- <li class="fa fa-star"></li>
                     <li class="fa fa-star"></li>
                     <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
+                    <li class="fa fa-star"></li>-->
                     <li class="fa fa-star disable"></li>
                   </ul>
                   <div class="product-content">
