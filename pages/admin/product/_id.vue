@@ -78,7 +78,7 @@
               />
               <v-row>
                 <v-col v-for="(img,index) in all_image_db" :key="index">
-                  <img class="showing-images" :src="all_image_db" />
+                  <img class="showing-images" :src="parseImage(all_image_db[index].imageloc)" />
                   <!-- 'http://localhost:3000/product/'+img.imageloc -->
                 </v-col>
               </v-row>
@@ -150,6 +150,9 @@ export default {
       // this.test = img_files;
       // this.all_image_db = URL.createObjectURL(img_files);
       // console.log(URL.createObjectURL(img_files));
+    },
+    parseImage(imageName) {
+      return process.env.BASE_URL + "/product/" + imageName;
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -307,7 +310,7 @@ export default {
       })
         .then(res => {
           this.all_image_db = res.data;
-          // console.log(res.data.length);
+          console.log(res.data);
         })
         .catch(err => {
           console.log(err);
