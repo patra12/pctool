@@ -116,7 +116,9 @@ export default {
       payment_status: ""
     };
   },
-  methods: {},
+  methods: {
+    get_order_detailse()
+  },
   mounted() {}
 };
 </script>
