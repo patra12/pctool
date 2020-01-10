@@ -28,7 +28,7 @@
         <v-col class="border font-weight-light">{{ page.status }}</v-col>
         <v-col class="border">
           <!-- <nuxt-link to="./editProduct">-->
-          <nuxt-link :to="'./editProduct/' + page.id">
+          <nuxt-link :to="'/admin/order/view/' + page.id">
             <v-icon title="View" color="purple darken-1">mdi-eye</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
