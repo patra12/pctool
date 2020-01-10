@@ -1,27 +1,27 @@
 const app = require('express').Router();
 
-// Importing page routes
-const test = require('./page.js');
-app.use(test);
-
 // Importing settings routes
 const settings = require('./settings.js');
 app.use(settings);
 
-// Importing settings user
+// Importing user routes
 const user = require('./user.js');
 app.use(user);
 
-// Importing settings page
+// Importing page routes
 const page = require('./page.js');
 app.use(page);
 
-// Importing settings page
+// Importing category routes
 const category = require('./category.js');
 app.use(category);
 
-// Importing settings page
+// Importing product routes
 const product = require('./product.js');
 app.use(product);
+
+// Importing orders routes
+const orders = require('./orders.js');
+app.use(orders);
 
 module.exports = app;
