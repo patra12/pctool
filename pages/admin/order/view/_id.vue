@@ -117,7 +117,7 @@ export default {
     };
   },
   methods: {
-    get_order_detailse()
+    get_order_detailse() {}
   },
   mounted() {}
 };
