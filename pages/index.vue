@@ -56,8 +56,8 @@
                 <div class="product-grid">
                   <div class="product-image">
                     <a href="#">
-                      <img class="pic-1" src="~/assets/image/products/product1.jpg" />
-                      <img class="pic-2" src="~/assets/image/products/product1-2.jpg" />
+                      <img class="pic-1" src="~/assets/image/products/HAND-HELD-SAW.jpg" />
+                      <img class="pic-2" src="~/assets/image/products/HAND-HELD-SAW-2.jpg" />
                     </a>
                     <ul class="social">
                       <li>
@@ -84,12 +84,9 @@
                   </div>
                  
                   <div class="product-content">
-                    <p class="product-title"><a href="#">Crown 8 cu/ft 8S Steel Drum Series Mortar Mixer</a></p>
-                    <div class="price">
-                      $16.00
-                      <span>$20.00</span>
-                    </div>
-                    <button class="add-to-cart"><i class="mdi mdi-cart-outline"></i> Add To Cart</button>
+                    <p class="product-title"><a href="#">HAND HELD SAW</a></p>
+                    
+                    <button class="add-to-cart">CHECK OUR BLADES</button>
                   </div>
                 </div>
               </div>
@@ -97,8 +94,8 @@
                 <div class="product-grid">
                   <div class="product-image">
                     <a href="#">
-                      <img class="pic-1" src="~/assets/image/products/product2.jpg" />
-                      <img class="pic-2" src="~/assets/image/products/product2-2.jpg" />
+                      <img class="pic-1" src="~/assets/image/products/EARLY-ENTRY-SOFF.jpg" />
+                      <img class="pic-2" src="~/assets/image/products/EARLY-ENTRY-SOFF-2.jpg" />
                     </a>
                     <ul class="social">
                       <li>
@@ -125,12 +122,9 @@
                   </div>
                  
                   <div class="product-content">
-                    <p class="product-title"><a href="#">IMER Mighty Small 50 Grout Pump 1106045</a></p>
-                    <div class="price">
-                      $16.00
-                      <span>$20.00</span>
-                    </div>
-                    <button class="add-to-cart"><i class="mdi mdi-cart-outline"></i> Add To Cart</button>
+                    <p class="product-title"><a href="#">EARLY ENTRY/SOFF - CUT</a></p>
+                    
+                    <button class="add-to-cart">CHECK OUR BLADES</button>
                   </div>
                 </div>
               </div>
@@ -138,8 +132,8 @@
                 <div class="product-grid">
                   <div class="product-image">
                     <a href="#">
-                      <img class="pic-1" src="~/assets/image/products/product3.jpg" />
-                      <img class="pic-2" src="~/assets/image/products/product3-2.jpg" />
+                      <img class="pic-1" src="~/assets/image/products/GRINDER-SAW.jpg" />
+                      <img class="pic-2" src="~/assets/image/products/GRINDER-SAW-2.jpg" />
                     </a>
                     <ul class="social">
                       <li>
@@ -166,15 +160,48 @@
                   </div>
                  
                   <div class="product-content">
-                    <p class="product-title"><a href="#">Crown 8 cu/ft 8S Steel Drum Series Mortar Mixer</a></p>
-                    <div class="price">
-                      $16.00
-                      <span>$20.00</span>
-                    </div>
-                    <button class="add-to-cart"><i class="mdi mdi-cart-outline"></i> Add To Cart</button>
+                    <p class="product-title"><a href="#">GRINDER SAW</a></p>
+                   
+                    <button class="add-to-cart">CHECK OUR BLADES</button>
                   </div>
                 </div>
               </div>
+            </div>
+            
+            <div class="bottomProducts">
+              <div class="grayBorder"></div>
+              <div class="btmProductHeading">
+                <h3>LINES OF EQUIPMENT - NEW!!!</h3>
+              </div>
+
+              <div class="col-md-12 col-sm-12">
+                <div class="product-grid">
+                  <div class="product-image">
+                    <a href="#">
+                      <img class="pic-1" src="~/assets/image/products/PCD-HEADS-FLOORING.jpg" />
+                    </a>
+                  </div>
+                  <div class="product-content">
+                    <p class="product-title"><a href="#">PCD HEADS FLOORING</a></p>
+                    <button class="add-to-cart">CHECK OUR BLADES</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12 col-sm-12">
+                <div class="product-grid">
+                  <div class="product-image">
+                    <a href="#">
+                      <img class="pic-1" src="~/assets/image/products/HAND-HELD-SAW-big.jpg" />
+                    </a>
+                  </div>
+                  <div class="product-content">
+                    <p class="product-title"><a href="#">HAND HELD SAW</a></p>
+                    <button class="add-to-cart">CHECK OUR BLADES</button>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -194,7 +221,7 @@ export default {
 .product-grid {
   font-family: Raleway, sans-serif;
   text-align: center;
-  padding: 0 0 135px;
+  padding: 0 0 88px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
@@ -265,7 +292,7 @@ export default {
 }
 .product-grid .social li a:hover {
   color: #fff;
-  background-color: #ef5777;
+  background-color: #d23940;
 }
 .product-grid .social li a:after,
 .product-grid .social li a:before {
@@ -347,6 +374,8 @@ export default {
 }
 .product-grid .product-title a {
   color: #333333;
+  font-size: 16px;
+  font-weight: 600;
 }
 .product-grid .product-title a:hover,
 .product-grid:hover .product-title a {
@@ -487,5 +516,20 @@ a:hover{
 .list-group-item:last-child {
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+}
+.grayBorder {
+    height: 6px;
+    width: 100%;
+    background: #b3b3b3;
+    margin: 20px 0;
+}
+.btmProductHeading h3 {
+    font-size: 40px;
+    font-weight: 600;
+    text-align: center;
+}
+.bottomProducts .product-image img{
+  max-height: 285px;
+  width: auto;
 }
 </style>
