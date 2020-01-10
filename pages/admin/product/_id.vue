@@ -139,12 +139,30 @@ export default {
     onFileChange() {
       const img_files = this.$refs.productimg.files;
 
-      console.log(img_files);
+      // console.log(img_files);
       // this.productImage = file;
       for (const i in img_files) {
-        let x = URL.createObjectURL(i);
+        let x = this.image_files[i];
 
-        console.log(x);
+        var picReader = new FileReader();
+
+        picReader.addEventListener("load", function(event) {
+          var picFile = event.target;
+
+          var div = document.createElement("div");
+
+          div.innerHTML =
+            "<img class='thumbnail' src='" +
+            picFile.result +
+            "'" +
+            "title='" +
+            picFile.name +
+            "'/>";
+
+          output.insertBefore(div, null);
+        });
+        //Read the image
+        picReader.readAsDataURL(x);
       }
       // console.log(createObjectURL(this.$refs.productimg.files));
       // this.test = img_files;
@@ -209,7 +227,7 @@ export default {
         })
         .catch(error => {
           // handle error
-          console.log(error);
+          console.log("error", error);
         });
     },
     getData() {
