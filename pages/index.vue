@@ -16,29 +16,37 @@
         <div class="row">
           <div class="col-md-3">
             <div class="list-group">
-              <a href="#" class="list-group-item active">
-                <i class="fa fa-key"></i>
-                <span>App Settings</span>
+              <p>Construction</p>
+              <hr class="hrMod">
+              <a href="#" class="list-group-item">
+                <span>Wall Saws</span>
               </a>
               <a href="#" class="list-group-item">
-                <i class="fa fa-credit-card"></i>
-                <span>Billing</span>
+                <span>Ring Saws</span>
               </a>
               <a href="#" class="list-group-item">
-                <i class="fa fa-question-circle"></i>
-                <span>Support</span>
+                <span>Pro Slab Saws</span>
               </a>
               <a href="#" class="list-group-item">
-                <i class="fa fa-arrow-circle-o-left"></i>
-                <span>Sandbox Account</span>
+                <span>Dry Blades</span>
               </a>
               <a href="#" class="list-group-item">
-                <i class="fa fa-book"></i>
-                <span>QuickStart Overview</span>
+                <span>Asphalt Blades</span>
               </a>
               <a href="#" class="list-group-item">
-                <i class="fa fa-compass"></i>
-                <span>Documentation</span>
+                <span>Grinding wheels</span>
+              </a>
+              <a href="#" class="list-group-item">
+                <span>Core Bits</span>
+              </a>
+              <a href="#" class="list-group-item">
+                <span>Early entry blades</span>
+              </a>
+              <a href="#" class="list-group-item">
+                <span>AOC - Asphalt ove concrete</span>
+              </a>
+              <a href="#" class="list-group-item">
+                <span>Flooring</span>
               </a>
             </div>
           </div>
@@ -48,14 +56,8 @@
                 <div class="product-grid">
                   <div class="product-image">
                     <a href="#">
-                      <img
-                        class="pic-1"
-                        src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-1.jpg"
-                      />
-                      <img
-                        class="pic-2"
-                        src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-2.jpg"
-                      />
+                      <img class="pic-1" src="~/assets/image/products/product1.jpg" />
+                      <img class="pic-2" src="~/assets/image/products/product1-2.jpg" />
                     </a>
                     <ul class="social">
                       <li>
@@ -80,25 +82,14 @@
                     <span class="product-new-label">Sale</span>
                     <span class="product-discount-label">20%</span>
                   </div>
-                  <ul class="rating">
-                    <v-icon class>mdi-star</v-icon>
-                    <v-icon class>mdi-star</v-icon>
-                    <v-icon class>mdi-star</v-icon>
-                    <v-icon class>mdi-star</v-icon>
-                    <v-icon class>mdi-star</v-icon>
-                    <v-icon class="disable">mdi-star</v-icon>
-                    <!-- <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>-->
-                    <li class="fa fa-star disable"></li>
-                  </ul>
+                 
                   <div class="product-content">
+                    <p class="product-title"><a href="#">Crown 8 cu/ft 8S Steel Drum Series Mortar Mixer</a></p>
                     <div class="price">
                       $16.00
                       <span>$20.00</span>
                     </div>
-                    <a class="add-to-cart" href>+ Add To Cart</a>
+                    <button class="add-to-cart"><i class="mdi mdi-cart-outline"></i> Add To Cart</button>
                   </div>
                 </div>
               </div>
@@ -106,48 +97,40 @@
                 <div class="product-grid">
                   <div class="product-image">
                     <a href="#">
-                      <img
-                        class="pic-1"
-                        src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-3.jpg"
-                      />
-                      <img
-                        class="pic-2"
-                        src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-4.jpg"
-                      />
+                      <img class="pic-1" src="~/assets/image/products/product2.jpg" />
+                      <img class="pic-2" src="~/assets/image/products/product2-2.jpg" />
                     </a>
                     <ul class="social">
                       <li>
                         <a href data-tip="Quick View">
-                          <i class="fa fa-search"></i>
+                          <!-- <i class="fa fa-search"></i> -->
+                          <v-icon class="white--text">mdi-magnify</v-icon>
                         </a>
                       </li>
                       <li>
                         <a href data-tip="Add to Wishlist">
-                          <i class="fa fa-shopping-bag"></i>
+                          <!-- <i class="fa fa-shopping-bag"></i> -->
+                          <v-icon class="white--text">mdi-shopping</v-icon>
                         </a>
                       </li>
                       <li>
                         <a href data-tip="Add to Cart">
-                          <i class="fa fa-shopping-cart"></i>
+                          <!-- <i class="fa fa-shopping-cart"></i> -->
+                          <v-icon class="white--text">mdi-cart</v-icon>
                         </a>
                       </li>
                     </ul>
                     <span class="product-new-label">Sale</span>
-                    <span class="product-discount-label">50%</span>
+                    <span class="product-discount-label">20%</span>
                   </div>
-                  <ul class="rating">
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                  </ul>
+                 
                   <div class="product-content">
+                    <p class="product-title"><a href="#">IMER Mighty Small 50 Grout Pump 1106045</a></p>
                     <div class="price">
-                      $5.00
-                      <span>$10.00</span>
+                      $16.00
+                      <span>$20.00</span>
                     </div>
-                    <a class="add-to-cart" href>+ Add To Cart</a>
+                    <button class="add-to-cart"><i class="mdi mdi-cart-outline"></i> Add To Cart</button>
                   </div>
                 </div>
               </div>
@@ -155,48 +138,40 @@
                 <div class="product-grid">
                   <div class="product-image">
                     <a href="#">
-                      <img
-                        class="pic-1"
-                        src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-5.jpg"
-                      />
-                      <img
-                        class="pic-2"
-                        src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-6.jpg"
-                      />
+                      <img class="pic-1" src="~/assets/image/products/product3.jpg" />
+                      <img class="pic-2" src="~/assets/image/products/product3-2.jpg" />
                     </a>
                     <ul class="social">
                       <li>
                         <a href data-tip="Quick View">
-                          <i class="fa fa-search"></i>
+                          <!-- <i class="fa fa-search"></i> -->
+                          <v-icon class="white--text">mdi-magnify</v-icon>
                         </a>
                       </li>
                       <li>
                         <a href data-tip="Add to Wishlist">
-                          <i class="fa fa-shopping-bag"></i>
+                          <!-- <i class="fa fa-shopping-bag"></i> -->
+                          <v-icon class="white--text">mdi-shopping</v-icon>
                         </a>
                       </li>
                       <li>
                         <a href data-tip="Add to Cart">
-                          <i class="fa fa-shopping-cart"></i>
+                          <!-- <i class="fa fa-shopping-cart"></i> -->
+                          <v-icon class="white--text">mdi-cart</v-icon>
                         </a>
                       </li>
                     </ul>
                     <span class="product-new-label">Sale</span>
-                    <span class="product-discount-label">50%</span>
+                    <span class="product-discount-label">20%</span>
                   </div>
-                  <ul class="rating">
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                    <li class="fa fa-star"></li>
-                  </ul>
+                 
                   <div class="product-content">
+                    <p class="product-title"><a href="#">Crown 8 cu/ft 8S Steel Drum Series Mortar Mixer</a></p>
                     <div class="price">
-                      $5.00
-                      <span>$10.00</span>
+                      $16.00
+                      <span>$20.00</span>
                     </div>
-                    <a class="add-to-cart" href>+ Add To Cart</a>
+                    <button class="add-to-cart"><i class="mdi mdi-cart-outline"></i> Add To Cart</button>
                   </div>
                 </div>
               </div>
@@ -219,7 +194,7 @@ export default {
 .product-grid {
   font-family: Raleway, sans-serif;
   text-align: center;
-  padding: 0 0 72px;
+  padding: 0 0 135px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
@@ -228,6 +203,8 @@ export default {
 .product-grid .product-image {
   position: relative;
   transition: all 0.3s ease 0s;
+      border: 1px solid #e0e0e0;
+    margin: 10px;
 }
 .product-grid .product-image a {
   display: block;
@@ -322,7 +299,7 @@ export default {
 .product-grid .product-discount-label,
 .product-grid .product-new-label {
   color: #fff;
-  background-color: #ef5777;
+  background-color: #d23940;
   font-size: 12px;
   text-transform: uppercase;
   padding: 2px 7px;
@@ -356,14 +333,11 @@ export default {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -27px;
   z-index: 1;
   transition: all 0.3s;
 }
-.product-grid:hover .product-content {
-  bottom: 0;
-}
-.product-grid .title {
+
+.product-grid .product-title {
   font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.5px;
@@ -371,12 +345,12 @@ export default {
   margin: 0 0 10px;
   transition: all 0.3s ease 0s;
 }
-.product-grid .title a {
-  color: #828282;
+.product-grid .product-title a {
+  color: #333333;
 }
-.product-grid .title a:hover,
-.product-grid:hover .title a {
-  color: #ef5777;
+.product-grid .product-title a:hover,
+.product-grid:hover .product-title a {
+  color: #d23940;
 }
 .product-grid .price {
   color: #333;
@@ -397,9 +371,12 @@ export default {
   display: inline-block;
 }
 .product-grid .add-to-cart {
-  color: #000;
-  font-size: 13px;
-  font-weight: 600;
+    background: #d23940;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: lighter;
+    width: 100%;
+    padding: 10px;
 }
 @media only screen and (max-width: 990px) {
   .product-grid {
@@ -452,10 +429,15 @@ export default {
 }
 
 .list-group {
-  margin: auto;
+  margin-top: 12px;
   float: left;
-  padding-top: 20px;
+  padding-top: 5px;
+  padding-bottom: 10px;
   width: 100%;
+  background: #e3e3e3;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.75);
 }
 .lead {
   margin: auto;
@@ -464,7 +446,46 @@ export default {
   padding-top: 10%;
 }
 .sideImg1 {
-  background: linear-gradient(rgba(57, 57, 57, 0.7), rgba(26, 25, 25, 0.7)),
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("~assets/image/slider1.jpg");
+}
+
+.list-group p{
+  font-weight: 800;
+  color: #333;
+  padding: 10px 1.25rem;
+  margin-bottom: 0;
+}
+.list-group a{
+   color: #333 !important;
+}
+.hrMod{
+  margin: 0 20px;
+  border-color: #333;
+  padding-bottom: 15px;
+}
+a:hover{
+  text-decoration: none;
+}
+
+.list-group-item {
+  position: relative;
+  display: block;
+  border: none;
+  padding: 5px 1.25rem;
+  background: #e3e3e3;
+  display: block;
+  background-image: linear-gradient(to left, transparent, transparent 50%, #d23940 50%, #d23940);
+  background-position: 100% 0;
+  background-size: 200% 100%;
+  transition: all 0.25s ease-in;
+}
+.list-group-item:hover {
+  background-position: 0 0;
+  color: #fff!important;
+}
+.list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
 }
 </style>
