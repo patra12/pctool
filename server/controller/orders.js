@@ -6,8 +6,9 @@ module.exports = {
     async getOrders(req, res) {
 
         //query
-        order_list_query = "select om.order_date,";
+        order_list_query = "select date(om.order_date) as date,";
         order_list_query += "concat(u.first_name , u.last_name) as 'name', ";
+        order_list_query += "od.`orderId`, ";
         order_list_query += "p.product_name, ";
         order_list_query += "od.qty as Quentity ";
         order_list_query += "from order_detail od  ";
