@@ -3,6 +3,8 @@
 var pool = require('../db/db');
 
 module.exports = {
+
+    // to get order list
     async getOrders(req, res) {
 
         //query
@@ -29,6 +31,8 @@ module.exports = {
                 res.end();
             });
     },
+
+    //return a single order detailse for diffrent tables
     async orderDetailse(req, res) {
 
         //query
@@ -64,5 +68,10 @@ module.exports = {
                 console.log("odderDetailse QUERY ERR :", err);
                 res.end();
             });
+    },
+
+    //deleting a perticuler order detailse of tranzaction
+    async delOrder() {
+
     }
 }
