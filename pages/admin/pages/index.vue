@@ -57,8 +57,6 @@
 </template>
 
 <script>
-import Listing from "../../../components/pages/page_listing";
-
 export default {
   name: "Pages",
   layout: "admin/defaultAdmin",
