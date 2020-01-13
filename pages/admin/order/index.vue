@@ -9,13 +9,13 @@
           <b>#</b>
         </v-col>
         <v-col class="border">
-          <b>Orders</b>
+          <b>User Name</b>
         </v-col>
         <v-col class="border">
-          <b>Alias</b>
+          <b>Product Name</b>
         </v-col>
         <v-col class="border">
-          <b>Status</b>
+          <b>Quantity</b>
         </v-col>
         <v-col class="border">
           <b>Action</b>
