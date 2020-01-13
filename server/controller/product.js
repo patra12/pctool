@@ -22,7 +22,6 @@ module.exports = {
         selectQuery = "SELECT * FROM " + tableName + " where `productId`= ?";
         await pool.query(selectQuery, [req.params.id])
             .then(row => { res.send(row) })
-            // .then(row => { return pool.close() })
             .catch(err => { console.log(err) });
     },
 
@@ -43,7 +42,6 @@ module.exports = {
     getImages: (req, res) => {
         // query
         selectQuery = `SELECT * FROM  \`product_image\`  where productId = ?`;
-        // console.log(selectQuery);
         pool.query(selectQuery, [req.params.id])
             .then(row => {
                 res.send(row);
