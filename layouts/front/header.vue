@@ -1,89 +1,94 @@
 <template>
-<div class="mainOuter">
-<!-- Note -->
-<div class="container firstTop">
-  <div class="row">
-    <div class="leftBlock">
-      <div class="wlcomeBlock">
-        <img src="~/assets/image/icons/wlc.png" alt="Welcome">
-        <p>Welcome to Pro Construction Tools</p>
-      </div>
-      <div class="addressBlock">
-        <img src="~/assets/image/icons/pointer.png" alt="Welcome">
-        <p>Address of Pro Construction Tools</p>
-      </div>
-    </div>
-    <div class="rightBlock">
-      <div class="signUpBlock">
-        <a href="#">login</a>
-        <a href="#">signUp</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Header -->
-<div class="container">
-  <div class="row vCenter">
-    <div class="logoBlock">
-      <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo">
-    </div>
-    <div class="searchblock">
-      <form>
-        <div class="inner-form">
-          <div class="input-field first-wrap">
-            <div class="input-select">
-              <select data-trigger="" name="choices-single-defaul">
-                <option placeholder="">All Category</option>
-                <option>New Arrivals</option>
-                <option>Sale</option>
-                <option>Ladies</option>
-                <option>Men</option>
-                <option>Clothing</option>
-                <option>Footwear</option>
-                <option>Accessories</option>
-              </select>
-            </div>
+  <div class="headerblock mainOuter">
+    <!-- Note -->
+    <div class="container firstTop">
+      <div class="row">
+        <div class="leftBlock">
+          <div class="wlcomeBlock">
+            <img src="~/assets/image/icons/wlc.png" alt="Welcome" />
+            <p>Welcome to Pro Construction Tools</p>
           </div>
-          <div class="input-field second-wrap">
-            <input id="search" type="text" placeholder="Enter Keywords?" />
-          </div>
-          <div class="input-field third-wrap">
-            <button class="btn-search" type="button">
-              <img src="~/assets/image/icons/seaRch.png" alt="Search Icon">
-            </button>
+          <div class="addressBlock">
+            <img src="~/assets/image/icons/pointer.png" alt="Welcome" />
+            <p>Address of Pro Construction Tools</p>
           </div>
         </div>
-      </form>
+        <div class="rightBlock">
+          <div class="signUpBlock">
+            <a href="#">login</a>
+            <a href="#">signUp</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="cartSection">
-      <div class="cartSectionInner">
-      <div class="cartLeft">
-        <p>SHOPPING ITEM</p>
-        <p>$0.00 <span>0 ITEM</span></p>
+
+    <!-- Header -->
+    <div class="container">
+      <div class="row vCenter">
+        <div class="logoBlock">
+          <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo" />
+        </div>
+        <div class="searchblock">
+          <form>
+            <div class="inner-form">
+              <div class="input-field first-wrap">
+                <div class="input-select">
+                  <select data-trigger name="choices-single-defaul">
+                    <option placeholder>All Category</option>
+                    <option>New Arrivals</option>
+                    <option>Sale</option>
+                    <option>Ladies</option>
+                    <option>Men</option>
+                    <option>Clothing</option>
+                    <option>Footwear</option>
+                    <option>Accessories</option>
+                  </select>
+                </div>
+              </div>
+              <div class="input-field second-wrap">
+                <input id="search" type="text" placeholder="Enter Keywords?" />
+              </div>
+              <div class="input-field third-wrap">
+                <button class="btn-search" type="button">
+                  <img src="~/assets/image/icons/seaRch.png" alt="Search Icon" />
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="cartSection">
+          <div class="cartSectionInner">
+            <div class="cartLeft">
+              <p>SHOPPING ITEM</p>
+              <p>
+                $0.00
+                <span>0 ITEM</span>
+              </p>
+            </div>
+            <div class="cartRight">
+              <img src="~/assets/image/icons/shoppingBag.png" alt="Shopping Bag" />
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="cartRight">
-        <img src="~/assets/image/icons/shoppingBag.png" alt="Shopping Bag">
-      </div>
+    </div>
+
+    <div class="topnav" id="myTopnav">
+      <div class="container">
+        <nuxt-link to="/" class="active">
+          <img src="~/assets/image/icons/home.png" alt="Home Icon" />
+        </nuxt-link>
+
+        <nuxt-link to="/byneed">By Need</nuxt-link>
+        <nuxt-link to="/byapplication">By Application</nuxt-link>
+        <nuxt-link to="/byindustry">By Industry</nuxt-link>
+        <nuxt-link to="/contact">Contact Us</nuxt-link>
+        <a href="javascript:void(0);" class="icon" @click="myFunction()">
+          <img src="~/assets/image/icons/sortBar.png" alt="Menu Icon" />
+        </a>
       </div>
     </div>
   </div>
-</div>
-
-<div class="topnav" id="myTopnav">
-  <div class="container">
-    <a href="#home" class="active"><img src="~/assets/image/icons/home.png" alt="Home Icon"></a>
-    <a href="#news">By Need</a>
-    <a href="#contact">By Application</a>
-    <a href="#about">By Industry</a>
-    <a href="#about">Contact Us</a>
-    <a href="javascript:void(0);" class="icon" @click="myFunction()">
-      <img src="~/assets/image/icons/sortBar.png" alt="Menu Icon">
-    </a>
-  </div>
-</div>
-
-</div>
 </template>
 
 
@@ -91,234 +96,18 @@
 
 
 <script>
+import "~/assets/style/style.scss";
 export default {
-  name: 'SiteHeader',
-  methods:{
-     myFunction() {
-  var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
-  } else {
-    x.className = "topnav";
+  name: "SiteHeader",
+  methods: {
+    myFunction() {
+      var x = document.getElementById("myTopnav");
+      if (x.className === "topnav") {
+        x.className += " responsive";
+      } else {
+        x.className = "topnav";
+      }
+    }
   }
-}
-  }
-}
-
+};
 </script>
-
-
-
-
-
-<style>
-body {
-  margin: 0;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #d23940;
-  color: white;
-}
-
-.topnav .icon {
-  display: none;
-}
-
-@media screen and (max-width: 600px) {
-  .topnav a:not(:first-child) {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .topnav.responsive {position: relative;}
-  .topnav.responsive .icon {
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-  .topnav.responsive a {
-    float: none;
-    display: block;
-    text-align: left;
-  }
-}
-
-
-@media screen and (max-width: 700px) {
-  .row, .navbar {   
-    flex-direction: column;
-  }
-}
-
-.leftBlock{
-  width: 50%;
-  display: flex;
-  flex-wrap: wrap;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-}
-.rightBlock{
-  width: 50%;
-  display: flex;
-  flex-wrap: wrap;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  justify-content: flex-end;
-}
-.wlcomeBlock{
-  display:flex;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-}
-.wlcomeBlock img{
-  width: 16px;
-  height: 20px;
-}
-.wlcomeBlock p {
-    margin-bottom: 0px;
-    margin-left: 5px;
-    color: #818384;
-    font-size: 14px;
-}
-.addressBlock{
-  display:flex;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  margin-left: 15px;
-}
-.addressBlock img{
-  width: 16px;
-  height: 20px;
-}
-.addressBlock p {
-    margin-bottom: 0px;
-    margin-left: 5px;
-    color: #818384;
-    font-size: 14px;
-}
-.signUpBlock {  
-  display: flex;
-  flex-wrap: wrap;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-}
-
-.rightBlock a{
-  color: #818384 !important;
-  font-size: 14px;
-  text-transform: uppercase;
-  text-decoration: none;
-}
-.rightBlock a:last-child{
-  margin-left: 15px;
-}
-.rightBlock a:hover{
-  border-bottom: 2px solid #818384;
-}
-.firstTop{
-  min-height: 48px;
-}
-.inner-form{
-  display: flex;
-  flex-wrap: wrap;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  position: relative;
-}
-.logoBlock{
-  width: 20%
-}
-.searchblock{
-  width: 60%;
-}
-
-.vCenter{
-  align-items: center;
-}
-.first-wrap{
-  width: 20%;
-}
-.first-wrap select{
-  width: 100%;
-  border: 1px solid #bbbcbd;
-  padding:8px 15px;
-  border-right: transparent;
-}
-.second-wrap{
-  width: 80%
-}
-.second-wrap input{
-  width: 100%;
-  border: 1px solid #bbbcbd;
-  padding:8px 15px;
-  border-left: transparent;
-}
-.third-wrap{
-  position: absolute;
-  right: 0;
-  border-left: 1px solid #bbbcbd;
-  margin-top: 5px;
-  padding-top: 5px;
-}
-.third-wrap img{
-  width: 20px;
-  height: 20px;
-  margin: 0px 10px;
-}
-.cartSection{
-  width: 20%;
-  padding: 0 0 0 15px;
-}
-.cartLeft p{
-  margin-bottom: 0;
-  color: #fff;
-}
-.cartSectionInner{
-  background: #0f0977;
-  padding: 15px;
-  display: flex;
-  flex-wrap: wrap;
-  display: -ms-flexbox;
-  display: -webkit-flex;
-  position: relative;
-  justify-content: space-between;
-}
-.cartRight {
-    border-left: 1px solid #fff;
-    padding-left: 10px;
-    padding-top: 6px;
-}
-.topnav .container{
-  padding: 0
-}
-.topnav a:first-child{
-  padding: 12px 16px;
-}
-.topnav a{
-  color: #fff !important;
-}
-</style>
