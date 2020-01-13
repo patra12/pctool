@@ -2,7 +2,7 @@
   <v-container class="bv-example-row list pa-0">
     <v-row class="bg">
       <h4 class="font-weight-light">Detailse view</h4>
-      <nuxt-link to="/admin/category">
+      <nuxt-link to="/admin/order">
         <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
       </nuxt-link>
     </v-row>
@@ -39,6 +39,12 @@
       </div>
       <div class="row w-100 ma-0">
         <v-col sm="3" class="border font-weight-light">
+          <b>Product Name</b>
+        </v-col>
+        <v-col sm="9" class="border font-weight-light text-left">{{product_name}}</v-col>
+      </div>
+      <div class="row w-100 ma-0">
+        <v-col sm="3" class="border font-weight-light">
           <b>Order Status</b>
         </v-col>
         <v-col sm="9" class="border font-weight-light text-left">{{order_status}}</v-col>
@@ -53,7 +59,7 @@
         <v-col sm="3" class="border font-weight-light">
           <b>Quentity</b>
         </v-col>
-        <v-col sm="9" class="border font-weight-light text-left">{{quentity}}</v-col>
+        <v-col sm="9" class="border font-weight-light text-left">{{quantity}}</v-col>
       </div>
 
       <div class="row w-100 ma-0">
@@ -106,9 +112,10 @@ export default {
       email: "",
       order_id: "",
       order_date: "",
+      product_name: "",
       order_status: "",
       order_amount: "",
-      quentity: "",
+      quantity: "",
       shipping_cost: "",
       packging_fee: "",
       discount: "",
@@ -117,8 +124,35 @@ export default {
     };
   },
   methods: {
-    get_order_detailse() {}
+    get_order_detailse() {
+      this.$axios({
+        url: "/orderdetailse/" + this.$route.params.id,
+        mothod: "GET"
+      })
+        .then(row => {
+          console.log(row);
+          this.user_name = row.data[0].user_name;
+          this.phone = row.data[0].phone;
+          this.email = row.data[0].email;
+          this.order_id = row.data[0].orderId;
+          this.order_date = row.data[0].order_date;
+          this.product_name = row.data[0].product_name;
+          this.order_status = row.data[0].order_status;
+          this.order_amount = row.data[0].order_amt;
+          this.quantity = row.data[0].quantity;
+          this.shipping_cost = row.data[0].shippingcost;
+          this.packging_fee = row.data[0].packagingfee;
+          this.discount = row.data[0].order_discount;
+          this.grand_total = row.data[0].order_grand_total;
+          this.payment_status = row.data[0].payment_status;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   },
-  mounted() {}
+  mounted() {
+    this.get_order_detailse();
+  }
 };
 </script>
