@@ -50,26 +50,6 @@ export default {
   layout: "admin/defaultAdmin",
   data() {
     return {
-      pages: [
-        {
-          id: 1,
-          product_name: "test",
-          product_alias: "alias test",
-          status: "active"
-        },
-        {
-          id: 2,
-          product_name: "test1",
-          product_alias: "alias test1",
-          status: "disabled"
-        },
-        {
-          id: 3,
-          product_name: "test2",
-          product_alias: "alias test2",
-          status: "active"
-        }
-      ],
       orders: ""
     };
   },
