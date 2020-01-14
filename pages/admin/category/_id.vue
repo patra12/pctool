@@ -39,9 +39,9 @@
 
               <img class="py-5 ctategory-image-selection" :src="show_image" alt="no image is found" />
 
-              <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
+              <!-- <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
 
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
+              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>-->
 
               <v-select v-model="status" :items="items" label="Status"></v-select>
 
@@ -54,9 +54,6 @@
   </div>
 </template>
 <script>
-// `import dotenv from "dotenv";
-// dotenv.config();`
-
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
@@ -75,15 +72,14 @@ export default {
     //for showing image after selecting image
     showCategoryImage: "",
 
-    bannerImageLoc: "",
-    displayOrder: "",
+    // bannerImageLoc: "",
+    // displayOrder: "",
     status: "",
 
     //for showing image comming from db and also when selecting
     show_image: "",
 
-    /* form static select data */
-
+    // form static input type select data
     items: ["Active", "Not Active"]
   }),
 
@@ -100,7 +96,6 @@ export default {
       status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
     },
     parseImage(imageName) {
-      //return `http://localhost:3000/category/${imageName}`;
       return process.env.BASE_URL + "/category/" + imageName;
     },
     putData() {
@@ -115,10 +110,13 @@ export default {
       form.append("bannerimageloc", this.bannerImageLoc);
       form.append("displayorder", this.displayOrder);
       form.append("status", this.getStatus());
-      // form.append("pdf_name", this.pdf_name);
-      for (var datax of form.entries()) {
-        console.log(datax[0], "=>", datax[1]);
-      }
+
+      //to check all appended data
+
+      // for (var datax of form.entries()) {
+      //   console.log(datax[0], "=>", datax[1]);
+      // }
+
       this.$axios({
         url: "/putcategory/" + this.$route.params.id,
         method: "PUT",
@@ -149,15 +147,18 @@ export default {
           this.metaTitle = res.data[0].metatitle;
           this.metaKeyword = res.data[0].metakeywords;
           this.metaDescription = res.data[0].metadescription;
-          //if image is found in db then image will be parsed otherwise it will assign empty
+
+          //if image is found in db then image will be parsed
+          //otherwise it will assign empty
+
           this.show_image =
             res.data[0].categoryimage != null
               ? this.parseImage(res.data[0].categoryimage)
               : "";
+
           this.bannerImageLoc = res.data[0].bannerimageloc;
           this.displayOrder = res.data[0].displayorder;
           this.setStatus(res.data[0].status);
-          console.log(this.showCategoryImage);
         })
         .catch(err => {
           // handle error
@@ -170,5 +171,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-</style>

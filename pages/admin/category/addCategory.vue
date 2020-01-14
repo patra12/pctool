@@ -33,9 +33,9 @@
 
               <img class="py-5 ctategory-image-selection" :src="show_image" />
 
-              <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
+              <!-- <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
 
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
+              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>-->
 
               <v-select v-model="status" :items="items" label="Status"></v-select>
 
