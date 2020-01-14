@@ -3,41 +3,43 @@
 
 
 <template>
-  <div class="row">
-    <div v-for="(product,index) in products" class="col-md-4 col-sm-6" :key="index">
-      <div class="product-grid">
-        <div class="product-image">
-          <a href="#">
-            <img class="pic-1" :src="make_image_path(product.showing_img1)" />
-            <img class="pic-2" :src="make_image_path(product.aminate_img2)" />
-          </a>
-          <ul class="social">
-            <li>
-              <a href data-tip="Quick View">
-                <v-icon class="white--text">mdi-magnify</v-icon>
-              </a>
-            </li>
-            <li>
-              <a href data-tip="Add to Wishlist">
-                <v-icon class="white--text">mdi-shopping</v-icon>
-              </a>
-            </li>
-            <li>
-              <a href data-tip="Add to Cart">
-                <v-icon class="white--text">mdi-cart</v-icon>
-              </a>
-            </li>
-          </ul>
-          <span class="product-new-label">{{product.offer_label}}</span>
-          <span class="product-discount-label">{{product.offer_persentage}}</span>
-        </div>
+  <div>
+    <div class="row justify-content-center">
+      <div v-for="(product,index) in products" class="col-md-4 col-sm-6" :key="index">
+        <div class="product-grid">
+          <div class="product-image">
+            <a href="#">
+              <img class="pic-1" :src="make_image_path(product.showing_img1)" />
+              <img class="pic-2" :src="make_image_path(product.aminate_img2)" />
+            </a>
+            <ul class="social">
+              <li>
+                <a href data-tip="Quick View">
+                  <v-icon class="white--text">mdi-magnify</v-icon>
+                </a>
+              </li>
+              <li>
+                <a href data-tip="Add to Wishlist">
+                  <v-icon class="white--text">mdi-shopping</v-icon>
+                </a>
+              </li>
+              <li>
+                <a href data-tip="Add to Cart">
+                  <v-icon class="white--text">mdi-cart</v-icon>
+                </a>
+              </li>
+            </ul>
+            <span class="product-new-label">{{product.offer_label}}</span>
+            <span class="product-discount-label">{{product.offer_persentage}}</span>
+          </div>
 
-        <div class="product-content">
-          <p class="product-title">
-            <a href="#">{{product.name}}</a>
-          </p>
+          <div class="product-content">
+            <p class="product-title">
+              <a href="#">{{product.name}}</a>
+            </p>
 
-          <button class="add-to-cart">{{product.button_label}}</button>
+            <button class="add-to-cart">{{product.button_label}}</button>
+          </div>
         </div>
       </div>
     </div>
