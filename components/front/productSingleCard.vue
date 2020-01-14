@@ -6,33 +6,17 @@
     </div>
 
     <div class="col-md-12 col-sm-12">
-      <div class="product-grid">
+      <div v-for="(product,index) in products" class="product-grid mb-5" :key="index">
         <div class="product-image">
           <a href="#">
-            <img class="pic-1" src="~/assets/image/products/PCD-HEADS-FLOORING.jpg" />
+            <img class="pic-1" :src=" make_image_path(product.image)" />
           </a>
         </div>
         <div class="product-content">
           <p class="product-title">
-            <a href="#">PCD HEADS FLOORING</a>
+            <a href="#">{{product.name}}</a>
           </p>
-          <button class="add-to-cart">CHECK OUR BLADES</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-12 col-sm-12">
-      <div class="product-grid">
-        <div class="product-image">
-          <a href="#">
-            <img class="pic-1" src="~/assets/image/products/HAND-HELD-SAW-big.jpg" />
-          </a>
-        </div>
-        <div class="product-content">
-          <p class="product-title">
-            <a href="#">HAND HELD SAW</a>
-          </p>
-          <button class="add-to-cart">CHECK OUR BLADES</button>
+          <button class="add-to-cart">{{product.button_label}}</button>
         </div>
       </div>
     </div>
@@ -40,6 +24,30 @@
 </template>
 <script>
 export default {
-  name: "product single card"
+  name: "product single card",
+  data() {
+    return {
+      products: [
+        {
+          id: 1,
+          name: "PCD HEADS FLOORING",
+          image: "PCD-HEADS-FLOORING.jpg",
+          button_label: "CHECK OUR BLADES"
+        },
+        {
+          id: 2,
+          name: "HAND HELD SAW",
+          image: "HAND-HELD-SAW-big.jpg",
+          button_label: "CHECK OUR BLADES"
+        }
+      ]
+    };
+  },
+  methods: {
+    make_image_path(img_name) {
+      //must have to change to server baseurl path
+      return require(`~/assets/image/products/${img_name}`);
+    }
+  }
 };
 </script>

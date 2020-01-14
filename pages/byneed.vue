@@ -14,8 +14,6 @@
           <!--==small multiple prouct product==-->
 
           <MultiCard />
-          <MultiCard />
-          <MultiCard />
         </div>
       </div>
     </div>

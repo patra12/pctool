@@ -4,8 +4,9 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1 class="lg-text">The K 535i</h1>
-            <p>is an excellent addition to Husqvarna Construction's power cutter range</p>
+            <h1
+              class="w-50"
+            >The K 535i is an excellent addition to Husqvarna Construction's power cutter range</h1>
           </div>
         </div>
       </div>

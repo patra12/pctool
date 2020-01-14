@@ -1,6 +1,10 @@
 <template>
   <div class="col-md-3 pb-5">
-    <div v-for="(parent,index) in left_pannel_parent_categories" :key="index" class="list-group">
+    <div
+      v-for="(parent,index) in left_pannel_parent_categories"
+      :key="index"
+      class="list-group mb-5"
+    >
       <p>{{parent.name}}</p>
       <hr class="hrMod" />
       <a
@@ -69,6 +73,16 @@ export default {
         },
         {
           id: 2,
+          name: "Stone:",
+          categories: [
+            {
+              id: 1,
+              name: "Stone"
+            }
+          ]
+        },
+        {
+          id: 3,
           name: "Line of equipement :",
           categories: [
             {
