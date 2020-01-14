@@ -5,7 +5,7 @@
         <div class="row">
           <div class="col-md-12">
             <h1
-              class="w-50"
+              class="w-50 hero-text-shadow"
             >The K 535i is an excellent addition to Husqvarna Construction's power cutter range</h1>
           </div>
         </div>
@@ -19,6 +19,7 @@
 
           <CategorySidebar />
           <div class="col-md-9">
+            <h1 class="text-center product-header">BY MACHINE</h1>
             <!--==small multiple prouct product==-->
 
             <MultiCard />
@@ -48,4 +49,13 @@ export default {
 </script>
 
 <style>
+.product-header {
+  font-weight: 700;
+  font-size: 55px;
+  padding: 20px 0px;
+}
+.hero-text-shadow {
+  text-shadow: 4px 3px 2px #262222;
+  font-weight: 700;
+}
 </style>

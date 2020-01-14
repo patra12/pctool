@@ -29,7 +29,13 @@
 
               <div v-model="metaDescription" v-quill:meta class="quill-editor"></div>
 
-              <input type="file" ref="categoryimage" @change="onFileChange" name="categoryimage" />
+              <input
+                class="pt-5"
+                type="file"
+                ref="categoryimage"
+                @change="onFileChange"
+                name="categoryimage"
+              />
 
               <img class="py-5 ctategory-image-selection" :src="show_image" />
 

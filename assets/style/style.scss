@@ -9,11 +9,16 @@
  *=============================================================
  */
 
+ @import url('https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap');
 
 /*==============================form layout/header file==============================*/
+*{
+  font-family: 'Poppins', sans-serif;
+}
 .headerblock{
     body {
         margin: 0;
+        font-family: 'Poppins', sans-serif;
       }
       
       .topnav {
@@ -291,7 +296,7 @@
 .product-grid {
     font-family: Raleway, sans-serif;
     text-align: center;
-    padding: 0 0 88px;
+    padding: 0 0 97px;
     border: 1px solid rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
@@ -444,7 +449,7 @@
   }
   .product-grid .product-title a {
     color: #333333;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
   }
   .product-grid .product-title a:hover,
@@ -472,10 +477,11 @@
   .product-grid .add-to-cart {
     background: #d23940;
     color: #ffffff;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: lighter;
     width: 100%;
     padding: 10px;
+    font-weight: 400;
   }
   @media only screen and (max-width: 990px) {
     .product-grid {
@@ -550,7 +556,7 @@
   }
   
   .list-group p {
-    font-weight: 800;
+    font-weight: 600;
     color: #333;
     padding: 10px 1.25rem;
     margin-bottom: 0;
@@ -600,7 +606,7 @@
     margin: 20px 0;
   }
   .btmProductHeading h3 {
-    font-size: 40px;
+    font-size: 58px;
     font-weight: 600;
     text-align: center;
   }

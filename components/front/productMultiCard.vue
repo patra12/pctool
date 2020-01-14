@@ -83,7 +83,7 @@ export default {
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "CORE-DRILL-SAW.jpg",
-          aminate_img2: "demoProduct.jpg",
+          aminate_img2: "CORE-DRILL-SAW.jpg",
           button_label: "CHECK OUR BLADES"
         },
         {
@@ -92,7 +92,7 @@ export default {
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "HYDRAULIC-SAW.jpg",
-          aminate_img2: "demoProduct.jpg",
+          aminate_img2: "HYDRAULIC-SAW.jpg",
           button_label: "CHECK OUR BLADES"
         },
         {
@@ -101,7 +101,7 @@ export default {
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "CHAIN-SAW.jpg",
-          aminate_img2: "demoProduct.jpg",
+          aminate_img2: "CHAIN-SAW.jpg",
           button_label: "CHECK OUR BLADES"
         },
         {
@@ -110,7 +110,7 @@ export default {
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "WALK-BEHIND-SAW.jpg",
-          aminate_img2: "demoProduct.jpg",
+          aminate_img2: "WALK-BEHIND-SAW.jpg",
           button_label: "CHECK OUR BLADES"
         }
       ]

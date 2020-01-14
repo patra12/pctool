@@ -1,5 +1,5 @@
 <template>
-  <div class="col-md-3 pb-5">
+  <div class="col-md-3 pb-5 margin-top-sidebar">
     <div
       v-for="(parent,index) in left_pannel_parent_categories"
       :key="index"
@@ -77,7 +77,11 @@ export default {
           categories: [
             {
               id: 1,
-              name: "Stone"
+              name: "Stone1"
+            },
+            {
+              id: 2,
+              name: "Stone2"
             }
           ]
         },
@@ -101,3 +105,8 @@ export default {
   methods() {}
 };
 </script>
+<style scoped>
+.margin-top-sidebar {
+  margin-top: 110px;
+}
+</style>

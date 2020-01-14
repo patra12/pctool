@@ -111,10 +111,12 @@ module.exports = {
 
                     //all Images
                     product_images = req.files.productImage;
-                    path = `upload/products/${images}`;
-                    for (image in product_images) {
+                    // path = `upload/products/${images}`;
+                    // console.log(product_images);
+                    for (image in product_images.length) {
+                        console.log(product_images[image].name);
                         //spleating image for adding timestamp 
-                        imageParsed = fpath.parse(images[image].name);
+                        imageParsed = fpath.parse(image[image].name);
 
                         //making time stamp image
                         modifiedImageName = imageParsed.name + time_stamp + imageParsed.ext;

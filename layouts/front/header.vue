@@ -86,6 +86,10 @@
         <a href="javascript:void(0);" class="icon" @click="myFunction()">
           <img src="~/assets/image/icons/sortBar.png" alt="Menu Icon" />
         </a>
+        <a class="wishlist-btn">
+          <v-icon>mdi-heart</v-icon>
+          <span>Wishlist(4)</span>
+        </a>
       </div>
     </div>
   </div>
@@ -111,3 +115,13 @@ export default {
   }
 };
 </script>
+<style scoped>
+.wishlist-btn {
+  float: right !important;
+  padding: 15px 25px !important;
+  background-color: #d23940;
+}
+.wishlist-btn i {
+  color: #fff;
+}
+</style>
