@@ -94,10 +94,11 @@ module.exports = {
             plating, colorcode, collectionname, displayorder, featureproduct,
             status])
             .then(async row => {
+                // console.log(req.files);
                 //if image is not send form frontend then images will not upload
                 if (req.files != null) {
                     pid = row.insertId;
-
+                    // console.log();
                     //inner query
                     innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
                     innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
@@ -111,12 +112,11 @@ module.exports = {
 
                     //all Images
                     product_images = req.files.productImage;
-                    // path = `upload/products/${images}`;
-                    // console.log(product_images);
-                    for (image in product_images.length) {
-                        console.log(product_images[image].name);
+
+                    for (image in product_images) {
+
                         //spleating image for adding timestamp 
-                        imageParsed = fpath.parse(image[image].name);
+                        imageParsed = fpath.parse(product_images[image].name);
 
                         //making time stamp image
                         modifiedImageName = imageParsed.name + time_stamp + imageParsed.ext;

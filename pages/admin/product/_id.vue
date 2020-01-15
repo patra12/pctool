@@ -15,7 +15,7 @@
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field v-model="productName" label="Product Name"></v-text-field>
 
-              <v-text-field v-model="productCode" label="Product Code"></v-text-field>
+              <v-text-field v-model="productCode" label="SKU"></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Product Description</p>
 
@@ -30,25 +30,25 @@
 
               <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
 
-              <v-text-field v-model="ptype" label="ptype"></v-text-field>
+              <!-- <v-text-field v-model="ptype" label="ptype"></v-text-field> -->
 
               <v-text-field v-model="price" label="price" type="number"></v-text-field>
 
               <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
 
-              <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field>
+              <!-- <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field> -->
 
               <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
 
-              <v-text-field v-model="returnPolicy" label="Return Policy"></v-text-field>
+              <!-- <v-text-field v-model="returnPolicy" label="Return Policy"></v-text-field> -->
 
-              <v-text-field v-model="stoneName" label="Stone Name"></v-text-field>
+              <!-- <v-text-field v-model="stoneName" label="Stone Name"></v-text-field> -->
 
-              <v-text-field v-model="plating" label="Plating"></v-text-field>
+              <!-- <v-text-field v-model="plating" label="Plating"></v-text-field> -->
 
-              <v-text-field v-model="colorCode" label="Color Code"></v-text-field>
+              <!-- <v-text-field v-model="colorCode" label="Color Code"></v-text-field> -->
 
-              <v-text-field v-model="collectionName" label="Collection Name "></v-text-field>
+              <!-- <v-text-field v-model="collectionName" label="Collection Name "></v-text-field> -->
 
               <!-- <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Feature Product</p>
@@ -59,7 +59,7 @@
 
               <!-- <v-text-field v-model="addedOn" label="Added On"></v-text-field> -->
 
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
+              <!-- <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field> -->
 
               <!-- <v-select v-model="status" :items="items" label="Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Status</p>
@@ -84,10 +84,10 @@
               </v-row>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
-              <v-radio-group v-model="imgstatus" class="mt-0" row>
+              <!-- <v-radio-group v-model="imgstatus" class="mt-0" row>
                 <v-radio label="Active" value="Y"></v-radio>
                 <v-radio label="Not Active" value="N"></v-radio>
-              </v-radio-group>
+              </v-radio-group>-->
               <v-btn @click="putData()" class="my-5 float-right" large color="primary">Save</v-btn>
             </v-form>
           </v-col>
