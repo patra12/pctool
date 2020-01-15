@@ -159,6 +159,11 @@ export default {
           this.bannerImageLoc = res.data[0].bannerimageloc;
           this.displayOrder = res.data[0].displayorder;
           this.setStatus(res.data[0].status);
+
+          alert(process.env);
+          console.log(process.env.BASE_URL);
+          console.log(process.env);
+          console.log(process);
         })
         .catch(err => {
           // handle error
