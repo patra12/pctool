@@ -15,7 +15,7 @@
           <b>Product Name</b>
         </v-col>
         <v-col class="border">
-          <b>Price</b>
+          <b>Product Description</b>
         </v-col>
         <v-col class="border">
           <b>Availavility</b>

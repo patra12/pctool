@@ -1,5 +1,5 @@
 <template>
-  <v-container :msg="test" class="bv-example-row list pa-0">
+  <v-container class="bv-example-row list pa-0">
     <v-row class="bg">
       <h4 class="font-weight-light">Page List</h4>
       <nuxt-link to="/admin/pages/addPages">
@@ -57,8 +57,6 @@
 </template>
 
 <script>
-import Listing from "../../../components/pages/page_listing";
-
 export default {
   name: "Pages",
   layout: "admin/defaultAdmin",

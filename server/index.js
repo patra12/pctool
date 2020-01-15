@@ -16,7 +16,9 @@ app.use(cors())
 const fileUpload = require('express-fileupload');
 app.use(fileUpload());
 
-
+app.use(express.static('upload'))
+app.use('/product', express.static('upload/products'));
+app.use('/category', express.static('upload/categories'));
 
 // Import All Route's
 const route = require('./route')
@@ -43,7 +45,6 @@ async function start() {
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
-
   // Listen the server
   app.listen(port, host)
   consola.ready({

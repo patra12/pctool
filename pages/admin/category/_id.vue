@@ -29,11 +29,19 @@
 
               <div v-model="metaDescription" v-quill:meta class="quill-editor"></div>
 
-              <input type="file" ref="categoryimage" @change="onFileChange" name="categoryimage" />
+              <input
+                class="pt-3"
+                type="file"
+                ref="categoryimage"
+                @change="onFileChange"
+                name="categoryimage"
+              />
 
-              <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
+              <img class="py-5 ctategory-image-selection" :src="show_image" alt="no image is found" />
 
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
+              <!-- <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
+
+              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>-->
 
               <v-select v-model="status" :items="items" label="Status"></v-select>
 
@@ -57,13 +65,21 @@ export default {
     metaTitle: "",
     metaKeyword: "",
     metaDescription: "",
+
+    //for holding and sendind file to db
     categoryImage: "",
-    bannerImageLoc: "",
-    displayOrder: "",
+
+    //for showing image after selecting image
+    showCategoryImage: "",
+
+    // bannerImageLoc: "",
+    // displayOrder: "",
     status: "",
 
-    /* form static select data */
+    //for showing image comming from db and also when selecting
+    show_image: "",
 
+    // form static input type select data
     items: ["Active", "Not Active"]
   }),
 
@@ -71,12 +87,16 @@ export default {
     onFileChange() {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
+      this.show_image = URL.createObjectURL(file);
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
     },
     setStatus(status) {
       status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+    },
+    parseImage(imageName) {
+      return process.env.BASE_URL + "/category/" + imageName;
     },
     putData() {
       const form = new FormData();
@@ -90,10 +110,13 @@ export default {
       form.append("bannerimageloc", this.bannerImageLoc);
       form.append("displayorder", this.displayOrder);
       form.append("status", this.getStatus());
-      // form.append("pdf_name", this.pdf_name);
-      for (var datax of form.entries()) {
-        console.log(datax[0], "=>", datax[1]);
-      }
+
+      //to check all appended data
+
+      // for (var datax of form.entries()) {
+      //   console.log(datax[0], "=>", datax[1]);
+      // }
+
       this.$axios({
         url: "/putcategory/" + this.$route.params.id,
         method: "PUT",
@@ -124,10 +147,22 @@ export default {
           this.metaTitle = res.data[0].metatitle;
           this.metaKeyword = res.data[0].metakeywords;
           this.metaDescription = res.data[0].metadescription;
-          this.categoryImage = res.data[0].categoryimage;
+
+          //if image is found in db then image will be parsed
+          //otherwise it will assign empty
+
+          this.show_image =
+            res.data[0].categoryimage != null
+              ? this.parseImage(res.data[0].categoryimage)
+              : "";
+
           this.bannerImageLoc = res.data[0].bannerimageloc;
           this.displayOrder = res.data[0].displayorder;
           this.setStatus(res.data[0].status);
+
+          console.log(process.env.BASE_URL);
+          console.log(process.env);
+          console.log(process);
         })
         .catch(err => {
           // handle error

@@ -1,8 +1,11 @@
 var pool = require("../db/db")
-var tableName = 'category';
 var fpath = require('path');
 var fs = require('fs');
+var tableName = 'category';
 
+
+// Getting Date for Timestamp
+ImageTimestamp = new Date().valueOf();
 
 module.exports = {
 
@@ -12,6 +15,8 @@ module.exports = {
 
 		// query
 		selectQuery = "SELECT * FROM " + tableName;
+
+		//execution of the query
 		await pool.query(selectQuery)
 			.then(row => {
 				res.send(row);
@@ -26,6 +31,8 @@ module.exports = {
 	async getCategoryNames(req, res) {
 		// query
 		selectQuery = "SELECT `categoryname` FROM " + tableName;
+
+		//execution of the query
 		await pool.query(selectQuery)
 			.then(row => {
 				var categoryArray = [];
@@ -45,6 +52,8 @@ module.exports = {
 		// query
 		categoryname = req.body.categoryname;
 		selectQuery = "SELECT `categoryId` FROM " + tableName + " where `categoryname`= ?";
+
+		//execution of the query
 		await pool.query(selectQuery, [categoryname])
 			.then(row => {
 				res.json(row[0].categoryId);
@@ -59,6 +68,8 @@ module.exports = {
 	async monoCategory(req, res) {
 		// query
 		selectQuery = "SELECT * FROM " + tableName + " where `categoryId`= ?";
+
+		//execution of the query
 		await pool.query(selectQuery, [req.params.id])
 			.then(row => {
 				res.send(row);
@@ -72,6 +83,8 @@ module.exports = {
 
 	// insert Record into table
 	async addCategory(req, res) {
+
+		//Data for updation
 		parentId = '1';
 		categoryname = req.body.categoryname;
 		description = req.body.description;
@@ -80,76 +93,112 @@ module.exports = {
 		metadescription = req.body.metadescription;
 		seourl = req.body.seourl;
 		displayorder = req.body.displayorder;
-
 		bannerimageloc = req.body.bannerimageloc;
 		status = req.body.status;
-		console.log();
 
-		//image data for upload
-		image = req.files.categoryimage;
+		//checking and setting veariable to based on image is presenmt or not
+		category_images = (req.files == null) ? 0 : req.files.categoryimage;
 
-		//spleating image for adding timestamp 
-		pathx = fpath.parse(image.name);
+		//Creating insert query in category based on image is passed from fontend or not
+		inserCategoryQuery = "INSERT INTO " + tableName + "(`parentId`, `categoryname`,";
+		inserCategoryQuery += "`description`, `metatitle`, `metakeywords`, `metadescription`, ";
+		inserCategoryQuery += "`seourl`, `displayorder`,";
+		inserCategoryQuery += category_images ? " `categoryimage`, " : "";
+		inserCategoryQuery += "`bannerimageloc`, `status`)";
+		inserCategoryQuery += "VALUES( ?,?,?,?,?,?,?,?,?,?";
+		inserCategoryQuery += category_images ? ",?" : "";
+		inserCategoryQuery += ")";
 
-		//getting date for timestamp
-		d = new Date().valueOf()
 
-		//making time stamp image
-		modifiedFie = pathx.name + d + pathx.ext;
+		//if we get image then initiate file process
+		if (category_images) {
 
-		//path where image will upload
-		path = `upload/categories/${modifiedFie}`
+			//spleating image for adding timestamp 
+			splitted_path = fpath.parse(category_images.name);
 
-		//moving file to disk
-		image.mv(path)
-			.then(resolve => {
-				fs.chownSync(path, 1000, 1000);
-			})
-			.catch(err => {
-				console.log(err);
-			});
+			//making time stamp image
+			modifiedFie = splitted_path.name + ImageTimestamp + splitted_path.ext;
 
-		//query
-		inserQuery = "INSERT INTO " + tableName + "(`parentId`, `categoryname`,";
-		inserQuery += "`description`, `metatitle`, `metakeywords`, `metadescription`, ";
-		inserQuery += "`seourl`, `displayorder`,`categoryimage`, `bannerimageloc`, `status`)";
-		inserQuery += "VALUES( ?,?,?,?,?,?,?,?,?,?,?)";
-		await pool.query(inserQuery, [parentId, categoryname, description, metatitle,
-			metakeywords, metadescription, seourl, displayorder, modifiedFie, bannerimageloc, status])
-			.then(row => {
-				res.send("Date is inserted");
-			})
-			.catch(err => {
-				console.log("addCategory Query Error", err);
-				res.end();
-			});
+			//path where image will upload
+			path = `upload/categories/${modifiedFie}`
 
+			/**
+			 * @param path Takes a file path to move the file to that folder
+			 */
+			category_images.mv(path)
+				.then(resolve => {
+					fs.chownSync(path, 1000, 1000);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+
+			//execution of the query
+			await pool.query(inserCategoryQuery, [parentId, categoryname, description, metatitle,
+				metakeywords, metadescription, seourl, displayorder, modifiedFie, bannerimageloc, status])
+				.then(row => {
+					res.send("Date is inserted");
+				})
+				.catch(err => {
+					console.log("addCategory Query Error", err);
+					res.end();
+				});
+		}
+		//when we do not get image
+		else {
+			//execution of the query
+			await pool.query(inserCategoryQuery, [parentId, categoryname, description, metatitle,
+				metakeywords, metadescription, seourl, displayorder, bannerimageloc, status])
+				.then(row => {
+					res.send("Date is inserted");
+				})
+				.catch(err => {
+					console.log("addCategory Query Error", err);
+					res.end();
+				});
+		}
 	},
 
-
-
-
-	// delete Record from table
+	/**
+	 * delete Record from table bsed on image is persent or not
+	 * @param {string,json,any} req accept values sendend from user
+	 * or frontend.
+	 * @param {json,string,any} res send the response after proccess is compleate
+	 */
 	async delCategory(req, res) {
+		/**
+		 * Getting the image name from db.
+		 * if got the image then delete the image first
+		 * the delete the data from db.
+		 * if not get any image then only db record is deleted;
+		 */
 
-		//selectquery
-		queryx = `SELECT categoryimage FROM  category WHERE categoryId = ${req.params.id}`;
-		console.log(queryx);
-		await pool.query(queryx)
+		//selecting the image name from db
+		deleteCategory = `SELECT categoryimage FROM  category WHERE categoryId = ${req.params.id}`;
+
+		//execution of the query
+		category_image_in_db = await pool.query(deleteCategory)
 			.then(row => {
-				console.log(row[0].categoryimage);
-				path = `upload/categories/${row[0].categoryimage}`
-				fs.unlink(path, (err) => {
-					if (err) throw err;
-					console.log(path + ' was deleted');
-				});
+				return row[0].categoryimage;
 			})
 			.catch(err => {
 				console.log(err)
 			});
 
-		//deletequery
+		// if getting the image from db means image is also present in disk 
+		// then deleting the image			
+		if (category_image_in_db) {
+			path = `upload/categories/${category_image_in_db}`
+			fs.unlink(path, (err) => {
+				if (err) throw err;
+				console.log(path + ' was deleted');
+			});
+		}
+
+		// Delete db record if image is present or not
 		deleteQuery = "DELETE FROM " + tableName + " WHERE `categoryId` = " + req.params.id;
+
+		//execution of the query
 		await pool.query(deleteQuery)
 			.then(row => {
 				res.send(`data deleted`);
@@ -160,9 +209,18 @@ module.exports = {
 			})
 	},
 
-	// update a Record in table
+	/**
+	 * update record depending upon image is present or not
+	 * @param {*} req accept values sendend from user
+	 * or frontend.
+	 * @param {*} res send the response after proccess is compleate
+	 */
 	async putCategory(req, res) {
+
+		//if image is not get then update without deleting and moving image
 		if (req.files == null) {
+
+			//Getting values for update category
 			parentId = "1";
 			categoryname = req.body.categoryname;
 			description = req.body.description;
@@ -174,7 +232,8 @@ module.exports = {
 			bannerimageloc = req.body.bannerimageloc;
 			status = req.body.status;
 			id = req.params.id
-			// query
+
+			// update query in category without image
 			updateQuery = "UPDATE " + tableName + " SET";
 			updateQuery += "`categoryname`= ?,";
 			updateQuery += "`description`= ?,";
@@ -186,6 +245,8 @@ module.exports = {
 			updateQuery += "`bannerimageloc`= ?, ";
 			updateQuery += "`status`= ? ";
 			updateQuery += "WHERE `categoryId` = ?";
+
+			//execution of the query
 			await pool.query(updateQuery, [categoryname, description, metatitle, metakeywords,
 				metadescription, seourl, displayorder, bannerimageloc, status, id])
 				.then(row => {
@@ -198,19 +259,33 @@ module.exports = {
 		}
 		else {
 
-			queryx = `SELECT categoryimage FROM  category WHERE categoryId = ${req.params.id}`;
-			console.log(queryx);
-			await pool.query(queryx)
+			/**
+			 * if getting get category image form db. 
+			 * then first removing it from disk,
+			 * and then update new image name to db.
+			 * then move the new image to disk.
+			 */
+
+			//query
+			category_image_in_db = `SELECT categoryimage FROM  category WHERE categoryId = ${req.params.id}`;
+
+			//execution of the query
+			image_got = await pool.query(category_image_in_db)
 				.then(row => {
-					path = `upload/categories/${row[0].categoryimage}`
-					fs.unlink(path, (err) => {
-						if (err) throw err;
-					});
+					return row[0].categoryimage;
 				})
 				.catch(err => {
 					console.log(err)
 				});
+			if (image_got) {
+				//Deleting image from disk after selecting the image
+				path = `upload/categories/${image_got}`
+				fs.unlink(path, (err) => {
+					if (err) throw err;
+				});
+			}
 
+			//Getting values for update category data along with image
 			parentId = "1";
 			categoryname = req.body.categoryname;
 			description = req.body.description;
@@ -228,13 +303,10 @@ module.exports = {
 			image = req.files.categoryimage;
 
 			//spleating image for adding timestamp 
-			pathx = fpath.parse(image.name);
+			splitted_path = fpath.parse(image.name);
 
-			//getting date for timestamp
-			d = new Date().valueOf()
-
-			//making time stamp image
-			modifiedFie = pathx.name + d + pathx.ext;
+			//making image name with time stamp
+			modifiedFie = splitted_path.name + ImageTimestamp + splitted_path.ext;
 
 			//path where image will upload
 			path = `upload/categories/${modifiedFie}`
@@ -248,7 +320,7 @@ module.exports = {
 					console.log(err);
 				});
 
-			// query
+			// update query with image name replacement
 			updateQuery = "UPDATE " + tableName + " SET";
 			updateQuery += "`categoryname`= ?,";
 			updateQuery += "`description`= ?,";
@@ -261,6 +333,8 @@ module.exports = {
 			updateQuery += "`bannerimageloc`= ?, ";
 			updateQuery += "`status`= ? ";
 			updateQuery += "WHERE `categoryId` = ?";
+
+			//execution of the query
 			await pool.query(updateQuery, [categoryname, description, metatitle, metakeywords,
 				metadescription, seourl, displayorder, modifiedFie, bannerimageloc, status, id])
 				.then(row => {

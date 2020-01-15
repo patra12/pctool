@@ -17,7 +17,10 @@ module.exports = {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/fav-icon.ico' }],
+    link: [
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap' }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -29,21 +32,22 @@ module.exports = {
   css: [
     'quill/dist/quill.snow.css',
     'quill/dist/quill.bubble.css',
-    'quill/dist/quill.core.css'
+    'quill/dist/quill.core.css',
+    'bootstrap/dist/css/bootstrap.css',
   ],
   /*
    ** Plugins to load before mounting the App
    */
   plugins: [
-      /** For Quill editor*/
-      { src: '~/plugins/editor', ssr: false },
+    /** For Quill editor*/
+    { src: '~/plugins/editor', ssr: false },
   ],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    '@nuxtjs/eslint-module',
+    // '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify'
   ],
   /*
@@ -59,7 +63,9 @@ module.exports = {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    baseURL: process.env.BASE_URL
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -70,7 +76,7 @@ module.exports = {
       light: true,
       themes: {
         light: {
-          primary: colors.blue.darken3
+          primary: colors.blue.darken2,
         }
       }
     }
@@ -82,6 +88,6 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 }

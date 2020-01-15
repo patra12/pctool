@@ -26,7 +26,7 @@
               <v-text-field v-model="results" :rules="resultsRules" label="Results" required></v-text-field>
               <v-text-field v-model="homeMetaTitle" label="Home Meta Title" required></v-text-field>
               <v-text-field v-model="homeMetaKeyword" label="Home Meta Keyword" required></v-text-field>
-              <v-text-field v-model="ganalytyc" label="ganalytyc" required></v-text-field>
+              <v-text-field v-model="ganalytyc" label="Google Analytics" required></v-text-field>
               <v-text-field v-model="fbUrl" :rules="fbUrlRules" label="Facebook URL" required></v-text-field>
               <v-text-field
                 v-model="instagramUrl"

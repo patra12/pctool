@@ -15,7 +15,7 @@
             <v-form ref="form" v-model="valid" lazy-validation>
               <v-text-field v-model="productName" label="Product Name"></v-text-field>
 
-              <v-text-field v-model="productCode" label="Product Code"></v-text-field>
+              <v-text-field v-model="productCode" label="SKU"></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Product Description</p>
 
@@ -30,25 +30,25 @@
 
               <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
 
-              <v-text-field v-model="ptype" label="ptype"></v-text-field>
+              <!-- <v-text-field v-model="ptype" label="ptype"></v-text-field> -->
 
               <v-text-field v-model="price" label="price" type="number"></v-text-field>
 
               <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
 
-              <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field>
+              <!-- <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field> -->
 
               <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
 
-              <v-text-field v-model="returnPolicy" label="Return Policy"></v-text-field>
+              <!-- <v-text-field v-model="returnPolicy" label="Return Policy"></v-text-field> -->
 
-              <v-text-field v-model="stoneName" label="Stone Name"></v-text-field>
+              <!-- <v-text-field v-model="stoneName" label="Stone Name"></v-text-field> -->
 
-              <v-text-field v-model="plating" label="Plating"></v-text-field>
+              <!-- <v-text-field v-model="plating" label="Plating"></v-text-field> -->
 
-              <v-text-field v-model="colorCode" label="Color Code"></v-text-field>
+              <!-- <v-text-field v-model="colorCode" label="Color Code"></v-text-field> -->
 
-              <v-text-field v-model="collectionName" label="Collection Name "></v-text-field>
+              <!-- <v-text-field v-model="collectionName" label="Collection Name "></v-text-field> -->
 
               <!-- <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Feature Product</p>
@@ -59,7 +59,7 @@
 
               <!-- <v-text-field v-model="addedOn" label="Added On"></v-text-field> -->
 
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>
+              <!-- <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field> -->
 
               <!-- <v-select v-model="status" :items="items" label="Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Status</p>
@@ -76,15 +76,18 @@
                 ref="productimg"
                 @change="onFileChange()"
               />
-              <div v-for="(img,index) in all_image_db_" :key="index">
-                <img :src="img.imageloc" />
-              </div>
+              <v-row>
+                <v-col v-for="(img,index) in all_image_db" :key="index">
+                  <img class="showing-images" :src="parseImage(all_image_db[index].imageloc)" />
+                  <!-- 'http://localhost:3000/product/'+img.imageloc -->
+                </v-col>
+              </v-row>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
-              <v-radio-group v-model="imgstatus" class="mt-0" row>
+              <!-- <v-radio-group v-model="imgstatus" class="mt-0" row>
                 <v-radio label="Active" value="Y"></v-radio>
                 <v-radio label="Not Active" value="N"></v-radio>
-              </v-radio-group>
+              </v-radio-group>-->
               <v-btn @click="putData()" class="my-5 float-right" large color="primary">Save</v-btn>
             </v-form>
           </v-col>
@@ -119,19 +122,55 @@ export default {
     addedOn: "",
     status: "",
 
-    productImage: "",
+    // productImage: "",
     isPrimary: "",
     imgstatus: "",
+    //for select box
     category: [],
     categoryName: "",
     categoryId: "",
-    all_image_db: ""
+
+    //for showing images
+    all_image_db: "",
+    test: []
   }),
 
   methods: {
     onFileChange() {
-      const file = this.$refs.productimg.files[0];
-      this.productImage = file;
+      const img_files = this.$refs.productimg.files;
+
+      // console.log(img_files);
+      // this.productImage = file;
+      for (const i in img_files) {
+        let x = this.image_files[i];
+
+        var picReader = new FileReader();
+
+        picReader.addEventListener("load", function(event) {
+          var picFile = event.target;
+
+          var div = document.createElement("div");
+
+          div.innerHTML =
+            "<img class='thumbnail' src='" +
+            picFile.result +
+            "'" +
+            "title='" +
+            picFile.name +
+            "'/>";
+
+          output.insertBefore(div, null);
+        });
+        //Read the image
+        picReader.readAsDataURL(x);
+      }
+      // console.log(createObjectURL(this.$refs.productimg.files));
+      // this.test = img_files;
+      // this.all_image_db = URL.createObjectURL(img_files);
+      // console.log(URL.createObjectURL(img_files));
+    },
+    parseImage(imageName) {
+      return process.env.BASE_URL + "/product/" + imageName;
     },
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -159,10 +198,20 @@ export default {
       form.append("displayorder", this.displayOrder);
       form.append("featureproduct", this.featureProduct);
       form.append("status", this.status);
+      form.append("imgstatus", this.imgstatus);
 
-      for (var datax of form.entries()) {
-        console.log(datax[0], "=>", datax[1]);
+      // This is for apppending all files or images for multiple selection
+      for (var i = 0; i < this.$refs.productimg.files.length; i++) {
+        let file = this.$refs.productimg.files[i];
+        console.log(file);
+        form.append("productImage", file);
       }
+
+      /**this is for showing all form app */
+
+      // for (var datax of form.entries()) {
+      //   console.log(datax[0], "=>", datax[1]);
+      // }
       this.$axios({
         url: "/putproduct/" + this.$route.params.id,
         method: "PUT",
@@ -178,7 +227,7 @@ export default {
         })
         .catch(error => {
           // handle error
-          console.log(error);
+          console.log("error", error);
         });
     },
     getData() {
@@ -211,10 +260,11 @@ export default {
           this.get_images_accordin_productid();
         })
         .catch(err => {
-          // handle error
+          // handle errorr
           console.log(err);
         });
     },
+    //get all category names
     getCategoryNames() {
       this.$axios({
         method: "GET",
@@ -227,6 +277,8 @@ export default {
           console.log(err);
         });
     },
+
+    //get seingle record of a category
     getCategoryName(catId) {
       this.$axios({
         method: "GET",
@@ -240,6 +292,7 @@ export default {
           console.log(err);
         });
     },
+    //get category id against the name
     getCategoryId() {
       this.$axios({
         method: "POST",
@@ -263,7 +316,6 @@ export default {
       })
         .then(res => {
           this.imgstatus = res.data[0].status;
-          console.log(this.allimage);
         })
         .catch(err => {
           console.log(err);
@@ -276,14 +328,7 @@ export default {
       })
         .then(res => {
           this.all_image_db = res.data;
-          console.log(this.all_image_db);
-          this.$axios({
-            method: "POST",
-            url: "/readimages",
-            data: res.data
-          }).then(row => {
-            console.log(row);
-          });
+          console.log(res.data);
         })
         .catch(err => {
           console.log(err);

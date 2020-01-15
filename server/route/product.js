@@ -23,7 +23,7 @@ app.delete('/delproduct/:id', product.delProduct);
 
 app.get('/getimagestatus/:id', product.getImageStatus);
 app.get('/getimages/:id', product.getImages);
-app.post('/readimages', product.read_images);
+
 
 
 module.exports = app;

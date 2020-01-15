@@ -1,20 +1,25 @@
-const pool = require('../db')
+const pool = require('../db/db')
 
 module.exports = {
 
   // View settings
   getSetings: (req, res) => {
     selectQuery = "SELECT * FROM `settings`";
-    pool.query(selectQuery, (err, row) => {
-      if (!err) {
+    pool.query(selectQuery)
+      .then(row => {
+        //send data to frontend
         res.send(row);
-      }
-    });
+      })
+      .catch(err => {
+        //log query error message to server and stop execution
+        console.log(' Query Error', err);
+        res.end();
+      });
   },
 
   // Update settings
   updateSettings: (req, res) => {
-
+    //data to be updated
     const siteName = req.body.site_name
     const siteUrl = req.body.site_name
     const adminEmail = req.body.admin_email
@@ -27,6 +32,7 @@ module.exports = {
     const fbUrl = req.body.fburl
     const instagramUrl = req.body.instagramurl
 
+    //update query
     let updateQuery = 'UPDATE `settings` SET ';
     updateQuery += "`site_name`=?,";
     updateQuery += "`site_url`=?,";
@@ -40,14 +46,16 @@ module.exports = {
     updateQuery += "`fburl`=?,";
     updateQuery += "`instagramurl`=?";
 
-    pool.query(updateQuery, [siteName, siteUrl, adminEmail, paypalEmail, results, homeMetaTitle, homeMetaKeyword, homeMetaDescription, ganalytyc, fbUrl, instagramUrl], (err, result) => {
-
-      if (!err) {
+    pool.query(updateQuery, [siteName, siteUrl, adminEmail, paypalEmail, results, homeMetaTitle, homeMetaKeyword, homeMetaDescription, ganalytyc, fbUrl, instagramUrl])
+      .then(row => {
+        //send data to frontend
         res.send('data updated')
-      } else {
+      })
+      .catch(err => {
+        //log query error message to server and stop execution
         console.log("Query Error updateSettings", err);
-      }
-    })
+        res.end();
+      });
   }
 }
 
