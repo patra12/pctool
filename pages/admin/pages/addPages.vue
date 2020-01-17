@@ -88,27 +88,9 @@ export default {
         displayOrder: this.displayOrder,
         status: this.setStatus()
       };
-      this.$axios({
-        url: "/addpage",
-        method: "POST",
-        headers: {
-          header: { "Content-Type": "application/x-www-form-urlencoded" }
-        },
-        data: form
-      })
-        .then(res => {
-          // console.log(res.data);
-          // this.$router.push("/admin/pages");
-          this.$router.push({
-            name: "admin-pages",
-            params: { msg: res.data },
-            props: true
-          });
-        })
-        .catch(error => {
-          // handle error
-          console.log(error);
-        });
+      if (this.$store.dispatch("admin/page/addpage", form)) {
+        this.$router.push("/admin/pages");
+      }
     }
   }
 };
