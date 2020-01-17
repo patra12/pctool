@@ -21,13 +21,13 @@ export default {
   computed: {
     ...mapState({
       pageData: state => state.again.pagex,
-      count: state => state.again.counter
+      count: state => state.modules.mod.counter
     })
   },
   methods: {
     ...mapMutations({
-      add: "again/increment",
-      sub: "again/decrement"
+      add: "modules/mod/add",
+      sub: "modules/mod/sub"
     }),
     async deldata(idx) {
       await this.$store.dispatch("again/delete", { id: idx });
@@ -35,6 +35,10 @@ export default {
   },
   async fetch({ store }) {
     await store.dispatch("again/getpageData");
+  },
+  mounted() {
+    console.log("hit");
+    console.log(this.$store);
   }
 };
 </script>
