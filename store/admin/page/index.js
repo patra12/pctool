@@ -13,9 +13,18 @@ export const mutations = {
     addpage(state, page) {
         state.pages.push(page);
     }
-
 }
 
+export const getters = {
+    findPage: (state) => (id) => {
+        return state.pages.find(pos => pos.pageId == id)
+    }
+
+    //     console.log(fpage);
+    //     console.log(id);
+
+
+}
 
 // await this.$axios.get("/getpage")
 //     .then(row => {
@@ -39,4 +48,7 @@ export const actions = {
         commit("addpage", x);
         return true;
     },
+    async editpage({ commit }, id, data) {
+        await this.$axios.put("/putpage/" + id)
+    }
 }
