@@ -46,6 +46,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "AddPages",
   layout: "admin/defaultAdmin",
@@ -69,6 +70,22 @@ export default {
 
     showTitleItems: ["Yes", "No"]
   }),
+
+  /**
+   * we can fetch getters diffrent ways
+   * i found this tow type is crutial for everything
+   * ----------------------------------------
+   * calling getter from diffrent module without mapgetter
+   * -----------------------------------------------------
+   * let data = this.$store.getters["admin/page/findPage"](id);
+   *
+   * calling getter from diffrent module mapgetter
+   * -----------------------------------------------
+   * let data_mod = this.findPagex(id);
+   */
+  computed: {
+    ...mapGetters({ findPagex: "admin/page/findPage" })
+  },
   methods: {
     getStatus() {
       return this.status === "Active" ? "Y" : "N";
@@ -80,7 +97,8 @@ export default {
       return this.showTitle === "Yes" ? "Y" : "N";
     },
     setShowTitle(status) {
-      status === "Y" ? (this.showTitle = "Yes") : (this.showTitle = "No");
+      var changed_status = status === "Y" ? "Yes" : "No";
+      this.showTitle = changed_status;
     },
     putData() {
       const form = {
@@ -105,38 +123,35 @@ export default {
       })
         .then(res => {
           this.$router.push("/admin/pages");
-          console.log(res.data);
+          // console.log(res.data);
         })
         .catch(error => {
           // handle error
           console.log(error);
         });
     },
-    monoFetch() {
-      this.$axios({
-        method: "GET",
-        url: "/monopage/" + this.$route.params.id
-      })
-        .then(res => {
-          (this.id = res.data[0].pageId),
-            (this.title = res.data[0].title),
-            (this.menuTitle = res.data[0].menutitle),
-            this.setShowTitle(res.data[0].showtitle),
-            (this.seoUrl = res.data[0].seourl),
-            (this.pageDescription = res.data[0].description),
-            (this.metaTitle = res.data[0].metatitle),
-            (this.metaKeyword = res.data[0].metakeyword),
-            (this.metaDescription = res.data[0].metadescription),
-            (this.displayOrder = res.data[0].displayorder),
-            this.setStatus(res.data[0].status);
-          console.log(res.data);
-        })
-        .catch(err => {});
+    singlePage() {
+      let id = this.$route.params.id;
+      let pageData = this.findPagex(id);
+
+      (this.id = pageData.pageId),
+        (this.title = pageData.title),
+        (this.menuTitle = pageData.menutitle),
+        this.setShowTitle(pageData.showtitle),
+        (this.seoUrl = pageData.seourl),
+        (this.pageDescription = pageData.description),
+        (this.metaTitle = pageData.metatitle),
+        (this.metaKeyword = pageData.metakeyword),
+        (this.metaDescription = pageData.metadescription),
+        (this.displayOrder = pageData.displayorder),
+        this.setStatus(pageData.status);
     }
   },
+  async fetch({ store }) {
+    await store.dispatch("admin/page/getPageData");
+  },
   mounted() {
-    this.monoFetch();
-    console.log("/monouser/" + this.$route.params.id);
+    this.singlePage();
   }
 };
 </script>
