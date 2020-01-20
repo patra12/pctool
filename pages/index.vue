@@ -48,14 +48,3 @@ export default {
 };
 </script>
 
-<style>
-.product-header {
-  font-weight: 700;
-  font-size: 55px;
-  padding: 20px 0px;
-}
-.hero-text-shadow {
-  text-shadow: 4px 3px 2px #262222;
-  font-weight: 700;
-}
-</style>
