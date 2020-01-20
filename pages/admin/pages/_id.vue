@@ -91,7 +91,8 @@ export default {
       return this.status === "Active" ? "Y" : "N";
     },
     setStatus(status) {
-      status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
+      var change_status = status === "Y" ? "Active" : "Not Active";
+      this.status = change_status;
     },
     getShowTitle() {
       return this.showTitle === "Yes" ? "Y" : "N";
@@ -113,23 +114,43 @@ export default {
         displayOrder: this.displayOrder,
         status: this.getStatus()
       };
-      this.$axios({
-        url: "/putpage/" + this.id,
-        method: "PUT",
-        headers: {
-          header: { "Content-Type": "application/x-www-form-urlencoded" }
-        },
-        data: form
-      })
-        .then(res => {
-          this.$router.push("/admin/pages");
-          // console.log(res.data);
-        })
-        .catch(error => {
-          // handle error
-          console.log(error);
-        });
+
+      this.$store.dispatch("admin/page/editpage", {
+        id: this.$route.params.id,
+        data: {
+          title: this.title,
+          menuTitle: this.menuTitle,
+          showTitle: this.getShowTitle(),
+          seoUrl: this.seoUrl,
+          pageDescription: this.pageDescription,
+          metaTitle: this.metaTitle,
+          metaKeyword: this.metaKeyword,
+          metaDescription: this.metaDescription,
+          displayOrder: this.displayOrder,
+          status: this.getStatus()
+        }
+      });
+
+      this.$router.push("/admin/pages");
+      // this.$axios({
+      //   url: "/putpage/" + this.id,
+      //   method: "PUT",
+      //   headers: {
+      //     header: { "Content-Type": "application/x-www-form-urlencoded" }
+      //   },
+      //   data: form
+      // })
+      //   .then(res => {
+      //     this.$router.push("/admin/pages");
+      //     // console.log(res.data);
+      //   })
+      //   .catch(error => {
+      //     // handle error
+      //     console.log(error);
+      //   });
     },
+
+    //get single page data from state
     singlePage() {
       let id = this.$route.params.id;
       let pageData = this.findPagex(id);
@@ -147,6 +168,8 @@ export default {
         this.setStatus(pageData.status);
     }
   },
+
+  //for loading data during page reloding
   async fetch({ store }) {
     await store.dispatch("admin/page/getPageData");
   },

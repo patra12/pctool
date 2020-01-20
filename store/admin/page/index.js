@@ -1,8 +1,10 @@
+import Vue from 'vue';
 export const state = () => ({
     pages: [],
 });
 
 export const mutations = {
+    //setting all data for listing at first time
     setPageData(state, pageData) {
         state.pages = pageData
     },
@@ -12,6 +14,10 @@ export const mutations = {
     },
     addpage(state, page) {
         state.pages.push(page);
+    },
+    editpage(state, page) {
+        const index_of_object_array = state.pages.findIndex(index => index.pageId == page.pageId);
+        Vue.set(state.pages, index_of_object_array, page)
     }
 }
 
@@ -19,11 +25,6 @@ export const getters = {
     findPage: (state) => (id) => {
         return state.pages.find(pos => pos.pageId == id)
     }
-
-    //     console.log(fpage);
-    //     console.log(id);
-
-
 }
 
 // await this.$axios.get("/getpage")
@@ -48,7 +49,8 @@ export const actions = {
         commit("addpage", x);
         return true;
     },
-    async editpage({ commit }, id, data) {
-        await this.$axios.put("/putpage/" + id)
+    async editpage({ commit }, id) {
+        const y = (await this.$axios.put("/putpage/" + id.id, id.data)).data;
+        commit('editpage', y);
     }
 }
