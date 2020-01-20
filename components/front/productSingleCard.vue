@@ -24,7 +24,7 @@
 </template>
 <script>
 export default {
-  name: "product single card",
+  name: "productSingleCard",
   data() {
     return {
       products: [
