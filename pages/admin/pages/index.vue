@@ -34,7 +34,7 @@
             <v-icon title="Edit" color="purple darken-1">mdi-pencil</v-icon>
           </nuxt-link>
           <nuxt-link to="#">
-            <v-icon @click="setId(page.pageId)" color="red darken-2" title="Delete">mdi-close</v-icon>
+            <v-icon @click="setDleteId(page.pageId)" color="red darken-2" title="Delete">mdi-close</v-icon>
           </nuxt-link>
         </v-col>
       </div>
@@ -57,56 +57,43 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "Pages",
   layout: "admin/defaultAdmin",
   data() {
     return {
       id: "",
-      pages: "",
       dialog: false,
       snack: false,
       timeout: 1000
     };
   },
+  computed: {
+    ...mapState({
+      pages: state => state.admin.page.pages
+    })
+  },
   methods: {
     setStatus(status) {
       return status === "Y" ? "Active" : "Not Active";
     },
-    setId(id) {
+    setDleteId(id) {
       this.dialog = true;
       this.id = id;
     },
-    getData() {
-      this.$axios({
-        method: "GET",
-        url: "/getpage"
-      })
-        .then(res => {
-          this.pages = res.data;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    delData() {
+    async delData() {
+      const a = await this.$store.dispatch("admin/page/delpage", this.id);
+      console.log(a);
       this.dialog = false;
-      this.$axios({
-        method: "DELETE",
-        url: "/delpage/" + this.id
-      })
-        .then(res => {
-          this.pages = res.data;
-          this.$router.go("/admin/page");
-        })
-        .catch(err => {
-          console.log(err);
-        });
     }
+  },
+  async fetch({ store }) {
+    await store.dispatch("admin/page/getPageData");
   },
 
   mounted() {
-    this.getData();
+    // console.log(this.$store.state.admin.page.pages);
   }
 };
 </script>
