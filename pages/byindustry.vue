@@ -1,16 +1,12 @@
 <template>
   <div class="content">
     <div class="container">
-      <div class="row text-center">
-        <h1>By Industry</h1>
-      </div>
-    </div>
-    <div class="container">
       <div class="row">
         <!--==category sideber==-->
 
         <CategorySidebar />
         <div class="col-md-9">
+          <h1 class="text-center product-header">By Industry</h1>
           <!--==small multiple prouct product==-->
 
           <MultiCard />
