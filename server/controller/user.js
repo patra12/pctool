@@ -15,7 +15,7 @@ module.exports = {
 
 	async monoUser(req, res) {
 		selectQuery = "SELECT * FROM `user` where `userId`= ?";
-		con.query(selectQuery, [req.params.id])
+		pool.query(selectQuery, [req.params.id])
 			.then(row => {
 				res.send(row);
 			})
@@ -42,7 +42,7 @@ module.exports = {
 		inserQuery += " ?,";
 		inserQuery += " ?,";
 		inserQuery += " ?)";
-		con.query(inserQuery, [first_name, last_name, password, email, phone, status])
+		pool.query(inserQuery, [first_name, last_name, password, email, phone, status])
 			.then(row => {
 				res.send("Date is inserted");
 			})
@@ -54,8 +54,7 @@ module.exports = {
 	async delUser(req, res) {
 
 		deleteQuery = "DELETE FROM `user` WHERE userId = " + req.params.id;
-		console.log(deleteQuery);
-		con.query(deleteQuery)
+		pool.query(deleteQuery)
 			.then(row => {
 				res.send("Data deleted");
 			})
@@ -82,7 +81,7 @@ module.exports = {
 		updateQuery += "`phone`= ?,";
 		updateQuery += "`status`= ? ";
 		updateQuery += "WHERE `userId` = ?";
-		con.query(updateQuery, [first_name, last_name, password, email, phone, status, id])
+		pool.query(updateQuery, [first_name, last_name, password, email, phone, status, id])
 			.then(row => {
 				res.send("Data Updated");
 			})
