@@ -1,17 +1,4 @@
 const app = require('express').Router();
-var multer = require("multer");
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'upload/products/')
-    },
-    filename: function (req, file, cb) {
-        cb(null, file.originalname)
-    }
-})
-
-var upload = multer({ storage: storage });
-// Availing All Required Methods From  Controller For Route
 const product = require('../controller/product');
 
 // All Routes for API
