@@ -17,9 +17,9 @@
 
               <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
 
-              <p class="grey--text text--darken-1 pt-3 mb-0">Category Description</p>
+              <!-- <p class="grey--text text--darken-1 pt-3 mb-0">Category Description</p>
 
-              <div v-model="categoryDescription" v-quill:page class="quill-editor"></div>
+              <div v-model="categoryDescription" v-quill:page class="quill-editor"></div> -->
 
               <v-text-field v-model="metaTitle" label="Meta title"></v-text-field>
 

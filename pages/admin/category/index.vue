@@ -14,9 +14,9 @@
         <v-col class="border">
           <b>Category Name</b>
         </v-col>
-        <v-col class="border">
+        <!-- <v-col class="border">
           <b>Category Description</b>
-        </v-col>
+        </v-col> -->
         <v-col class="border">
           <b>Status</b>
         </v-col>
@@ -27,7 +27,7 @@
       <div v-for="(category, index) in categories" :key="index" class="row w-100 ma-0">
         <v-col class="border font-weight-light">{{ index + 1 }}</v-col>
         <v-col class="border font-weight-light">{{ category.categoryname }}</v-col>
-        <v-col class="border font-weight-light">{{ category.description }}</v-col>
+        <!-- <v-col class="border font-weight-light">{{ category.description }}</v-col> -->
         <v-col class="border font-weight-light">{{ setStatus(category.status) }}</v-col>
         <v-col class="border">
           <!-- <nuxt-link to="./editProduct">-->

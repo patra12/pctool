@@ -14,9 +14,9 @@
         <v-col class="border">
           <b>Product Name</b>
         </v-col>
-        <v-col class="border">
+        <!-- <v-col class="border">
           <b>Product Description</b>
-        </v-col>
+        </v-col> -->
         <v-col class="border">
           <b>Availavility</b>
         </v-col>
@@ -27,7 +27,7 @@
       <div v-for="(product, index) in products" :key="index" class="row w-100 ma-0">
         <v-col class="border font-weight-light">{{ index + 1 }}</v-col>
         <v-col class="border font-weight-light">{{ product.product_name }}</v-col>
-        <v-col class="border font-weight-light">{{ product.product_desc }}</v-col>
+        <!-- <v-col class="border font-weight-light">{{ product.product_desc }}</v-col> -->
         <v-col class="border font-weight-light">{{ product.availability }}</v-col>
         <v-col class="border">
           <!-- <nuxt-link to="./editProduct">-->
