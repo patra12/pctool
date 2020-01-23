@@ -38,8 +38,11 @@
               <a href="#">{{product.name}}</a>
             </p>
 
-            <button class="add-to-cart">{{product.button_label}}</button>
+            <nuxt-link to="/productDetails">
+              <button class="add-to-cart">{{product.button_label}}</button>
+            </nuxt-link>
           </div>
+          <!-- <button class="add-to-cart">{{product.button_label}}</button> -->
         </div>
       </div>
     </div>

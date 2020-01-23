@@ -15,8 +15,8 @@
         </div>
         <div class="rightBlock">
           <div class="signUpBlock">
-            <a href="#">login</a>
-            <a href="#">signUp</a>
+            <nuxt-link to="/login">login</nuxt-link>
+            <nuxt-link to="/register">signUp</nuxt-link>
           </div>
         </div>
       </div>
