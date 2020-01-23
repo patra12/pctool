@@ -55,7 +55,7 @@
                       <input class="qty-input form-group" type="number" value="1"/>
                       <button class="qty-change">+</button>
                   </div>
-                  <button class="btn btn-primary btnBuy">Buy Now</button>
+                  <nuxt-link to="/cart"><button class="btn btn-primary btnBuy">Buy Now</button></nuxt-link>
                   <div class="lineBreak"></div>
 
                   <div class="productAllDetails">
@@ -126,6 +126,10 @@
       
     
   </div>
+
+
+
+  
 </main>
 
 </template>
