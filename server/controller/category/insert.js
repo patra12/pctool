@@ -1,3 +1,3 @@
-export default insert ={
-    insert.
+export default insert = {
+
 }
