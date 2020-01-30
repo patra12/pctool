@@ -63,36 +63,35 @@ module.exports = {
         product_desc = req.body.product_desc;
         seourl = req.body.seourl;
         categoryId = req.body.categoryId;
-        ptype = req.body.ptype;
+        //ptype = req.body.ptype;
         price = req.body.price;
         sellprice = req.body.sellprice;
         availability = req.body.availability;
-        sellingqnt = req.body.sellingqnt;
-        returnpolicy = req.body.returnpolicy;
-        stonename = req.body.stonename;
-        plating = req.body.plating;
-        colorcode = req.body.colorcode;
-        collectionname = req.body.collectionname;
-        displayorder = req.body.displayorder;
+        //sellingqnt = req.body.sellingqnt;
+        //returnpolicy = req.body.returnpolicy;
+        //stonename = req.body.stonename;
+        //plating = req.body.plating;
+        //colorcode = req.body.colorcode;
+        //collectionname = req.body.collectionname;
+        //displayorder = req.body.displayorder;
         featureproduct = req.body.featureproduct;
         status = req.body.status;
-        imageStatus = req.body.imgstatus;
+        //imageStatus = req.body.imgstatus;
         is_primary = req.body.imgstatus;
 
-        //outer query
+        //outer query    ///`ptype`,`sellingqnt`,`returnpolicy`, `stonename`,plating`, `colorcode`, `collectionname`, `displayorder`, 
         inserQuery = "INSERT INTO " + tableName + "(`product_name`, ";
-        inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`, `ptype`, `price`,";
-        inserQuery += "`sellprice`, `availability`, `sellingqnt`, `returnpolicy`, `stonename`,";
-        inserQuery += "`plating`, `colorcode`, `collectionname`, `displayorder`, `featureproduct`,";
+        inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`,  `price`,";
+        inserQuery += "`sellprice`, `availability`,";
+        inserQuery += "``featureproduct`,";
         inserQuery += " `status`)";
         inserQuery += "VALUES";
-        inserQuery += "(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        inserQuery += "(?,?,?,?,?,?,?,?,?,?,?)";//,?,?,?,?,?,?,?
 
         //outer query executiion
         insertId = await pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
-            ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename,
-            plating, colorcode, collectionname, displayorder, featureproduct,
-            status])
+             price, sellprice, availability,featureproduct,status])
+            //ptype,sellingqnt, returnpolicy, stonename,plating, colorcode, collectionname, displayorder,
             .then(async row => {
                 // console.log(req.files);
                 //if image is not send form frontend then images will not upload
@@ -125,7 +124,7 @@ module.exports = {
                         // console.log(modifiedImageName);
                         //file upload
                         path = `upload/products/${modifiedImageName}`
-                        product_images[image].mv(path)
+                 comented out in html and js       product_images[image].mv(path)
                             .then(async resolve => {
                                 await fs.chownSync(path, 1000, 1000);
                             })
@@ -199,17 +198,17 @@ module.exports = {
         product_desc = req.body.product_desc;
         seourl = req.body.seourl;
         categoryId = req.body.categoryId;
-        ptype = req.body.ptype;
+        // ptype = req.body.ptype;
         price = req.body.price;
         sellprice = req.body.sellprice;
         availability = req.body.availability;
-        sellingqnt = req.body.sellingqnt;
-        returnpolicy = req.body.returnpolicy;
-        stonename = req.body.stonename;
-        plating = req.body.plating;
-        colorcode = req.body.colorcode;
-        collectionname = req.body.collectionname;
-        displayorder = req.body.displayorder;
+        // sellingqnt = req.body.sellingqnt;
+        // returnpolicy = req.body.returnpolicy;
+        // stonename = req.body.stonename;
+        // plating = req.body.plating;
+        // colorcode = req.body.colorcode;
+        // collectionname = req.body.collectionname;
+        // displayorder = req.body.displayorder;
         featureproduct = req.body.featureproduct;
         addedon = req.body.addedon;
         status = req.body.status;
@@ -227,17 +226,17 @@ module.exports = {
         updateQuery += "`product_desc`= ?,";
         updateQuery += "`seourl`= ?,";
         updateQuery += "`categoryId`= ?,";
-        updateQuery += "`ptype`= ?,";
+        // updateQuery += "`ptype`= ?,";
         updateQuery += "`price`= ?,";
         updateQuery += "`sellprice`= ?,";
         updateQuery += "`availability`= ?,";
-        updateQuery += "`sellingqnt`= ?,";
-        updateQuery += "`returnpolicy`= ?,";
-        updateQuery += "`stonename`= ?,";
-        updateQuery += "`plating`= ?,";
-        updateQuery += "`colorcode`= ?,";
-        updateQuery += "`collectionname`= ?,";
-        updateQuery += "`displayorder`= ?,";
+        // updateQuery += "`sellingqnt`= ?,";
+        // updateQuery += "`returnpolicy`= ?,";
+        // updateQuery += "`stonename`= ?,";
+        // updateQuery += "`plating`= ?,";
+        // updateQuery += "`colorcode`= ?,";
+        // updateQuery += "`collectionname`= ?,";
+        // updateQuery += "`displayorder`= ?,";
         updateQuery += "`featureproduct`= ?,";
         updateQuery += "`addedon`= ?,";
         updateQuery += "`status`= ? ";
