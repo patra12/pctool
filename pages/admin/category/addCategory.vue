@@ -66,13 +66,13 @@ export default {
     metaKeyword: "",
     metaDescription: "",
     categoryImage: "",
-    bannerImageLoc: "",
-    displayOrder: "",
+    // bannerImageLoc: "",
+    // displayOrder: "",
     status: "",
 
     show_image: "",
-    /* form static select data */
 
+    /* form static select data */
     items: ["Active", "Not Active"]
   }),
 
@@ -95,8 +95,8 @@ export default {
       form.append("metakeywords", this.metaKeyword);
       form.append("metadescription", this.metaDescription);
       form.append("categoryimage", this.categoryImage);
-      form.append("bannerimageloc", this.bannerImageLoc);
-      form.append("displayorder", this.displayOrder);
+      // form.append("bannerimageloc", this.bannerImageLoc);
+      // form.append("displayorder", this.displayOrder);
       form.append("status", this.getStatus());
       // form.append("pdf_name", this.pdf_name);
       for (var datax of form.entries()) {
