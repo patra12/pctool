@@ -1,7 +1,3 @@
-// holds only card detailse 
-// not how they are shown in a view port
-
-
 <template>
   <div>
     <div class="row justify-content-center">
