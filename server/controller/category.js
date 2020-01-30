@@ -92,8 +92,6 @@ module.exports = {
 		metakeywords = req.body.metakeywords;
 		metadescription = req.body.metadescription;
 		seourl = req.body.seourl;
-		displayorder = req.body.displayorder;
-		bannerimageloc = req.body.bannerimageloc;
 		status = req.body.status;
 
 		//checking and setting veariable to based on image is presenmt or not
@@ -102,10 +100,10 @@ module.exports = {
 		//Creating insert query in category based on image is passed from fontend or not
 		inserCategoryQuery = "INSERT INTO " + tableName + "(`parentId`, `categoryname`,";
 		inserCategoryQuery += "`description`, `metatitle`, `metakeywords`, `metadescription`, ";
-		inserCategoryQuery += "`seourl`, `displayorder`,";
+		inserCategoryQuery += "`seourl`,";
 		inserCategoryQuery += category_images ? " `categoryimage`, " : "";
-		inserCategoryQuery += "`bannerimageloc`, `status`)";
-		inserCategoryQuery += "VALUES( ?,?,?,?,?,?,?,?,?,?";
+		inserCategoryQuery += " `status`)";
+		inserCategoryQuery += "VALUES( ?,?,?,?,?,?,?,?"; //,?,?
 		inserCategoryQuery += category_images ? ",?" : "";
 		inserCategoryQuery += ")";
 
@@ -135,7 +133,7 @@ module.exports = {
 
 			//execution of the query
 			await pool.query(inserCategoryQuery, [parentId, categoryname, description, metatitle,
-				metakeywords, metadescription, seourl, displayorder, modifiedFie, bannerimageloc, status])
+				metakeywords, metadescription, seourl, modifiedFie, status])
 				.then(row => {
 					res.send("Date is inserted");
 				})
@@ -148,7 +146,7 @@ module.exports = {
 		else {
 			//execution of the query
 			await pool.query(inserCategoryQuery, [parentId, categoryname, description, metatitle,
-				metakeywords, metadescription, seourl, displayorder, bannerimageloc, status])
+				metakeywords, metadescription, seourl, status])//displayorder, bannerimageloc,
 				.then(row => {
 					res.send("Date is inserted");
 				})
@@ -228,8 +226,8 @@ module.exports = {
 			metakeywords = req.body.metakeywords;
 			metadescription = req.body.metadescription;
 			seourl = req.body.seourl;
-			displayorder = req.body.displayorder;
-			bannerimageloc = req.body.bannerimageloc;
+			//displayorder = req.body.displayorder;
+			//bannerimageloc = req.body.bannerimageloc;
 			status = req.body.status;
 			id = req.params.id
 
@@ -241,14 +239,14 @@ module.exports = {
 			updateQuery += "`metakeywords`= ?,";
 			updateQuery += "`metadescription`= ?,";
 			updateQuery += "`seourl`= ?, ";
-			updateQuery += "`displayorder`= ?, ";
-			updateQuery += "`bannerimageloc`= ?, ";
+			//updateQuery += "`displayorder`= ?, ";
+			//updateQuery += "`bannerimageloc`= ?, ";
 			updateQuery += "`status`= ? ";
 			updateQuery += "WHERE `categoryId` = ?";
 
 			//execution of the query
 			await pool.query(updateQuery, [categoryname, description, metatitle, metakeywords,
-				metadescription, seourl, displayorder, bannerimageloc, status, id])
+				metadescription, seourl, status, id])//displayorder, bannerimageloc,
 				.then(row => {
 					res.send("Data Updated successfully");
 				})
@@ -293,8 +291,8 @@ module.exports = {
 			metakeywords = req.body.metakeywords;
 			metadescription = req.body.metadescription;
 			seourl = req.body.seourl;
-			displayorder = req.body.displayorder;
-			bannerimageloc = req.body.bannerimageloc;
+			//displayorder = req.body.displayorder;
+			//bannerimageloc = req.body.bannerimageloc;
 			status = req.body.status;
 			id = req.params.id
 
@@ -328,15 +326,15 @@ module.exports = {
 			updateQuery += "`metakeywords`= ?,";
 			updateQuery += "`metadescription`= ?,";
 			updateQuery += "`seourl`= ?, ";
-			updateQuery += "`displayorder`= ?, ";
+			//updateQuery += "`displayorder`= ?, ";
 			updateQuery += "`categoryimage`= ?, ";
-			updateQuery += "`bannerimageloc`= ?, ";
+			//updateQuery += "`bannerimageloc`= ?, ";
 			updateQuery += "`status`= ? ";
 			updateQuery += "WHERE `categoryId` = ?";
 
 			//execution of the query
 			await pool.query(updateQuery, [categoryname, description, metatitle, metakeywords,
-				metadescription, seourl, displayorder, modifiedFie, bannerimageloc, status, id])
+				metadescription, seourl, modifiedFie, status, id])// bannerimageloc,displayorder,
 				.then(row => {
 					res.send("Data Updated successfully");
 				})
