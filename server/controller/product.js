@@ -90,7 +90,7 @@ module.exports = {
 
         //outer query executiion
         insertId = await pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
-             price, sellprice, availability,featureproduct,status])
+            price, sellprice, availability, featureproduct, status])
             //ptype,sellingqnt, returnpolicy, stonename,plating, colorcode, collectionname, displayorder,
             .then(async row => {
                 // console.log(req.files);
@@ -123,8 +123,8 @@ module.exports = {
 
                         // console.log(modifiedImageName);
                         //file upload
-                        path = `upload/products/${modifiedImageName}`
-                 comented out in html and js       product_images[image].mv(path)
+                        path = `upload/products/${modifiedImageName}`  
+                        product_images[image].mv(path)
                             .then(async resolve => {
                                 await fs.chownSync(path, 1000, 1000);
                             })
