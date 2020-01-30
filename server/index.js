@@ -21,8 +21,8 @@ app.use('/product', express.static('upload/products'));
 app.use('/category', express.static('upload/categories'));
 
 // Import All Route's
-// const route = require('./route')
-// app.use(route)
+const route = require('./route')
+app.use(route)
 
 
 // Import and Set Nuxt.js options
