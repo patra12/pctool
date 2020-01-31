@@ -1,70 +1,71 @@
 <template>
-
-<div class="container">
-    <div class="row">
-        <div class="col-md-4 col-12 mx-auto">
+  <div class="container">
+    <div class="row login-container">
+      <div class="col-md-4 col-12 mx-auto">
         <div class="card">
-            <article class="card-body">
-                <a href="" class="float-right btn btnSignup">Sign up</a>
-                <p class="card-title">Sign in</p>
-                <hr>
-                <form>
-                    <div class="form-group">
-                        <input name="" class="form-control" placeholder="Email or login" type="email">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" placeholder="******" type="password">
-                    </div>                 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <a class="small" href="#">Forgot password?</a>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <button type="submit" class="btn btnLogin btn-block">Login</button>
-                            </div>
-                        </div>
-                    </div>                                                             
-                </form>
-            </article>
-            </div>
+          <article class="card-body">
+            <a href class="float-right btn btnSignup">Sign up</a>
+            <p class="card-title">Sign in</p>
+            <hr />
+            <form>
+              <div class="form-group">
+                <input name class="form-control" placeholder="Email or login" type="email" />
+              </div>
+              <div class="form-group">
+                <input class="form-control" placeholder="******" type="password" />
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <a class="small" href="#">Forgot password?</a>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <button type="submit" class="btn btnLogin btn-block">Login</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </article>
         </div>
+      </div>
     </div>
-</div>
-
+  </div>
 </template>
 <script>
 export default {
-    
-}
+  layout: "none"
+};
 </script>
 <style>
-.card{
-    -webkit-box-shadow: 0px 0px 22px -10px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 0px 22px -10px rgba(0,0,0,0.75);
-    box-shadow: 0px 0px 22px -10px rgba(0,0,0,0.75);
-    margin: 30px 0;
+.login-container {
+  margin-top: 200px;
 }
-.card-title{
-    font-size: 20px;
+.card {
+  -webkit-box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.75);
+  box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.75);
+  margin: 30px 0;
 }
-.btnLogin{
-    background: #d23940;
-    border: #d23940;
-    color: #fff;
+.card-title {
+  font-size: 20px;
 }
-.btnLogin:hover{
-    background: #ac131b;
-    border: #ac131b;
-    color: #fff;
+.btnLogin {
+  background: #d23940;
+  border: #d23940;
+  color: #fff;
 }
-.btnSignup{
-    border: 1px solid #d23940 !important;
-    color: #d23940 !important;
+.btnLogin:hover {
+  background: #ac131b;
+  border: #ac131b;
+  color: #fff;
 }
-.btnSignup:hover{
-    background:#d23940;
-    border: #d23940;
-    color: #fff !important;
+.btnSignup {
+  border: 1px solid #d23940 !important;
+  color: #d23940 !important;
+}
+.btnSignup:hover {
+  background: #d23940;
+  border: #d23940;
+  color: #fff !important;
 }
 </style>
