@@ -16,7 +16,9 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <a class="small" href="#">Forgot password?</a>
+                  <nuxt-link to="/forgotPassword">
+                    <a class="small" href="#">Forgot password?</a>
+                  </nuxt-link>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
