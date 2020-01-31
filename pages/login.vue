@@ -4,7 +4,7 @@
       <div class="col-md-4 col-12 mx-auto">
         <div class="card">
           <article class="card-body">
-            <a href class="float-right btn btnSignup">Sign up</a>
+            <nuxt-link to="/register" class="float-right btn btnSignup">Sign up</nuxt-link>
             <p class="card-title">Sign in</p>
             <hr />
             <form>
