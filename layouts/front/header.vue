@@ -26,7 +26,9 @@
     <div class="container">
       <div class="row vCenter">
         <div class="logoBlock">
-          <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo" />
+          <nuxt-link to="/">
+            <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo" />
+          </nuxt-link>
         </div>
         <div class="searchblock">
           <form>
