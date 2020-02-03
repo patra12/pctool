@@ -19,7 +19,10 @@
                 />
               </div>
               <div class="form-group">
-                <button class="btn btnLogin btn-block">Send email to reset password</button>
+                <nuxt-link
+                  to="/login"
+                  class="btn btnLogin btn-block text-light"
+                >Send email to reset password</nuxt-link>
               </div>
             </form>
           </article>
