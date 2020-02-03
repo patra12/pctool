@@ -1,14 +1,12 @@
 <template>
   <div>
-    user account <br>
-
+    payment page after checkout
   </div>
 </template>
 <script>
 export default {
-  name: "userDashboard",
+  name: "payment",
   layout: "user/index",
-
 }
 </script>
 <style scoped>

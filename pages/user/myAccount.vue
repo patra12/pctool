@@ -1,15 +1,12 @@
 <template>
   <div>
-    user account <br>
-
+    user account
   </div>
 </template>
 <script>
 export default {
-  name: "userDashboard",
+  name: "userAccount",
   layout: "user/index",
 
 }
 </script>
-<style scoped>
-</style>

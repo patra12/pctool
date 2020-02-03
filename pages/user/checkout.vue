@@ -1,15 +1,11 @@
 <template>
   <div>
-    user account <br>
-
+    checkout
   </div>
 </template>
 <script>
 export default {
-  name: "userDashboard",
+  name: "aftercheckout",
   layout: "user/index",
-
 }
 </script>
-<style scoped>
-</style>
