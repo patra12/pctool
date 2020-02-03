@@ -1,8 +1,8 @@
 <template>
   <div>
-    user account
-    <button>wish list</button>
-    <button>logout</button>
+    user account <br>
+    <button class="btn text-primary">wish list</button><br>
+    <button class="btn text-primary">logout</button><br>
   </div>
 </template>
 <script>
