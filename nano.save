@@ -1,0 +1,8 @@
+<li class="nav-item">
+                    <nuxt-link class="nav-link" to="/returnPolicies">Return & Replacement</nuxt-link>
+                  </li>
+                  <li class="nav-item">
+                    <nuxt-link to="/policieInsurance">Policy Insurance</nuxt-link>
+                  </li>
+                  <li class="nav-item">
+                    <nuxt-link to="/shippingRate">Shipping Rates</nuxt-link>

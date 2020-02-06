@@ -8,13 +8,13 @@
               <nav class="navbar navbar-expand-sm">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Policies: Return & Replacement</a>
+                    <nuxt-link class="nav-link" to="/returnPolicies">Return & Replacement</nuxt-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Policy Insurance</a>
+                    <nuxt-link class="nav-link" to="/policieInsurance">Policy Insurance</nuxt-link>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#">Shipping Rates</a>
+                    <nuxt-link class="nav-link" to="/shippingRate">Shipping Rates</nuxt-link>
                   </li>
                 </ul>
               </nav>

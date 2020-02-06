@@ -4,27 +4,22 @@
       <div class="col-md-4 col-12 mx-auto">
         <div class="card">
           <article class="card-body">
-            <nuxt-link to="/register" class="float-right btn btnSignup">Sign up</nuxt-link>
-            <p class="card-title">Sign in</p>
-            <hr />
-            <form>
+            <p class="card-title pb-1">Reset your password</p>
+            <small>
+              Enter your user account's verified email
+              address and we will send you a password reset link.
+            </small>
+            <form class="pt-3">
               <div class="form-group">
-                <input name class="form-control" placeholder="Email or login" type="email" />
+                <input
+                  name
+                  class="form-control"
+                  placeholder="Enter your email address "
+                  type="email"
+                />
               </div>
               <div class="form-group">
-                <input class="form-control" placeholder="******" type="password" />
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <nuxt-link to="/forgotPassword">
-                    <a class="small" href="#">Forgot password?</a>
-                  </nuxt-link>
-                </div>
-                <div class="col-md-6">
-                  <div class="form-group">
-                    <button type="submit" class="btn btnLogin btn-block">Login</button>
-                  </div>
-                </div>
+                <button class="btn btnLogin btn-block">Send email to reset password</button>
               </div>
             </form>
           </article>

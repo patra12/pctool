@@ -4,7 +4,7 @@
       <div class="card shopping-cart">
         <div class="card-header text-light">
           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-          Shipping cart
+          Your wishlist
           <a
             href
             class="btn btn-info btn-sm btnBuy pull-right"

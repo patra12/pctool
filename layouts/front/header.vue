@@ -26,7 +26,9 @@
     <div class="container">
       <div class="row vCenter">
         <div class="logoBlock">
-          <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo" />
+          <nuxt-link to="/">
+            <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo" />
+          </nuxt-link>
         </div>
         <div class="searchblock">
           <form>
@@ -86,10 +88,10 @@
         <a href="javascript:void(0);" class="icon" @click="myFunction()">
           <img src="~/assets/image/icons/sortBar.png" alt="Menu Icon" />
         </a>
-        <a class="wishlist-btn">
+        <nuxt-link to="/wishlist" class="wishlist-btn">
           <v-icon>mdi-heart</v-icon>
           <span>Wishlist(4)</span>
-        </a>
+        </nuxt-link>
       </div>
     </div>
   </div>

@@ -1,55 +1,74 @@
 <template>
-    <div class="container">
-        <div class="col-md-8 col-12 mx-auto">
-        <div class="card bg-light">
-            <article class="card-body mx-auto" style="max-width: 400px;">
-                <h4 class="card-title mt-3 text-center">Create Account</h4>
-                <p class="text-center">Get started with your free account</p>
-                
-                <form>
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="mdi mdi-account"></i> </span>
-                    </div>
-                    <input name="" class="form-control" placeholder="Full name" type="text">
-                </div> <!-- form-group// -->
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="mdi mdi-email-open"></i> </span>
-                    </div>
-                    <input name="" class="form-control" placeholder="Email address" type="email">
-                </div> <!-- form-group// -->
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="mdi mdi-phone-in-talk"></i> </span>
-                    </div>
-                    <select class="custom-select" style="max-width: 120px;">
-                        <option selected="">+971</option>
-                        <option value="1">+972</option>
-                        <option value="2">+198</option>
-                        <option value="3">+701</option>
-                    </select>
-                    <input name="" class="form-control" placeholder="Phone number" type="text">
-                </div> <!-- form-group// -->
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="mdi mdi-lock"></i> </span>
-                    </div>
-                    <input class="form-control" placeholder="Create password" type="password">
-                </div> <!-- form-group// -->
-                <div class="form-group input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text"> <i class="mdi mdi-lock"></i> </span>
-                    </div>
-                    <input class="form-control" placeholder="Repeat password" type="password">
-                </div> <!-- form-group// -->                                      
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
-                </div> <!-- form-group// -->      
-                <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
-            </form>
-            </article>
+  <div class="container">
+    <div class="col-md-8 col-12 mx-auto">
+      <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px;">
+          <h4 class="card-title mt-3 text-center">Create Account</h4>
+          <p class="text-center">Get started with your free account</p>
+
+          <form>
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="mdi mdi-account"></i>
+                </span>
+              </div>
+              <input name class="form-control" placeholder="Full name" type="text" />
             </div>
+            <!-- form-group// -->
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="mdi mdi-email-open"></i>
+                </span>
+              </div>
+              <input name class="form-control" placeholder="Email address" type="email" />
             </div>
+            <!-- form-group// -->
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="mdi mdi-phone-in-talk"></i>
+                </span>
+              </div>
+              <select class="custom-select" style="max-width: 120px;">
+                <option selected>+971</option>
+                <option value="1">+972</option>
+                <option value="2">+198</option>
+                <option value="3">+701</option>
+              </select>
+              <input name class="form-control" placeholder="Phone number" type="text" />
+            </div>
+            <!-- form-group// -->
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="mdi mdi-lock"></i>
+                </span>
+              </div>
+              <input class="form-control" placeholder="Create password" type="password" />
+            </div>
+            <!-- form-group// -->
+            <div class="form-group input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text">
+                  <i class="mdi mdi-lock"></i>
+                </span>
+              </div>
+              <input class="form-control" placeholder="Repeat password" type="password" />
+            </div>
+            <!-- form-group// -->
+            <div class="form-group">
+              <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+            </div>
+            <!-- form-group// -->
+            <p class="text-center">
+              Have an account?
+              <nuxt-link to="login">LogIn</nuxt-link>
+            </p>
+          </form>
+        </article>
+      </div>
     </div>
+  </div>
 </template>
