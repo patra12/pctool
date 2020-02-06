@@ -4,25 +4,43 @@
       <div class="col-md-4 col-12 mx-auto">
         <div class="card">
           <article class="card-body">
-            <nuxt-link to="/register" class="float-right btn btnSignup">Sign up</nuxt-link>
+            <nuxt-link
+              to="/register"
+              class="float-right btn btnSignup"
+            >Sign up</nuxt-link>
             <p class="card-title">Sign in</p>
             <hr />
             <form>
               <div class="form-group">
-                <input name class="form-control" placeholder="Email or login" type="email" />
+                <input
+                  name
+                  class="form-control"
+                  placeholder="Email or login"
+                  type="email"
+                />
               </div>
               <div class="form-group">
-                <input class="form-control" placeholder="******" type="password" />
+                <input
+                  class="form-control"
+                  placeholder="******"
+                  type="password"
+                />
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <nuxt-link to="/forgotPassword">
-                    <a class="small" href="#">Forgot password?</a>
+                  <nuxt-link
+                    to="/forgotPassword"
+                    class="small"
+                  >
+                    Forgot password?
                   </nuxt-link>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <button type="submit" class="btn btnLogin btn-block">Login</button>
+                    <div
+                      @click="login()"
+                      class="btn btnLogin btn-block"
+                    >Login</div>
                   </div>
                 </div>
               </div>
@@ -35,7 +53,13 @@
 </template>
 <script>
 export default {
-  layout: "none"
+  layout: "none",
+
+  methods: {
+    login () {
+      this.$router.push('/user');
+    }
+  }
 };
 </script>
 <style>

@@ -19,12 +19,12 @@
             <p>Address of Pro Construction Tools</p>
           </div>
         </div>
-        <div class="rightBlock">
+        <!-- <div class="rightBlock">
           <div class="signUpBlock">
             <nuxt-link to="/login">login</nuxt-link>
             <nuxt-link to="/register">signUp</nuxt-link>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -130,7 +130,7 @@
           />
         </a>
         <nuxt-link
-          to="/login"
+          to="/user/wishlist"
           class="wishlist-btn"
         >
           <v-icon>mdi-heart</v-icon>
