@@ -1,41 +1,56 @@
 <template>
   <div>
     <div class="row justify-content-center">
-      <div v-for="(product,index) in products" class="col-md-4 col-sm-6" :key="index">
+      <div
+        v-for="(product,index) in products"
+        class="col-md-4 col-sm-6"
+        :key="index"
+      >
         <div class="product-grid">
           <div class="product-image">
-            <a href="#">
-              <img class="pic-1" :src="make_image_path(product.showing_img1)" />
-              <img class="pic-2" :src="make_image_path(product.aminate_img2)" />
-            </a>
+            <img
+              class="pic-1"
+              src="~/assets/image/products/HAND-HELD-SAW.jpg"
+            />
+            <!-- <img class="pic-1" :src="make_image_path(product.showing_img1)" />
+              <img class="pic-2" :src="make_image_path(product.aminate_img2)" />-->
             <ul class="social">
               <li>
-                <a href data-tip="Quick View">
+                <a
+                  @click="addData(product.productId,product.price)"
+                  data-tip="Quick View"
+                >
                   <v-icon class="white--text">mdi-magnify</v-icon>
                 </a>
               </li>
               <li>
-                <a href data-tip="Add to Wishlist">
+                <a
+                  href
+                  data-tip="Add to Wishlist"
+                >
                   <v-icon class="white--text">mdi-shopping</v-icon>
                 </a>
               </li>
               <li>
-                <a href data-tip="Add to Cart">
+                <a
+                  href
+                  data-tip="Add to Cart"
+                >
                   <v-icon class="white--text">mdi-cart</v-icon>
                 </a>
               </li>
             </ul>
-            <span class="product-new-label">{{product.offer_label}}</span>
-            <span class="product-discount-label">{{product.offer_persentage}}</span>
+            <!-- <span class="product-new-label">{{product.offer_label}}</span>
+            <span class="product-discount-label">{{product.offer_persentage}}</span> -->
           </div>
 
           <div class="product-content">
             <p class="product-title">
-              <a href="#">{{product.name}}</a>
+              <a href="#">{{product.product_name}}</a>
             </p>
 
             <nuxt-link to="/productDetails">
-              <button class="add-to-cart">{{product.button_label}}</button>
+              <button class="add-to-cart">CHECK OUR BLADES</button>
             </nuxt-link>
           </div>
         </div>
@@ -47,12 +62,18 @@
 <script>
 export default {
   name: "productMultiCard",
-  data() {
+  data () {
     return {
+      products: "",
+      sessionid: "",
+      productId: "",
+      price: "",
+      dialog: false,
+      id: "",
       products: [
         {
           id: 1,
-          name: "HAND HELD SAW",
+          product_name: "HAND HELD SAW",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "HAND-HELD-SAW.jpg",
@@ -61,7 +82,7 @@ export default {
         },
         {
           id: 2,
-          name: "EARLY ENTRY/SOFF - CUT",
+          product_name: "EARLY ENTRY/SOFF - CUT",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "EARLY-ENTRY-SOFF.jpg",
@@ -70,7 +91,7 @@ export default {
         },
         {
           id: 3,
-          name: "GRINDER SAW",
+          product_name: "GRINDER SAW",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "GRINDER-SAW.jpg",
@@ -79,7 +100,7 @@ export default {
         },
         {
           id: 4,
-          name: "CORE DRILL SAW ",
+          product_name: "CORE DRILL SAW ",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "CORE-DRILL-SAW.jpg",
@@ -88,7 +109,7 @@ export default {
         },
         {
           id: 5,
-          name: "HYDRAULIC SAW",
+          product_name: "HYDRAULIC SAW",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "HYDRAULIC-SAW.jpg",
@@ -97,7 +118,7 @@ export default {
         },
         {
           id: 6,
-          name: "CHAIN SAW",
+          product_name: "CHAIN SAW",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "CHAIN-SAW.jpg",
@@ -106,7 +127,7 @@ export default {
         },
         {
           id: 7,
-          name: "WALK BEHIND SAW",
+          product_name: "WALK BEHIND SAW",
           offer_label: "SALE",
           offer_persentage: "20%",
           showing_img1: "WALK-BEHIND-SAW.jpg",
@@ -117,10 +138,46 @@ export default {
     };
   },
   methods: {
-    make_image_path(img_name) {
+    make_image_path (img_name) {
       //must have to change to server baseurl path
       return require(`~/assets/image/products/${img_name}`);
+    },
+    getData () {
+      this.$axios({
+        method: "GET",
+        url: "/getproduct"
+      })
+        .then(res => {
+          this.products = res.data;
+          console.log("ok", this.products);
+
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    addData (productId, price) {
+      console.log("test productId", productId);
+      console.log("test price", price);
+      this.$axios({
+        method: "POST",
+        url: "/addProductId",
+        data: {
+          sessionid: this.$session.id(),
+          productId: productId,
+          price: price
+        }
+      })
+        .then(res => {
+          this.$router.go("/cart");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+  },
+  mounted () {
+    this.getData();
   }
 };
 </script>
