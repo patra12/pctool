@@ -3,23 +3,44 @@
     <v-row class="form pt-0">
       <v-col class="pt-0">
         <v-row>
-          <v-col outlined class="head">
+          <v-col
+            outlined
+            class="head"
+          >
             <h4 class="font-weight-light text-light">Edit Product</h4>
             <nuxt-link to="/admin/product">
-              <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
+              <v-icon
+                title="back"
+                class="right"
+                color="white darken-1"
+              >mdi-arrow-left-bold</v-icon>
             </nuxt-link>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="bg-content">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="productName" label="Product Name"></v-text-field>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-text-field
+                v-model="productName"
+                label="Product Name"
+              ></v-text-field>
 
-              <v-text-field v-model="productCode" label="SKU"></v-text-field>
+              <v-text-field
+                v-model="sku"
+                label="SKU"
+              ></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Product Description</p>
 
-              <div v-model="productDescription" v-quill:product class="quill-editor"></div>
+              <div
+                v-model="productDescription"
+                v-quill:product
+                class="quill-editor"
+              ></div>
 
               <v-select
                 :items="category"
@@ -28,17 +49,32 @@
                 label="Category"
               ></v-select>
 
-              <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
+              <v-text-field
+                v-model="seoUrl"
+                label="seo URL"
+              ></v-text-field>
 
               <!-- <v-text-field v-model="ptype" label="ptype"></v-text-field> -->
 
-              <v-text-field v-model="price" label="price" type="number"></v-text-field>
+              <v-text-field
+                v-model="price"
+                label="price"
+                type="number"
+              ></v-text-field>
 
-              <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
+              <v-text-field
+                v-model="sellPrice"
+                label="Sell Price"
+                type="number"
+              ></v-text-field>
 
               <!-- <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field> -->
 
-              <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
+              <v-text-field
+                v-model="availability"
+                label="Availability"
+                type="number"
+              ></v-text-field>
 
               <!-- <v-text-field v-model="returnPolicy" label="Return Policy"></v-text-field> -->
 
@@ -52,9 +88,19 @@
 
               <!-- <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Feature Product</p>
-              <v-radio-group v-model="featureProduct" class="mt-0" row>
-                <v-radio label="Yes" value="Y"></v-radio>
-                <v-radio label="No" value="N"></v-radio>
+              <v-radio-group
+                v-model="featureProduct"
+                class="mt-0"
+                row
+              >
+                <v-radio
+                  label="Yes"
+                  value="Y"
+                ></v-radio>
+                <v-radio
+                  label="No"
+                  value="N"
+                ></v-radio>
               </v-radio-group>
 
               <!-- <v-text-field v-model="addedOn" label="Added On"></v-text-field> -->
@@ -63,9 +109,19 @@
 
               <!-- <v-select v-model="status" :items="items" label="Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Status</p>
-              <v-radio-group v-model="status" class="mt-0" row>
-                <v-radio label="Active" value="Y"></v-radio>
-                <v-radio label="Not Active" value="N"></v-radio>
+              <v-radio-group
+                v-model="status"
+                class="mt-0"
+                row
+              >
+                <v-radio
+                  label="Active"
+                  value="Y"
+                ></v-radio>
+                <v-radio
+                  label="Not Active"
+                  value="N"
+                ></v-radio>
               </v-radio-group>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Select Image</p>
@@ -77,18 +133,29 @@
                 @change="onFileChange()"
               />
               <v-row>
-                <v-col v-for="(img,index) in all_image_db" :key="index">
-                  <img class="showing-images" :src="parseImage(all_image_db[index].imageloc)" />
+                <v-col
+                  v-for="(img,index) in all_image_db"
+                  :key="index"
+                >
+                  <img
+                    class="showing-images"
+                    :src="parseImage(all_image_db[index].imageloc)"
+                  />
                   <!-- 'http://localhost:3000/product/'+img.imageloc -->
                 </v-col>
               </v-row>
               <!-- <v-select v-model="imgstatus" :items="items" label="Image Status"></v-select> -->
-              <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p>
+              <!-- <p class="grey--text text--darken-1 pt-3 mb-0">Image Status</p> -->
               <!-- <v-radio-group v-model="imgstatus" class="mt-0" row>
                 <v-radio label="Active" value="Y"></v-radio>
                 <v-radio label="Not Active" value="N"></v-radio>
               </v-radio-group>-->
-              <v-btn @click="putData()" class="my-5 float-right" large color="primary">Save</v-btn>
+              <v-btn
+                @click="putData()"
+                class="my-5 float-right"
+                large
+                color="primary"
+              >Save</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -104,27 +171,16 @@ export default {
     valid: true,
     productId: "",
     productName: "",
-    productCode: "",
+    sku: "",
     productDescription: "",
     seoUrl: "",
-    ptype: "",
     price: "",
     sellPrice: "",
     availability: "",
-    sellingQuantity: "",
-    returnPolicy: "",
-    stoneName: "",
-    plating: "",
-    colorCode: "",
-    collectionName: "",
-    displayOrder: "",
     featureProduct: "",
-    addedOn: "",
     status: "",
 
-    // productImage: "",
     isPrimary: "",
-    imgstatus: "",
     //for select box
     category: [],
     categoryName: "",
@@ -136,69 +192,30 @@ export default {
   }),
 
   methods: {
-    onFileChange() {
-      const img_files = this.$refs.productimg.files;
-
-      // console.log(img_files);
-      // this.productImage = file;
-      for (const i in img_files) {
-        let x = this.image_files[i];
-
-        var picReader = new FileReader();
-
-        picReader.addEventListener("load", function(event) {
-          var picFile = event.target;
-
-          var div = document.createElement("div");
-
-          div.innerHTML =
-            "<img class='thumbnail' src='" +
-            picFile.result +
-            "'" +
-            "title='" +
-            picFile.name +
-            "'/>";
-
-          output.insertBefore(div, null);
-        });
-        //Read the image
-        picReader.readAsDataURL(x);
-      }
-      // console.log(createObjectURL(this.$refs.productimg.files));
-      // this.test = img_files;
-      // this.all_image_db = URL.createObjectURL(img_files);
-      // console.log(URL.createObjectURL(img_files));
+    onFileChange () {
+      //show image preview on image select
     },
-    parseImage(imageName) {
+    parseImage (imageName) {
       return process.env.BASE_URL + "/product/" + imageName;
     },
-    getStatus() {
+    getStatus () {
       return this.status === "Active" ? "Y" : "N";
     },
-    setStatus(status) {
+    setStatus (status) {
       status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
     },
-    putData() {
+    putData () {
       const form = new FormData();
       form.append("product_name", this.productName);
-      form.append("product_code", this.productCode);
+      form.append("product_code", this.sku);
       form.append("product_desc", this.productDescription);
       form.append("seourl", this.seoUrl);
       form.append("categoryId", this.categoryId);
-      form.append("ptype", this.ptype);
       form.append("price", this.price);
       form.append("sellprice", this.sellPrice);
-      form.append("sellingqnt", this.sellingQuantity);
       form.append("availability", this.availability);
-      form.append("returnpolicy", this.returnPolicy);
-      form.append("stonename", this.stoneName);
-      form.append("plating", this.plating);
-      form.append("colorcode", this.colorCode);
-      form.append("collectionname", this.collectionName);
-      form.append("displayorder", this.displayOrder);
       form.append("featureproduct", this.featureProduct);
       form.append("status", this.status);
-      form.append("imgstatus", this.imgstatus);
 
       // This is for apppending all files or images for multiple selection
       for (var i = 0; i < this.$refs.productimg.files.length; i++) {
@@ -230,7 +247,7 @@ export default {
           console.log("error", error);
         });
     },
-    getData() {
+    getData () {
       this.$axios({
         url: "/monoproduct/" + this.$route.params.id,
         method: "get"
@@ -238,26 +255,16 @@ export default {
         .then(res => {
           this.productId = res.data[0].productId;
           this.productName = res.data[0].product_name;
-          this.productCode = res.data[0].product_code;
+          this.sku = res.data[0].sku;
           this.productDescription = res.data[0].product_desc;
           this.seoUrl = res.data[0].seourl;
           this.getCategoryName(res.data[0].categoryId);
-          this.ptype = res.data[0].ptype;
           this.price = res.data[0].price;
           this.sellPrice = res.data[0].sellprice;
           this.availability = res.data[0].availability;
-          this.sellingQuantity = res.data[0].sellingqnt;
-          this.returnPolicy = res.data[0].returnpolicy;
-          this.stoneName = res.data[0].stonename;
-          this.plating = res.data[0].plating;
-          this.colorCode = res.data[0].colorcode;
-          this.collectionName = res.data[0].collectionname;
-          this.displayOrder = res.data[0].displayorder;
           this.featureProduct = res.data[0].featureproduct;
-          this.addedOn = res.data[0].addedon;
           this.status = res.data[0].status;
-          this.getimgstatus();
-          this.get_images_accordin_productid();
+          this.get_images_according_productid();
         })
         .catch(err => {
           // handle errorr
@@ -265,7 +272,7 @@ export default {
         });
     },
     //get all category names
-    getCategoryNames() {
+    getCategoryNames () {
       this.$axios({
         method: "GET",
         url: "/getallctegorynames"
@@ -279,7 +286,7 @@ export default {
     },
 
     //get seingle record of a category
-    getCategoryName(catId) {
+    getCategoryName (catId) {
       this.$axios({
         method: "GET",
         url: `/monocategory/${catId}`
@@ -292,8 +299,9 @@ export default {
           console.log(err);
         });
     },
+
     //get category id against the name
-    getCategoryId() {
+    getCategoryId () {
       this.$axios({
         method: "POST",
         url: "/getctegoryid",
@@ -309,19 +317,8 @@ export default {
           console.log(err);
         });
     },
-    getimgstatus() {
-      this.$axios({
-        method: "GET",
-        url: `/getimagestatus/${this.productId}`
-      })
-        .then(res => {
-          this.imgstatus = res.data[0].status;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    get_images_accordin_productid() {
+
+    get_images_according_productid () {
       this.$axios({
         method: "GET",
         url: `/getimages/${this.productId}`
@@ -335,7 +332,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.getCategoryNames();
     this.getData();
   }

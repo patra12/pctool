@@ -8,7 +8,7 @@ app.post('/addproduct', product.addProduct); // upload.array('productImage', 5),
 app.put('/putproduct/:id', product.putProduct);
 app.delete('/delproduct/:id', product.delProduct);
 
-app.get('/getimagestatus/:id', product.getImageStatus);
+// app.get('/getimagestatus/:id', product.getImageStatus);
 app.get('/getimages/:id', product.getImages);
 
 

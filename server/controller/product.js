@@ -7,7 +7,7 @@ const product_image_location_on_disk = "upload/products/"
 
 module.exports = {
     // get all Record from a table
-    async getProduct(req, res) {
+    async getProduct (req, res) {
         // query
         selectQuery = "SELECT * FROM " + tableName;
         req.data = await pool.query(selectQuery)
@@ -17,7 +17,7 @@ module.exports = {
     },
 
     // get single Record from table
-    async monoProduct(req, res) {
+    async monoProduct (req, res) {
         // query
         selectQuery = "SELECT * FROM " + tableName + " where `productId`= ?";
         await pool.query(selectQuery, [req.params.id])
@@ -25,26 +25,15 @@ module.exports = {
             .catch(err => { console.log(err) });
     },
 
-
-    getImageStatus: (req, res) => {
-        // query
-        selectQuery = `SELECT distinct(status) FROM  \`product_image\`  where productId= ?`;
-        // console.log(selectQuery);
-        pool.query(selectQuery, [req.params.id])
-            .then(row => {
-                res.send(row);
-            })
-            .catch(row => {
-                console.log('getProduct Query Error', err)
-                res.end();
-            })
-    },
     getImages: (req, res) => {
         // query
         selectQuery = `SELECT * FROM  \`product_image\`  where productId = ?`;
+
         pool.query(selectQuery, [req.params.id])
             .then(row => {
+                console.log(selectQuery);
                 res.send(row);
+                console.log(row)
             })
             .catch(row => {
                 console.log('getProduct Query Error', err)
@@ -57,51 +46,38 @@ module.exports = {
      * insert record to product table but this table has relation hence 
      * in this function there is inner query present 
      */
-    async addProduct(req, res) {
+    async addProduct (req, res) {
         product_name = req.body.product_name;
         product_code = req.body.product_code;
         product_desc = req.body.product_desc;
         seourl = req.body.seourl;
         categoryId = req.body.categoryId;
-        //ptype = req.body.ptype;
         price = req.body.price;
         sellprice = req.body.sellprice;
         availability = req.body.availability;
-        //sellingqnt = req.body.sellingqnt;
-        //returnpolicy = req.body.returnpolicy;
-        //stonename = req.body.stonename;
-        //plating = req.body.plating;
-        //colorcode = req.body.colorcode;
-        //collectionname = req.body.collectionname;
-        //displayorder = req.body.displayorder;
         featureproduct = req.body.featureproduct;
         status = req.body.status;
-        //imageStatus = req.body.imgstatus;
-        is_primary = req.body.imgstatus;
 
-        //outer query    ///`ptype`,`sellingqnt`,`returnpolicy`, `stonename`,plating`, `colorcode`, `collectionname`, `displayorder`, 
+        //outer query    
         inserQuery = "INSERT INTO " + tableName + "(`product_name`, ";
-        inserQuery += "`product_code`, `product_desc`, `seourl`, `categoryId`,  `price`,";
+        inserQuery += "`sku`, `product_desc`, `seourl`, `categoryId`,  `price`,";
         inserQuery += "`sellprice`, `availability`,";
-        inserQuery += "``featureproduct`,";
+        inserQuery += "`featureproduct`,";
         inserQuery += " `status`)";
         inserQuery += "VALUES";
-        inserQuery += "(?,?,?,?,?,?,?,?,?,?,?)";//,?,?,?,?,?,?,?
+        inserQuery += "(?,?,?,?,?,?,?,?,?,?)";
 
         //outer query executiion
         insertId = await pool.query(inserQuery, [product_name, product_code, product_desc, seourl, categoryId,
             price, sellprice, availability, featureproduct, status])
-            //ptype,sellingqnt, returnpolicy, stonename,plating, colorcode, collectionname, displayorder,
             .then(async row => {
-                // console.log(req.files);
                 //if image is not send form frontend then images will not upload
                 if (req.files != null) {
                     pid = row.insertId;
-                    // console.log();
                     //inner query
                     innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
-                    innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-                    innerInsertQuery += "(?,?,?,?,?)"
+                    innerInsertQuery += "`image_caption`, `imageloc`) VALUES ";
+                    innerInsertQuery += "(?,?,?)"
 
                     // multiple image upload with normal user permission in linux platform
                     product_images = req.files.productImage;
@@ -123,7 +99,7 @@ module.exports = {
 
                         // console.log(modifiedImageName);
                         //file upload
-                        path = `upload/products/${modifiedImageName}`  
+                        path = `upload/products/${modifiedImageName}`
                         product_images[image].mv(path)
                             .then(async resolve => {
                                 await fs.chownSync(path, 1000, 1000);
@@ -133,7 +109,7 @@ module.exports = {
                             });
 
                         //inner query
-                        await pool.query(innerInsertQuery, [pid, imageParsed.name, modifiedImageName, imageStatus, is_primary], (err, row) => {
+                        await pool.query(innerInsertQuery, [pid, imageParsed.name, modifiedImageName], (err, row) => {// imageStatus,
                             if (err) {
                                 console.log(err);
                             }
@@ -155,7 +131,7 @@ module.exports = {
 
 
     // delete Record from table
-    async delProduct(req, res) {
+    async delProduct (req, res) {
 
         //searching image into db
         imageNameQuery = "SELECT imageloc FROM `product_image` WHERE productId = ?";
@@ -191,54 +167,34 @@ module.exports = {
     },
 
     // update a Record in table
-    async putProduct(req, res) {
+    async putProduct (req, res) {
 
         product_name = req.body.product_name;
         product_code = req.body.product_code;
         product_desc = req.body.product_desc;
         seourl = req.body.seourl;
         categoryId = req.body.categoryId;
-        // ptype = req.body.ptype;
         price = req.body.price;
         sellprice = req.body.sellprice;
         availability = req.body.availability;
-        // sellingqnt = req.body.sellingqnt;
-        // returnpolicy = req.body.returnpolicy;
-        // stonename = req.body.stonename;
-        // plating = req.body.plating;
-        // colorcode = req.body.colorcode;
-        // collectionname = req.body.collectionname;
-        // displayorder = req.body.displayorder;
         featureproduct = req.body.featureproduct;
         addedon = req.body.addedon;
         status = req.body.status;
         id = req.params.id;
-        imageStatus = req.body.imgstatus;
         is_primary = req.body.imgstatus;
         //data veariables for image
         pid = req.params.id;
 
-        // console.log(req.body);
         // query
         updateQuery = "UPDATE " + tableName + " SET";
         updateQuery += "`product_name`= ?,";
-        updateQuery += "`product_code`= ?,";
+        updateQuery += "`sku`= ?,";
         updateQuery += "`product_desc`= ?,";
         updateQuery += "`seourl`= ?,";
         updateQuery += "`categoryId`= ?,";
-        // updateQuery += "`ptype`= ?,";
         updateQuery += "`price`= ?,";
         updateQuery += "`sellprice`= ?,";
-        updateQuery += "`availability`= ?,";
-        // updateQuery += "`sellingqnt`= ?,";
-        // updateQuery += "`returnpolicy`= ?,";
-        // updateQuery += "`stonename`= ?,";
-        // updateQuery += "`plating`= ?,";
-        // updateQuery += "`colorcode`= ?,";
-        // updateQuery += "`collectionname`= ?,";
-        // updateQuery += "`displayorder`= ?,";
         updateQuery += "`featureproduct`= ?,";
-        updateQuery += "`addedon`= ?,";
         updateQuery += "`status`= ? ";
         updateQuery += "WHERE `ProductId` = ?";
 
@@ -264,8 +220,6 @@ module.exports = {
         path = `upload/products/${product_images}`;
 
 
-        // console.log(req.files.productImage.length);
-        // console.log(images_from_db.length > 0);
         //if image is send form frontend then we update image or insert image
         if (product_images.length > 0) {
             if (images_from_db.length > 0) {
@@ -296,8 +250,8 @@ module.exports = {
 
                 //inner query
                 innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
-                innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-                innerInsertQuery += "(?,?,?,?,?)"
+                innerInsertQuery += "`image_caption`, `imageloc`) VALUES ";
+                innerInsertQuery += "(?,?,?)"
 
 
                 for (image in product_images) {
@@ -307,8 +261,6 @@ module.exports = {
                     //making time stamp image
                     modifiedImageName = imageParsed.name + time_stamp + imageParsed.ext;
 
-
-                    // console.log(modifiedImageName);
                     //file upload
                     path = `upload/products/${modifiedImageName}`
                     product_images[image].mv(path)
@@ -320,7 +272,7 @@ module.exports = {
                         });
 
                     //inner query
-                    await pool.query(innerInsertQuery, [pid, imageParsed.name, modifiedImageName, imageStatus, is_primary])
+                    await pool.query(innerInsertQuery, [pid, imageParsed.name, modifiedImageName])
                         .then(row => {
                             console.log('data inserted');
                         })
@@ -334,8 +286,8 @@ module.exports = {
 
                 //inner query
                 innerInsertQuery = "INSERT INTO `product_image`(`productId`, "
-                innerInsertQuery += "`image_caption`, `imageloc`, `status`, `is_primary`) VALUES ";
-                innerInsertQuery += "(?,?,?,?,?)"
+                innerInsertQuery += "`image_caption`, `imageloc`) VALUES ";
+                innerInsertQuery += "(?,?,?)"
 
 
                 for (image in product_images) {
@@ -345,8 +297,6 @@ module.exports = {
                     //making time stamp image
                     modifiedImageName = imageParsed.name + time_stamp + imageParsed.ext;
 
-
-                    // console.log(modifiedImageName);
                     //file upload
                     path = `upload/products/${modifiedImageName}`
                     product_images[image].mv(path)
@@ -358,7 +308,7 @@ module.exports = {
                         });
 
                     //inner query
-                    await pool.query(innerInsertQuery, [pid, imageParsed.name, modifiedImageName, imageStatus, is_primary])
+                    await pool.query(innerInsertQuery, [pid, imageParsed.name, modifiedImageName])
                         .then(row => {
                             console.log('data inserted');
                         })
@@ -373,18 +323,14 @@ module.exports = {
 
 
         console.log("normal update in product table");
-        res.end();
         await pool.query(updateQuery, [product_name, product_code, product_desc, seourl, categoryId,
-            ptype, price, sellprice, availability, sellingqnt, returnpolicy, stonename, plating, colorcode,
-            collectionname, displayorder, featureproduct, addedon, status, id])
+            price, sellprice, availability, featureproduct, status, id])
             .then(row => {
-                // res.send("Data Updated successfully");
+                res.send("Data Updated successfully");
             })
             .catch(err => {
                 console.log("putProduct DB ERROR", err);
                 res.end();
             })
-
-
     }
 }
