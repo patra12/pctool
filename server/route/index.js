@@ -24,4 +24,8 @@ app.use(product);
 const orders = require('./orders.js');
 app.use(orders);
 
+// Importing tempCart routes
+const tempCart = require('./tempCart.js');
+app.use(tempCart);
+
 module.exports = app;
