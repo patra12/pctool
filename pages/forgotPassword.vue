@@ -20,7 +20,7 @@
               </div>
               <div class="form-group">
                 <nuxt-link
-                  to="/login"
+                  to="/signin"
                   class="btn btnLogin btn-block text-light"
                 >Send email to reset password</nuxt-link>
               </div>

@@ -5,7 +5,7 @@
         <div class="card">
           <article class="card-body">
             <nuxt-link
-              to="/register"
+              to="/signup"
               class="float-right btn btnSignup"
             >Sign up</nuxt-link>
             <p class="card-title">Sign in</p>
