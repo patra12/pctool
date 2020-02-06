@@ -226,12 +226,9 @@ module.exports = {
 			metakeywords = req.body.metakeywords;
 			metadescription = req.body.metadescription;
 			seourl = req.body.seourl;
-			//displayorder = req.body.displayorder;
-			//bannerimageloc = req.body.bannerimageloc;
 			status = req.body.status;
 			id = req.params.id
 
-			// update query in category without image
 			updateQuery = "UPDATE " + tableName + " SET";
 			updateQuery += "`categoryname`= ?,";
 			updateQuery += "`description`= ?,";
@@ -239,14 +236,12 @@ module.exports = {
 			updateQuery += "`metakeywords`= ?,";
 			updateQuery += "`metadescription`= ?,";
 			updateQuery += "`seourl`= ?, ";
-			//updateQuery += "`displayorder`= ?, ";
-			//updateQuery += "`bannerimageloc`= ?, ";
 			updateQuery += "`status`= ? ";
 			updateQuery += "WHERE `categoryId` = ?";
 
 			//execution of the query
 			await pool.query(updateQuery, [categoryname, description, metatitle, metakeywords,
-				metadescription, seourl, status, id])//displayorder, bannerimageloc,
+				metadescription, seourl, status, id])
 				.then(row => {
 					res.send("Data Updated successfully");
 				})
@@ -291,8 +286,6 @@ module.exports = {
 			metakeywords = req.body.metakeywords;
 			metadescription = req.body.metadescription;
 			seourl = req.body.seourl;
-			//displayorder = req.body.displayorder;
-			//bannerimageloc = req.body.bannerimageloc;
 			status = req.body.status;
 			id = req.params.id
 
@@ -326,9 +319,7 @@ module.exports = {
 			updateQuery += "`metakeywords`= ?,";
 			updateQuery += "`metadescription`= ?,";
 			updateQuery += "`seourl`= ?, ";
-			//updateQuery += "`displayorder`= ?, ";
 			updateQuery += "`categoryimage`= ?, ";
-			//updateQuery += "`bannerimageloc`= ?, ";
 			updateQuery += "`status`= ? ";
 			updateQuery += "WHERE `categoryId` = ?";
 

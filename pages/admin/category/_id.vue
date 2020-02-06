@@ -3,31 +3,62 @@
     <v-row class="form pt-0">
       <v-col class="pt-0">
         <v-row>
-          <v-col outlined class="head">
+          <v-col
+            outlined
+            class="head"
+          >
             <h4 class="font-weight-light text-light">Edit Category</h4>
             <nuxt-link to="/admin/category">
-              <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
+              <v-icon
+                title="back"
+                class="right"
+                color="white darken-1"
+              >mdi-arrow-left-bold</v-icon>
             </nuxt-link>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="bg-content">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="categoryName" label="Category Name"></v-text-field>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-text-field
+                v-model="categoryName"
+                label="Category Name"
+              ></v-text-field>
 
-              <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
+              <v-text-field
+                v-model="seoUrl"
+                label="seo URL"
+              ></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Category Description</p>
 
-              <div v-model="categoryDescription" v-quill:page class="quill-editor"></div>
+              <div
+                v-model="categoryDescription"
+                v-quill:page
+                class="quill-editor"
+              ></div>
 
-              <v-text-field v-model="metaTitle" label="Meta title"></v-text-field>
+              <v-text-field
+                v-model="metaTitle"
+                label="Meta title"
+              ></v-text-field>
 
-              <v-text-field v-model="metaKeyword" label="Meta keyword"></v-text-field>
+              <v-text-field
+                v-model="metaKeyword"
+                label="Meta keyword"
+              ></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Meta Description</p>
 
-              <div v-model="metaDescription" v-quill:meta class="quill-editor"></div>
+              <div
+                v-model="metaDescription"
+                v-quill:meta
+                class="quill-editor"
+              ></div>
 
               <input
                 class="pt-3"
@@ -37,15 +68,24 @@
                 name="categoryimage"
               />
 
-              <img class="py-5 ctategory-image-selection" :src="show_image" alt="no image is found" />
+              <img
+                class="py-5 ctategory-image-selection"
+                :src="show_image"
+                alt="no image is found"
+              />
 
-              <!-- <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
+              <v-select
+                v-model="status"
+                :items="items"
+                label="Status"
+              ></v-select>
 
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>-->
-
-              <v-select v-model="status" :items="items" label="Status"></v-select>
-
-              <v-btn @click="putData()" class="my-5 float-right" large color="primary">Save</v-btn>
+              <v-btn
+                @click="putData()"
+                class="my-5 float-right"
+                large
+                color="primary"
+              >Save</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -66,14 +106,12 @@ export default {
     metaKeyword: "",
     metaDescription: "",
 
-    //for holding and sendind file to db
+    //for holding and sending file to db
     categoryImage: "",
 
     //for showing image after selecting image
     showCategoryImage: "",
 
-    // bannerImageLoc: "",
-    // displayOrder: "",
     status: "",
 
     //for showing image comming from db and also when selecting
@@ -84,21 +122,21 @@ export default {
   }),
 
   methods: {
-    onFileChange() {
+    onFileChange () {
       const file = this.$refs.categoryimage.files[0];
       this.categoryImage = file;
       this.show_image = URL.createObjectURL(file);
     },
-    getStatus() {
+    getStatus () {
       return this.status === "Active" ? "Y" : "N";
     },
-    setStatus(status) {
+    setStatus (status) {
       status === "Y" ? (this.status = "Active") : (this.status = "Not Active");
     },
-    parseImage(imageName) {
+    parseImage (imageName) {
       return process.env.BASE_URL + "/category/" + imageName;
     },
-    putData() {
+    putData () {
       const form = new FormData();
       form.append("categoryname", this.categoryName);
       form.append("seourl", this.seoUrl);
@@ -135,7 +173,7 @@ export default {
           console.log(error);
         });
     },
-    getData() {
+    getData () {
       this.$axios({
         url: "/monocategory/" + this.$route.params.id,
         method: "get"
@@ -170,7 +208,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.getData();
   }
 };

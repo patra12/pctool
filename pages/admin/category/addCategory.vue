@@ -39,10 +39,6 @@
 
               <img class="py-5 ctategory-image-selection" :src="show_image" />
 
-              <!-- <v-text-field v-model="bannerImageLoc" label="Banner Image Location"></v-text-field>
-
-              <v-text-field v-model="displayOrder" type="number" label="Display Order"></v-text-field>-->
-
               <v-select v-model="status" :items="items" label="Status"></v-select>
 
               <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
@@ -59,6 +55,7 @@ export default {
   layout: "admin/defaultAdmin",
   data: () => ({
     valid: true,
+    
     categoryName: "",
     seoUrl: "",
     categoryDescription: "",
@@ -66,8 +63,6 @@ export default {
     metaKeyword: "",
     metaDescription: "",
     categoryImage: "",
-    // bannerImageLoc: "",
-    // displayOrder: "",
     status: "",
 
     show_image: "",
@@ -95,10 +90,7 @@ export default {
       form.append("metakeywords", this.metaKeyword);
       form.append("metadescription", this.metaDescription);
       form.append("categoryimage", this.categoryImage);
-      // form.append("bannerimageloc", this.bannerImageLoc);
-      // form.append("displayorder", this.displayOrder);
       form.append("status", this.getStatus());
-      // form.append("pdf_name", this.pdf_name);
       for (var datax of form.entries()) {
         console.log(datax[0], "=>", datax[1]);
       }
