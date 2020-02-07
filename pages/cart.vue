@@ -35,7 +35,7 @@
                 <strong>{{cart.product_name}}</strong>
               </h4>
               <h4>
-                <small>{{cart.product_desc}}</small>
+                <small v-html="cart.product_desc"></small>
               </h4>
             </div>
             <div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row">
@@ -190,11 +190,12 @@
               class="btn btn-info pull-right btnBuy"
             >Checkout</a>
             <div
-              class="pull-right"
               style="margin: 5px"
+              v-for="(tot,index) in total"
+              class="pull-right"
+              :key="index"
             >
-              Total price:
-              <b>$ 50.00</b>
+              Total price: <b> ${{tot.price*tot.total}}.00</b>
             </div>
           </div>
         </div>
