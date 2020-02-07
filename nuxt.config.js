@@ -41,6 +41,7 @@ module.exports = {
   plugins: [
     /** For Quill editor*/
     { src: '~/plugins/editor', ssr: false },
+    { src: '~/plugins/vue-session', ssr: false }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -88,6 +89,6 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) { }
+    extend (config, ctx) { }
   }
 }
