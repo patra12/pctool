@@ -185,10 +185,10 @@
             class="pull-right"
             style="margin: 10px"
           >
-            <a
-              href
+            <nuxt-link
+              to="/checkout"
               class="btn btn-info pull-right btnBuy"
-            >Checkout</a>
+            >Checkout</nuxt-link>
             <div
               style="margin: 5px"
               v-for="(tot,index) in total"

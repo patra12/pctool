@@ -28,4 +28,8 @@ app.use(orders);
 const tempCart = require('./tempCart.js');
 app.use(tempCart);
 
+// Importing tempCart routes
+const checkout = require('./checkout.js');
+app.use(checkout);
+
 module.exports = app;
