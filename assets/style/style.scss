@@ -352,7 +352,7 @@
   .product-grid .social li {
     display: inline-block;
   }
-  .product-grid .social li a {
+  .product-grid .social li span {
     color: #fff;
     background-color: #333;
     font-size: 16px;
@@ -364,6 +364,7 @@
     display: block;
     position: relative;
     transition: all 0.3s ease-in-out;
+    cursor:pointer;
   }
   .product-grid .social li a:hover {
     color: #fff;
