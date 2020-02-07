@@ -16,28 +16,25 @@
               <img class="pic-2" :src="make_image_path(product.aminate_img2)" />-->
             <ul class="social">
               <li>
-                <a
-                  @click="addData(product.productId,product.price)"
-                  data-tip="Quick View"
-                >
+                <span data-tip="Quick View">
                   <v-icon class="white--text">mdi-magnify</v-icon>
-                </a>
+                </span>
               </li>
               <li>
-                <a
+                <span
                   href
                   data-tip="Add to Wishlist"
                 >
                   <v-icon class="white--text">mdi-shopping</v-icon>
-                </a>
+                </span>
               </li>
               <li>
-                <a
-                  href
+                <span
+                  @click="addData(product.productId,product.price)"
                   data-tip="Add to Cart"
                 >
                   <v-icon class="white--text">mdi-cart</v-icon>
-                </a>
+                </span>
               </li>
             </ul>
             <!-- <span class="product-new-label">{{product.offer_label}}</span>
@@ -149,8 +146,6 @@ export default {
       })
         .then(res => {
           this.products = res.data;
-          console.log("ok", this.products);
-
         })
         .catch(err => {
           console.log(err);
