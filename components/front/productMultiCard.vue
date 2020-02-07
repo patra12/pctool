@@ -37,8 +37,6 @@
                 </span>
               </li>
             </ul>
-            <!-- <span class="product-new-label">{{product.offer_label}}</span>
-            <span class="product-discount-label">{{product.offer_persentage}}</span> -->
           </div>
 
           <div class="product-content">
@@ -67,71 +65,6 @@ export default {
       price: "",
       dialog: false,
       id: "",
-      products: [
-        {
-          id: 1,
-          product_name: "HAND HELD SAW",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "HAND-HELD-SAW.jpg",
-          aminate_img2: "HAND-HELD-SAW-2.jpg",
-          button_label: "CHECK OUR BLADES"
-        },
-        {
-          id: 2,
-          product_name: "EARLY ENTRY/SOFF - CUT",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "EARLY-ENTRY-SOFF.jpg",
-          aminate_img2: "EARLY-ENTRY-SOFF-2.jpg",
-          button_label: "CHECK OUR BLADES"
-        },
-        {
-          id: 3,
-          product_name: "GRINDER SAW",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "GRINDER-SAW.jpg",
-          aminate_img2: "GRINDER-SAW-2.jpg",
-          button_label: "CHECK OUR BLADES"
-        },
-        {
-          id: 4,
-          product_name: "CORE DRILL SAW ",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "CORE-DRILL-SAW.jpg",
-          aminate_img2: "CORE-DRILL-SAW.jpg",
-          button_label: "CHECK OUR BLADES"
-        },
-        {
-          id: 5,
-          product_name: "HYDRAULIC SAW",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "HYDRAULIC-SAW.jpg",
-          aminate_img2: "HYDRAULIC-SAW.jpg",
-          button_label: "CHECK OUR BLADES"
-        },
-        {
-          id: 6,
-          product_name: "CHAIN SAW",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "CHAIN-SAW.jpg",
-          aminate_img2: "CHAIN-SAW.jpg",
-          button_label: "CHECK OUR BLADES"
-        },
-        {
-          id: 7,
-          product_name: "WALK BEHIND SAW",
-          offer_label: "SALE",
-          offer_persentage: "20%",
-          showing_img1: "WALK-BEHIND-SAW.jpg",
-          aminate_img2: "WALK-BEHIND-SAW.jpg",
-          button_label: "CHECK OUR BLADES"
-        }
-      ]
     };
   },
   methods: {
