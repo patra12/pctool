@@ -24,6 +24,9 @@
             <nuxt-link to="/signin">Sign in</nuxt-link>
             <nuxt-link to="/signup">Sign Up</nuxt-link>
           </div>
+          <div class="signUpBlock">
+            <div @click="LogOut()">Log out</div>
+          </div>
         </div>
       </div>
     </div>
@@ -81,21 +84,32 @@
           </form>
         </div>
         <div class="cartSection">
-          <div class="cartSectionInner">
-            <div class="cartLeft">
-              <p>SHOPPING ITEM</p>
-              <p>
-                $0.00
-                <span>0 ITEM</span>
-              </p>
+          <nuxt-link
+            to="/cart"
+            style="text-decoration:none"
+          >
+            <div class="cartSectionInner">
+              <div
+                v-for="(tot,index) in total"
+                class="cartLeft"
+                :key="index"
+              >
+                <p>SHOPPING ITEM</p>
+                <p>
+                  <span>$</span>
+                  <span>{{tot.price*tot.total}}.00</span>
+                  <span>|</span>
+                  <span>{{tot.total}} ITEM</span>
+                </p>
+              </div>
+              <div class="cartRight">
+                <img
+                  src="~/assets/image/icons/shoppingBag.png"
+                  alt="Shopping Bag"
+                />
+              </div>
             </div>
-            <div class="cartRight">
-              <img
-                src="~/assets/image/icons/shoppingBag.png"
-                alt="Shopping Bag"
-              />
-            </div>
-          </div>
+          </nuxt-link>
         </div>
       </div>
     </div>
@@ -149,6 +163,12 @@
 import "~/assets/style/style.scss";
 export default {
   name: "SiteHeader",
+  data () {
+    return {
+      id: "",
+      total: "",
+    };
+  },
   methods: {
     myFunction () {
       var x = document.getElementById("myTopnav");
@@ -157,7 +177,35 @@ export default {
       } else {
         x.className = "topnav";
       }
+    },
+    getData (id) {
+      this.$axios({
+        method: "GET",
+        // url: '/gettotaldata/${this.$session.id()}'
+        url: `/gettotaldata/${this.$session.id()}`
+      })
+        .then(res => {
+          this.total = res.data;
+          // console.log("total", this.total);
+
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    LogOut () {
+      this.$session.destroy()
+      this.$router.go('/')
     }
+  },
+  mounted () {
+    console.log(this);
+    if (!this.$session.exists()) {
+      this.$session.start();
+    }
+    console.log(this.$session.id());
+    this.getData();
+
   }
 };
 </script>
