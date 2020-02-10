@@ -10,4 +10,7 @@ app.post('/adduser', user.addUser);
 app.put('/putuser/:id', user.putUsre);
 app.delete('/deluser/:id', user.delUser);
 
+//for frontend login
+app.post('/loginUser', user.loginUser);
+
 module.exports = app;
