@@ -559,7 +559,7 @@
   .list-group p {
     font-weight: 600;
     color: #333;
-    padding: 10px 1.25rem;
+    // padding: 10px 1.25rem;
     margin-bottom: 0;
   }
   .list-group a {
@@ -925,4 +925,34 @@ button.qty-change{
 }
 .exactPrice{
   margin-top: 10px;
+}
+//birja checkout page changes
+.order_sum{
+  padding-right: 150px;
+}
+.sub_tot{
+  padding-left: 325px;
+}
+.sub_tot_price{
+  padding-right: 125px;
+}
+.shipping_charge{
+  padding-right: 170px;
+}
+.sub_calculate{
+  padding: 5px;
+}
+.ship_width{
+  max-width: 100%;
+}
+.vl {
+  border-left: 1px solid gray;
+  height: 620px;
+  position: absolute;
+  left: 50%;
+  margin-left: -3px;
+  top: 280px;
+}
+.btn-primary{
+  background-color: gray;
 }
