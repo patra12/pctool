@@ -13,14 +13,16 @@
             <form>
               <div class="form-group">
                 <input
-                  name
+                  name="email"
+                   v-model="email"
                   class="form-control"
-                  placeholder="Email or login"
+                  placeholder="Email"
                   type="email"
                 />
               </div>
               <div class="form-group">
                 <input
+                 v-model="password"
                   class="form-control"
                   placeholder="******"
                   type="password"
@@ -53,12 +55,42 @@
 </template>
 <script>
 export default {
-  layout: "none",
-
-  methods: {
-    login () {
-      this.$router.push('/user');
+  data () {
+    return {
+      email: "",
+      password: ""
     }
+  },
+  methods: {
+    async login () {
+      let response = await this.get_login_data();
+      console.log(response);
+      if (response) {
+        
+        this.$router.push("/checkout");
+      }
+
+    },
+    async get_login_data () {
+      //making data for send to api
+      let userCredentials = {
+        email: this.email,
+        password: this.password
+      }
+      //sending asynchronous data
+      let login = await this.$axios.post('/loginUser', userCredentials);
+      console.log(login.data[0].no);
+
+      //response data back 
+      return login.data[0].no
+
+    }
+  },
+  mounted () {
+    if (!this.$session.exists()) {
+      this.$session.start();
+    }
+    console.log("session", this.$session.id());
   }
 };
 </script>
