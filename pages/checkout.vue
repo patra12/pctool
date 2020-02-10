@@ -305,7 +305,7 @@
           <hr class="mb-4">
           <v-btn
             @click="addData()"
-            
+            class="btn-primary"
           >Pay With PAYPAL</v-btn>
 
         </form>
