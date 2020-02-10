@@ -4,7 +4,7 @@
 
       <div class="col-md-4 order-md-2 mb-4 ">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-muted">Shipping Address</span>
+          <span>Shipping Address</span>
           <span class="badge badge-secondary badge-pill"></span>
         </h4>
 
@@ -24,8 +24,7 @@
             >Shipping address is the same as my billing address</label>
           </div>
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -40,8 +39,7 @@
           </div>
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -55,8 +53,7 @@
           </div>
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -70,8 +67,7 @@
           </div>
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -84,8 +80,7 @@
           </div>
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -102,8 +97,7 @@
          </div> -->
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -116,8 +110,7 @@
           </div>
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -130,8 +123,7 @@
           </div>
 
           <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
+            class="col-md-6 mb-3 ship_width"
           >
             <input
               type="text"
@@ -147,7 +139,7 @@
       <div class="vl"></div>
 
       <div class="col-md-8 order-md-1">
-        <h4 class="mb-3">Billing address</h4>
+        <h4 class="mb-3">Billing Address</h4>
         <form
           class="needs-validation"
           novalidate=""
@@ -177,10 +169,7 @@
             >
           </div>
 
-          <div
-            style="max-width: 100%;"
-            class="col-md-6 mb-3"
-          >
+            <div class="col-md-6 mb-3">
             <input
               type="text"
               class="form-control"
@@ -254,78 +243,69 @@
           <hr class="mb-4">
           <h4 class="mb-3">Order Summary</h4>
           <ul class="list-group mb-3">
-            <li class="list-group d-flex justify-content-between lh-condensed">
-
-              <div style="padding: 7px;">
+            <li class="d-flex justify-content-between lh-condensed">
+              <div>
                 <h5 class="my-0">Product name</h5>
               </div>
-
-              <div style="padding: 7px;">
-                <h5 class="my-0">Quantity</h5>
+              <div>
+                <h5 class="my-0 order_sum">Quantity</h5>
               </div>
-
-              <div style="padding: 7px;">
-                <h5 class="my-0">Price</h5>
+              <div>
+                <h5 class="my-0 order_sum">Price</h5>
               </div>
-
             </li>
             <li
-              class="list-group d-flex justify-content-between lh-condensed"
+              class=" d-flex justify-content-between lh-condensed"
               v-for="(cart, index) in cartData"
               :key="index"
             >
-
-              <div style="padding: 7px;">
+              <div>
                 <small class="text-muted">{{cart.product_name}}</small>
               </div>
-
-              <div style="padding: 7px;">
-                <small class="text-muted">1</small>
+              <div>
+                <small class="text-muted order_sum">1</small>
               </div>
-
-              <div style="padding: 7px;">
-                <small class="text-muted">${{cart.price}}</small>
-              </div>
-
-            </li>
-            <li
-              v-for="(tot,index) in total"
-              class="list-group d-flex justify-content-between lh-condensed"
-              :key="index"
-            >
-              <div style="padding: 7px; margin-right: 109px;">
-                <h5 class="my-0">Sub Total :</h5>
-              </div>
-              <div style="padding: 7px;">
-                <h5 class="my-0">${{tot.price*tot.total}}.00</h5>
-              </div>
-            </li>
-            <li class="list-group d-flex justify-content-between lh-condensed">
-              <div style="padding: 7px; margin-right: 65px;">
-                <h5 class="my-0">Shipping charge :</h5>
-              </div>
-              <div style="padding: 7px;">
-                <h5 class="my-0">$10</h5>
+              <div>
+                <small class="text-muted order_sum">${{cart.price}}</small>
               </div>
             </li>
             <li
               v-for="(tot,index) in total"
-              class="list-group d-flex justify-content-between lh-condensed"
+              class="d-flex justify-content-between lh-condensed"
               :key="index"
             >
-              <div style="padding: 7px; margin-right: 100px;">
-                <h5 class="my-0">Grand Total :</h5>
+              <div>
+                <p class="sub_tot">Sub Total :</p>
               </div>
-              <div style="padding: 7px;">
-                <h5 class="my-0">${{tot.price*tot.total+10}}.00</h5>
+              <div class="sub_calculate">
+                <p class="sub_tot_price">${{tot.price*tot.total}}.00</p>
+              </div>
+            </li>
+            <li class="d-flex justify-content-between lh-condensed">
+              <div class="sub_calculate">
+                <p class="sub_tot">Shipping charge :</p>
+              </div>
+              <div>
+                <p class="shipping_charge">$10</p>
+              </div>
+            </li>
+            <li
+              v-for="(tot,index) in total"
+              class="d-flex justify-content-between lh-condensed"
+              :key="index"
+            >
+              <div>
+                <p class="sub_tot">Grand Total :</p>
+              </div>
+              <div>
+                <p class="sub_tot_price">${{tot.price*tot.total+10}}.00</p>
               </div>
             </li>
           </ul>
           <hr class="mb-4">
           <v-btn
             @click="addData()"
-            style="background-color:red"
-            class="btn btn-primary btn-block"
+            
           >Pay With PAYPAL</v-btn>
 
         </form>
@@ -452,13 +432,4 @@ export default {
   }
 }
 </script> 
-<style>
-.vl {
-  border-left: 1px solid gray;
-  height: 480px;
-  position: absolute;
-  left: 50%;
-  margin-left: -3px;
-  top: 300px;
-}
-</style>
+ 
