@@ -115,9 +115,6 @@
 </template>
 
 
-
-
-
 <script>
 import "~/assets/style/style.scss";
 export default {
