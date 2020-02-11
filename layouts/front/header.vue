@@ -20,7 +20,7 @@
           </div>
           <div v-else>
             <nuxt-link to="signUpBlock">
-              <div @click="LogOut()">Log out</div>
+              <div @click="LogOut()">Sign out</div>
             </nuxt-link>
           </div>
           <!-- <div class="signUpBlock">
