@@ -64,10 +64,12 @@ export default {
   methods: {
     async login () {
       let response = await this.get_login_data();
-      console.log(response);
+
+        this.$session.set('email', this.email);
+        //console.log("getAll check",this.$session.getAll());
       if (response) {
-        
-        this.$router.push("/checkout");
+        //this.$router.push("/cart");
+        window.location.replace("/");
       }
 
     },
@@ -79,18 +81,24 @@ export default {
       }
       //sending asynchronous data
       let login = await this.$axios.post('/loginUser', userCredentials);
-      console.log(login.data[0].no);
-
-      //response data back 
-      return login.data[0].no
+       
+      if(login.data[0] != undefined) 
+      {
+        //response data back 
+        return login.data[0].no;
+        console.log("if in",login.data[0].no);
+      }
+         
 
     }
   },
   mounted () {
-    if (!this.$session.exists()) {
-      this.$session.start();
-    }
-    console.log("session", this.$session.id());
+   
+    // if (!this.$session.exists()) {
+    //   this.$session.start();
+        this.$session.set('email', this.email)
+    //}
+    //console.log("session", this.$session.id());
   }
 };
 </script>
