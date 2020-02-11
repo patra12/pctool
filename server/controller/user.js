@@ -95,7 +95,7 @@ module.exports = {
 		email = req.body.email;
 		password = req.body.password;
 
-		search = "select count(*) as no from user WHERE email  ='";
+		search = "select userId as no from user WHERE email  ='";
 		search += email + "' and password ='";
 		search += password + "'";
 
