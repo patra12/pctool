@@ -120,10 +120,11 @@
             class="pull-right"
             style="margin: 10px"
           >
-            <nuxt-link
+            <!-- <nuxt-link
               to="/signin"
-              class="btn btn-info pull-right btnBuy"
-            >Checkout</nuxt-link>
+              class="btn btn-info pull-right btnBuy" @click="nextPage()"
+            >Checkout</nuxt-link> -->
+            <div @click="nextPage()" class="btn btn-info pull-right btnBuy">Checkout</div>
             <div
               style="margin: 5px"
               v-for="(tot,index) in total"
@@ -231,10 +232,22 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    nextPage(){
+      console.log("check",this.$session.getAll());
+    if (!this.$session.get("email")) {
+      this.$router.push('/signin')
+    } else {
+       this.$router.push('/checkout') 
     }
+
+  }
   },
+  
   mounted () {
+      console.log("email in cart",this.$session.getAll());
     this.getData();
+    
     this.getTotalData();
   }
 }
