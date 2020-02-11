@@ -5,28 +5,32 @@
       <div class="row">
         <div class="leftBlock">
           <div class="wlcomeBlock">
-            <img
-              src="~/assets/image/icons/wlc.png"
-              alt="Welcome"
-            />
+            <img src="~/assets/image/icons/wlc.png" alt="Welcome" />
             <p>Welcome to Pro Construction Tools</p>
           </div>
           <div class="addressBlock">
-            <img
-              src="~/assets/image/icons/pointer.png"
-              alt="Welcome"
-            />
+            <img src="~/assets/image/icons/pointer.png" alt="Welcome" />
             <p>Address of Pro Construction Tools</p>
           </div>
         </div>
         <div class="rightBlock">
-          <div class="signUpBlock">
+          <div v-if="!isSessionPresent" class="signUpBlock">
             <nuxt-link to="/signin">Sign in</nuxt-link>
             <nuxt-link to="/signup">Sign Up</nuxt-link>
           </div>
-          <div class="signUpBlock">
-            <div @click="LogOut()">Log out</div>
+          <div v-else>
+            <nuxt-link to="signUpBlock">
+              <div @click="LogOut()">Log out</div>
+            </nuxt-link>
           </div>
+          <!-- <div class="signUpBlock">
+            <nuxt-link to="/signin">Sign in</nuxt-link>
+            <nuxt-link to="/signup">Sign Up</nuxt-link>
+          </div>
+         
+           <nuxt-link to="signUpBlock">
+            <div @click="LogOut()">Log out</div>
+          </nuxt-link>-->
         </div>
       </div>
     </div>
@@ -36,10 +40,7 @@
       <div class="row vCenter">
         <div class="logoBlock">
           <nuxt-link to="/">
-            <img
-              src="~/assets/image/pcToolsLogo.png"
-              alt="PC Tools Logo"
-            />
+            <img src="~/assets/image/pcToolsLogo.png" alt="PC Tools Logo" />
           </nuxt-link>
         </div>
         <div class="searchblock">
@@ -47,10 +48,7 @@
             <div class="inner-form">
               <div class="input-field first-wrap">
                 <div class="input-select">
-                  <select
-                    data-trigger
-                    name="choices-single-defaul"
-                  >
+                  <select data-trigger name="choices-single-defaul">
                     <option placeholder>All Category</option>
                     <option>New Arrivals</option>
                     <option>Sale</option>
@@ -63,37 +61,20 @@
                 </div>
               </div>
               <div class="input-field second-wrap">
-                <input
-                  id="search"
-                  type="text"
-                  placeholder="Enter Keywords?"
-                />
+                <input id="search" type="text" placeholder="Enter Keywords?" />
               </div>
               <div class="input-field third-wrap">
-                <button
-                  class="btn-search"
-                  type="button"
-                >
-                  <img
-                    src="~/assets/image/icons/seaRch.png"
-                    alt="Search Icon"
-                  />
+                <button class="btn-search" type="button">
+                  <img src="~/assets/image/icons/seaRch.png" alt="Search Icon" />
                 </button>
               </div>
             </div>
           </form>
         </div>
         <div class="cartSection">
-          <nuxt-link
-            to="/cart"
-            style="text-decoration:none"
-          >
+          <nuxt-link to="/cart" style="text-decoration:none">
             <div class="cartSectionInner">
-              <div
-                v-for="(tot,index) in total"
-                class="cartLeft"
-                :key="index"
-              >
+              <div v-for="(tot,index) in total" class="cartLeft" :key="index">
                 <p>SHOPPING ITEM</p>
                 <p>
                   <span>$</span>
@@ -103,10 +84,7 @@
                 </p>
               </div>
               <div class="cartRight">
-                <img
-                  src="~/assets/image/icons/shoppingBag.png"
-                  alt="Shopping Bag"
-                />
+                <img src="~/assets/image/icons/shoppingBag.png" alt="Shopping Bag" />
               </div>
             </div>
           </nuxt-link>
@@ -114,39 +92,20 @@
       </div>
     </div>
 
-    <div
-      class="topnav"
-      id="myTopnav"
-    >
+    <div class="topnav" id="myTopnav">
       <div class="container">
-        <nuxt-link
-          to="/"
-          class="active"
-        >
-          <img
-            src="~/assets/image/icons/home.png"
-            alt="Home Icon"
-          />
+        <nuxt-link to="/" class="active">
+          <img src="~/assets/image/icons/home.png" alt="Home Icon" />
         </nuxt-link>
 
         <nuxt-link to="/byneed">By Need</nuxt-link>
         <nuxt-link to="/byapplication">By Application</nuxt-link>
         <nuxt-link to="/byindustry">By Industry</nuxt-link>
         <nuxt-link to="/contact">Contact Us</nuxt-link>
-        <a
-          href="javascript:void(0);"
-          class="icon"
-          @click="myFunction()"
-        >
-          <img
-            src="~/assets/image/icons/sortBar.png"
-            alt="Menu Icon"
-          />
+        <a href="javascript:void(0);" class="icon" @click="myFunction()">
+          <img src="~/assets/image/icons/sortBar.png" alt="Menu Icon" />
         </a>
-        <nuxt-link
-          to="/login"
-          class="wishlist-btn"
-        >
+        <nuxt-link to="/login" class="wishlist-btn">
           <v-icon>mdi-heart</v-icon>
           <span>Wishlist(4)</span>
         </nuxt-link>
@@ -163,14 +122,26 @@
 import "~/assets/style/style.scss";
 export default {
   name: "SiteHeader",
-  data () {
+  data() {
     return {
       id: "",
       total: "",
+      isSessionPresent: Boolean
     };
   },
+  computed: {
+    is_session() {
+      if (this.$session.get("email")) {
+        this.isSessionPresent = true;
+        //console.log("inside sessions", this.isSessionPresent);
+      } else {
+        this.isSessionPresent = false;
+        //console.log("outside sessions", this.isSessionPresent);
+      }
+    }
+  },
   methods: {
-    myFunction () {
+    myFunction() {
       var x = document.getElementById("myTopnav");
       if (x.className === "topnav") {
         x.className += " responsive";
@@ -178,7 +149,7 @@ export default {
         x.className = "topnav";
       }
     },
-    getData (id) {
+    getData(id) {
       this.$axios({
         method: "GET",
         // url: '/gettotaldata/${this.$session.id()}'
@@ -187,25 +158,25 @@ export default {
         .then(res => {
           this.total = res.data;
           // console.log("total", this.total);
-
         })
         .catch(err => {
           console.log(err);
         });
     },
-    LogOut () {
-      this.$session.destroy()
-      this.$router.go('/')
+    LogOut() {
+      this.$session.destroy();
+      //window.location.replace("/");
+      this.$router.go("/");
     }
   },
-  mounted () {
+  mounted() {
     console.log(this);
     if (!this.$session.exists()) {
       this.$session.start();
     }
-    console.log(this.$session.id());
-    this.getData();
 
+    this.getData();
+    this.is_session;
   }
 };
 </script>
