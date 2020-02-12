@@ -8,10 +8,10 @@
       >
         <div class="product-grid">
           <div class="product-image">
-            <img
+           <nuxt-link :to="'/productDetails/' +product.productId"> <img
               class="pic-1"
               src="~/assets/image/products/HAND-HELD-SAW.jpg"
-            />
+            /></nuxt-link>
             <!-- <img class="pic-1" :src="make_image_path(product.showing_img1)" />
               <img class="pic-2" :src="make_image_path(product.aminate_img2)" />-->
             <ul class="social">
@@ -41,10 +41,10 @@
 
           <div class="product-content">
             <p class="product-title">
-              <a href="#">{{product.product_name}}</a>
+              <nuxt-link :to="'/productDetails/' +product.productId">{{product.product_name}}</nuxt-link>
             </p>
 
-            <nuxt-link to="/productDetails">
+            <nuxt-link :to="'/productDetails/' +product.productId">
               <button class="add-to-cart">CHECK OUR BLADES</button>
             </nuxt-link>
           </div>
@@ -97,7 +97,8 @@ export default {
         }
       })
         .then(res => {
-          this.$router.go("/cart");
+          //this.$router.push("/cart");
+          window.location.replace("/cart");
         })
         .catch(err => {
           console.log(err);
