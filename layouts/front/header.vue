@@ -48,6 +48,7 @@
             <div class="inner-form">
               <div class="input-field first-wrap">
                 <div class="input-select">
+                 
                   <select data-trigger name="choices-single-defaul">
                     <option placeholder>All Category</option>
                     <option>New Arrivals</option>
@@ -162,8 +163,8 @@ export default {
     },
     LogOut() {
       this.$session.destroy();
-      //window.location.replace("/");
-      this.$router.go("/");
+      window.location.replace("/");
+      //this.$router.go("/");
     }
   },
   mounted() {
