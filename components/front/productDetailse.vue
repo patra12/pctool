@@ -54,8 +54,8 @@
                 >Saw Husqvarna</li>
               </ol>
               <p class="last-sold text-muted"><small>145 items sold</small></p>
-              <p class="product-title">Electric Concrete Saw Husqvarna K4000 Husqvarna K970 Problems Chop Saw</p>
-              <p class="product-price display-4">$1,840.00</p>
+              <p class="product-title">{{product.product_name}}</p>
+              <p class="product-price display-4">${{product.price}}</p>
               <p class="actualPrice mb-0">$1,940.00</p>
               <p class="saveTxt">(You save $100.00)</p>
               <div class="text-muted"><small><a href="#">Know More</a> about delivery time and shipping forms</small></div>
@@ -79,68 +79,20 @@
                 />
                 <button class="qty-change">+</button>
               </div>
-              <nuxt-link to="/cart"><button class="btn btn-primary btnBuy">Buy Now</button></nuxt-link>
+              <nuxt-link to="/cart"><button class="btn btn-primary btnBuy"  @click="addData(product.productId,product.price)">Buy Now</button></nuxt-link>
               <div class="lineBreak"></div>
 
               <div class="productAllDetails">
                 <div>
-                  <v-tabs
-                    v-model="tab"
-                    background-color="tabHeaderBackground"
-                    class="elevation-2"
-                    dark
-                    :centered="centered"
-                    :grow="grow"
-                    :vertical="vertical"
-                    :right="right"
-                    :prev-icon="prevIcon ? 'mdi-arrow-left-bold-box-outline' : undefined"
-                    :next-icon="nextIcon ? 'mdi-arrow-right-bold-box-outline' : undefined"
-                    :icons-and-text="icons"
-                  >
-                    <v-tabs-slider></v-tabs-slider>
-
-                    <v-tab
-                      v-for="i in tabs"
-                      :key="i"
-                      class="tyyyytyyy"
-                      :href="`#tab-${i}`"
-                    >
-                      Description {{ i }}
-                      <v-icon v-if="icons">mdi-phone</v-icon>
-                    </v-tab>
-                    <v-tab
-                      class="tyyyytyyy"
-                      :href="`#tab-4`"
-                    >
-                      FEATURES
-                      <v-icon v-if="icons">mdi-phone</v-icon>
-                    </v-tab>
-
-                    <v-tab-item
-                      v-for="i in tabs"
-                      :key="i"
-                      :value="'tab-' + i"
-                    >
+                  
                       <v-card
                         flat
                         tile
                       >
-                        <v-card-text>{{ text }}</v-card-text>
+                        <v-card-text>{{product.product_desc}}</v-card-text>
                       </v-card>
-                    </v-tab-item>
-
-                    <v-tab-item
-                      :key="i"
-                      :value="'tab-4'"
-                    >
-                      <v-card
-                        flat
-                        tile
-                      >
-                        <v-card-text>{{ text }}</v-card-text>
-                      </v-card>
-                    </v-tab-item>
-                  </v-tabs>
+                    <!-- </v-tab-item>
+                  </v-tabs>   -->
                 </div>
               </div>
             </div>
@@ -157,6 +109,7 @@
 export default {
   data () {
     return {
+      products: "",
       tab: null,
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
       icons: false,
@@ -167,6 +120,7 @@ export default {
       nextIcon: false,
       right: false,
       tabs: 3,
+      product:""
     }
   },
   methods: {
@@ -181,7 +135,43 @@ export default {
           galleryFeatured.src = image;
         });
       });
+    },
+   getData () {
+      this.$axios({
+        url: "/monoproduct/" + this.$route.params.id,
+        method: "get"
+      })
+        .then(res => {       
+          this.product =res.data[0];
+        })
+        .catch(err => {
+          // handle errorr
+          console.log(err);
+        });
+    },
+    addData (productId, price) {
+      console.log("test productId", productId);
+      console.log("test price", price);
+      this.$axios({
+        method: "POST",
+        url: "/addProductId",
+        data: {
+          sessionid: this.$session.id(),
+          productId: productId,
+          price: price
+        }
+      })
+        .then(res => {
+          this.$router.push("/cart");
+         // window.location.replace("/cart");
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
+},
+     mounted () {
+    this.getData();
   }
 
 }
