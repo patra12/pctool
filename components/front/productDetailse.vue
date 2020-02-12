@@ -162,8 +162,8 @@ export default {
         }
       })
         .then(res => {
-          this.$router.push("/cart");
-         // window.location.replace("/cart");
+          //this.$router.push("/cart");
+          window.location.replace("/cart");
         })
         .catch(err => {
           console.log(err);
