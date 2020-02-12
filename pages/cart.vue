@@ -24,7 +24,7 @@
             <div class="col-12 col-sm-12 col-md-2 text-center">
               <img
                 class="img-responsive"
-                src="http://placehold.it/120x80"
+                src="~/assets/image/products/electric-concrete-saw-712x712.jpg"
                 alt="prewiew"
                 width="120"
                 height="80"
