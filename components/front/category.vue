@@ -5,12 +5,12 @@
       :key="index"
       class="list-group mb-5"
     >
-      <p>{{parent.name}}</p>
+      <p class="pl-5"> {{parent.name}}</p>
       <hr class="hrMod" />
       <a
         v-for="(category,index) in parent.categories"
         :key="index"
-        :href="index"
+        href="#"
         class="list-group-item"
       >
         <span>{{category.name}}</span>
