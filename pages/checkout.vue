@@ -12,17 +12,23 @@
           class="needs-validation"
           novalidate=""
         >
-          <div class="custom-control custom-checkbox">
+          <!-- <div class="custom-control custom-checkbox">
             <input
               type="checkbox"
               class="custom-control-input"
-              id="same-address"
+              value="" name="filltoo" id="filltoo" @click="filladd()"
             >
             <label
               class="custom-control-label"
               for="same-address"
             >Shipping address is the same as my billing address</label>
-          </div>
+          </div> -->
+          <input type="checkbox" value="" name="filltoo" id="filltoo" @click="filladd()" />Shipping address is the same as my billing address   <br/>
+
+          <!-- <v-btn
+            @click="filladd()" name="filltoo" id="filltoo"
+            class="btn-primary"
+          >check</v-btn> -->
           <div
             class="col-md-6 mb-3 ship_width"
           >
@@ -272,7 +278,7 @@
             <li
               v-for="(tot,index) in total"
               class="d-flex justify-content-between lh-condensed"
-              :key="index"
+              :key="index+1"
             >
               <div>
                 <p class="sub_tot">Sub Total :</p>
@@ -292,7 +298,7 @@
             <li
               v-for="(tot,index) in total"
               class="d-flex justify-content-between lh-condensed"
-              :key="index"
+              :key="index+2"
             >
               <div>
                 <p class="sub_tot">Grand Total :</p>
@@ -307,11 +313,11 @@
             @click="addData()"
             class="btn-primary"
           >Pay With PAYPAL</v-btn>
-
         </form>
       </div>
     </div>
   </div>
+  
 </template>
 <script>
 export default {
@@ -324,6 +330,7 @@ export default {
       dialog: false,
       snack: false,
       timeout: 1000,
+      //for billing
       bill_userId: "",
       bill_firstname: "",
       bill_lastname: "",
@@ -354,7 +361,50 @@ export default {
     };
   },
   methods: {
-    getData (id) {
+    //for checkbox click same address billing and shipping
+    filladd(){
+	 if(filltoo.checked == true) 
+     {
+      var bill_firstname11 =document.getElementById("bill_firstname").value;
+			var bill_lastname11 =document.getElementById("bill_lastname").value;
+      var bill_email11 =document.getElementById("bill_email").value;
+      var bill_address11 =document.getElementById("bill_address").value;
+      var bill_city11 =document.getElementById("bill_city").value;
+      var bill_zipcode11 =document.getElementById("bill_zipcode").value;
+      var bill_phone11 =document.getElementById("bill_phone").value;
+      var bill_country11 =document.getElementById("bill_country").value;
+        
+            var copybill_firstname =bill_firstname11 ;
+            var copybill_lastname =bill_lastname11 ;
+            var copybill_email =bill_email11 ;
+            var copybill_address =bill_address11 ;
+            var copybill_city =bill_city11 ;
+            var copybill_zipcode =bill_zipcode11 ;
+            var copybill_phone =bill_phone11 ;
+            var copybill_country =bill_country11 ;
+
+            document.getElementById("ship_firstname").value = copybill_firstname;
+            document.getElementById("ship_lastname").value = copybill_lastname;
+            document.getElementById("ship_email").value = copybill_email;
+            document.getElementById("ship_address").value = copybill_address;
+            document.getElementById("ship_city").value = copybill_city;
+            document.getElementById("ship_zipcode").value = copybill_zipcode;
+            document.getElementById("ship_phone").value = copybill_phone;
+            document.getElementById("ship_country").value = copybill_country;
+	 }
+	 else if(filltoo.checked == false)
+	 {
+        document.getElementById("ship_firstname").value='';
+        document.getElementById("ship_lastname").value='';
+        document.getElementById("ship_email").value='';
+        document.getElementById("ship_address").value='';
+        document.getElementById("ship_city").value='';
+        document.getElementById("ship_zipcode").value='';
+        document.getElementById("ship_phone").value='';
+        document.getElementById("ship_country").value='';
+	 }
+},
+getData (id) {
       this.$axios({
         method: "GET",
         //url: "/getDataCartpage"
@@ -391,7 +441,7 @@ export default {
         url: "/addnewOrder",
         data: {
           //for billing
-          bill_userId: 34,
+          bill_userId: this.$session.get('userId'),
           bill_firstname: this.bill_firstname,
           bill_lastname: this.bill_lastname,
           bill_email: this.bill_email,
@@ -401,7 +451,7 @@ export default {
           bill_phone: this.bill_phone,
           bill_country: this.bill_country,
           //for shipping
-          ship_userId: 34,
+          ship_userId: this.$session.get('userId'),
           ship_firstname: this.ship_firstname,
           ship_lastname: this.ship_lastname,
           ship_email: this.ship_email,
@@ -411,7 +461,7 @@ export default {
           ship_phone: this.ship_phone,
           ship_country: this.ship_country,
           //for order
-          order_userId: 34,
+          order_userId: this.$session.get('userId'),
           order_amt: this.sub_total,
           shippingcost: 10,
           order_grand_total: this.sub_total
@@ -425,11 +475,15 @@ export default {
           console.log(err);
         });
     },
+    
   },
+  
   mounted () {
     this.getData();
     this.getTotalData();
+    
   }
+  
 }
 </script> 
  
