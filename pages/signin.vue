@@ -66,10 +66,11 @@ export default {
       let response = await this.get_login_data();
 
         this.$session.set('email', this.email);
+        this.$session.set('userId',response)
         //console.log("getAll check",this.$session.getAll());
       if (response) {
         //this.$router.push("/cart");
-        window.location.replace("/");
+        window.location.replace("/checkout");
       }
 
     },
