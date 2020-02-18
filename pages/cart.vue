@@ -43,19 +43,18 @@
                 <h6>
                   <strong>
                     <span>{{cart.price}}</span>
-                    <span>.00</span>
+                    <span></span>
                   </strong>
                 </h6>
               </div>
               <div class="col-4 col-sm-4 col-md-4">
                 <div class="quantity">
                   <input
-                    type="button"
+                    type="button" @click="addData(cart.productId,cart.price)"
                     value="+"
                     class="plus"
                   />
                   <input
-                    type="number"
                     step="1"
                     max="99"
                     min="1"
@@ -65,10 +64,11 @@
                     size="4"
                   />
                   <input
-                    type="button"
+                    type="button"  @click="minusButton(cart.tempId)"
                     value="-"
                     class="minus"
                   />
+                  
                 </div>
               </div>
               <div class="col-2 col-sm-2 col-md-2 text-right">
@@ -108,7 +108,7 @@
             <div class="col-md-6">
               <div class="pull-right">
                 <a
-                  href
+               href="" onClick="alert('Please enter coupon code!');return false;"
                   class="btn btn-outline-info pull-right"
                 >Update shopping cart</a>
               </div>
@@ -172,6 +172,10 @@
 export default {
   data () {
     return {
+      products: "",
+      sessionid: "",
+      productId: "",
+      price: "",
       id: "",
       cartData: "",
       delTemp: "",
@@ -183,6 +187,26 @@ export default {
     };
   },
   methods: {
+    addData (productId, price) {
+      console.log("test productId", productId);
+      console.log("test price", price);
+      this.$axios({
+        method: "POST",
+        url: "/addProductId",
+        data: {
+          sessionid: this.$session.id(),
+          productId: productId,
+          price: price
+        }
+      })
+        .then(res => {
+          //this.$router.push("/cart");
+          window.location.replace("/cart");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     getData (id) {
       this.$axios({
         method: "GET",
@@ -233,14 +257,29 @@ export default {
           console.log(err);
         });
     },
+    minusButton (id) {
+      this.id = id;
+      this.dialog = false;
+      this.$axios({
+        method: "DELETE",
+        url: `/delData/${this.id}`
+      })
+        .then(res => {
+          this.delTemp = res.data;
+          this.$router.go("/cart");
+          console.log("data delete", this.delTemp1);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     nextPage(){
-      console.log("check",this.$session.getAll());
+    //console.log("check",this.$session.getAll());
     if (!this.$session.get("email")) {
       this.$router.push('/signin')
     } else {
        this.$router.push('/checkout') 
     }
-
   }
   },
   
