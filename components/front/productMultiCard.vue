@@ -30,7 +30,7 @@
               </li>
               <li>
                 <span
-                  @click="addData(product.productId,product.price)"
+                  @click.prevent='addData(product.productId,product.price)'
                   data-tip="Add to Cart"
                 >
                   <v-icon class="white--text">mdi-cart</v-icon>
