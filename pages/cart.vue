@@ -9,7 +9,7 @@
           ></i>
           Shipping cart
           <a
-            href
+            href="/"
             class="btn btn-info btn-sm btnBuy pull-right"
           >Continiu shopping</a>
           <div class="clearfix"></div>
@@ -84,6 +84,7 @@
           </div>
           <hr />
 
+          <div v-if="total">
           <div class="row">
             <div class="col-md-6">
               <div class="coupon">
@@ -114,6 +115,17 @@
               </div>
             </div>
           </div>
+          </div>
+            <div v-else>
+              <div>
+                    <center>
+                       <img src="~/assets/image/empty.png" height="" width="170px"/>
+                    <h4>Your cart is empty!</h4>
+                    <p>Add items to it now.</p>
+                    </center>
+                  </div>
+            </div>
+
         </div>
         <div class="card-footer">
           <div
@@ -124,15 +136,21 @@
               to="/signin"
               class="btn btn-info pull-right btnBuy" @click="nextPage()"
             >Checkout</nuxt-link> -->
+            <div v-if="total">
             <div @click="nextPage()" class="btn btn-info pull-right btnBuy">Checkout</div>
-            <div
-              style="margin: 5px"
-              v-for="(tot,index) in total"
-              class="pull-right"
-              :key="index"
-            >
-              Total price: <b> ${{tot.price*tot.total}}.00</b>
+            <div style="margin: 5px" class="pull-right" >
+              Total price: <b> ${{price}}.00</b>
             </div>
+            </div>
+            <div v-else>
+            <center>
+            <a
+            href="/"
+            class="btn btn-info pull-right btnBuy"
+          >Shop now</a>
+            </center>
+          </div>
+           
           </div>
         </div>
       </div>
@@ -230,8 +248,10 @@ export default {
         url: `/gettotaldata/${this.$session.id()}`
       })
         .then(res => {
-          this.total = res.data;
-          console.log("total", this.total);
+          this.total = res.data[0].total;
+          this.price=res.data[0].price * this.total;
+          //console.log("total1", total);
+          //console.log("price check", this.price);
 
         })
         .catch(err => {
