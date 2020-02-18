@@ -75,13 +75,13 @@
         <div class="cartSection">
           <nuxt-link to="/cart" style="text-decoration:none">
             <div class="cartSectionInner">
-              <div v-for="(tot,index) in total" class="cartLeft" :key="index">
+              <div class="cartLeft">
                 <p>SHOPPING ITEM</p>
                 <p>
                   <span>$</span>
-                  <span>{{tot.price*tot.total}}.00</span>
+                  <span>{{price}}.00</span>
                   <span>|</span>
-                  <span>{{tot.total}} ITEM</span>
+                  <span>{{total}} ITEM</span>
                 </p>
               </div>
               <div class="cartRight">
@@ -124,6 +124,7 @@ export default {
     return {
       id: "",
       total: "",
+      price:"",
       isSessionPresent: Boolean
     };
   },
@@ -154,8 +155,10 @@ export default {
         url: `/gettotaldata/${this.$session.id()}`
       })
         .then(res => {
-          this.total = res.data;
-          // console.log("total", this.total);
+          this.total = res.data[0].total;
+          this.price=res.data[0].price * this.total;
+          //console.log("total1", total);
+          //console.log("price check", this.price);
         })
         .catch(err => {
           console.log(err);
