@@ -300,10 +300,10 @@
               </div>
             </li>
           </ul>
-          
+
           <hr class="mb-4">
           <v-btn
-            @click="addData()"
+            @click="addData(),flushData()"
             class="btn-primary"
           >Pay With PAYPAL</v-btn>
         </form>
@@ -355,6 +355,7 @@ export default {
     };
   },
   methods: {
+
     //for checkbox click same address billing and shipping
     filladd(){
 	 if(filltoo.checked == true) 
@@ -428,20 +429,7 @@ export default {
           console.log(err);
         });
     },
-    // for count total price in cart page
-    // getTotalData (id) {
-    //   this.$axios({
-    //     method: "GET",
-    //     url: `/gettotaldata/${this.$session.id()}`
-    //   })
-    //     .then(res => {
-    //       this.total = res.data;
-    //       this.sub_total = res.data[0].price;
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // },
+    
     addData () {
       this.$axios({
         method: "POST",
@@ -476,7 +464,24 @@ export default {
       })
         .then(res => {
           console.log("data inserted");
-          this.$router.push("thankyou");
+         // this.$router.go("thankyou");
+          window.location.replace("/thankyou");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    flushData () {
+      this.dialog = false;
+      this.$axios({
+        method: "DELETE",
+        url: `/flushData/${this.$session.id()}`
+      })
+        .then(res => {
+          this.delTemp = res.data;
+          //this.$router.go("/thankyou");
+          window.location.replace("/thankyou");
+          console.log("flush temp data", this);
         })
         .catch(err => {
           console.log(err);
