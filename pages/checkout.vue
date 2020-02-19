@@ -269,22 +269,18 @@
                 <small class="text-muted">{{cart.product_name}}</small>
               </div>
               <div>
-                <small class="text-muted order_sum">1</small>
+                <small class="text-muted order_sum">{{cart.qty}}</small>
               </div>
               <div>
-                <small class="text-muted order_sum">${{cart.price}}</small>
+                <small class="text-muted order_sum">${{cart.price * cart.qty}}</small>
               </div>
             </li>
-            <li
-              v-for="(tot,index) in total"
-              class="d-flex justify-content-between lh-condensed"
-              :key="index+1"
-            >
+            <li class="d-flex justify-content-between lh-condensed" >
               <div>
                 <p class="sub_tot">Sub Total :</p>
               </div>
               <div class="sub_calculate">
-                <p class="sub_tot_price">${{tot.price*tot.total}}.00</p>
+                <p class="sub_tot_price">${{totalprice}}.00</p>
               </div>
             </li>
             <li class="d-flex justify-content-between lh-condensed">
@@ -295,16 +291,12 @@
                 <p class="shipping_charge">$10</p>
               </div>
             </li>
-            <li
-              v-for="(tot,index) in total"
-              class="d-flex justify-content-between lh-condensed"
-              :key="index+2"
-            >
+            <li class="d-flex justify-content-between lh-condensed">
               <div>
                 <p class="sub_tot">Grand Total :</p>
               </div>
               <div>
-                <p class="sub_tot_price">${{tot.price*tot.total+10}}.00</p>
+                <p class="sub_tot_price">${{totalprice+10}}.00</p>
               </div>
             </li>
           </ul>
@@ -323,6 +315,7 @@
 export default {
   data () {
     return {
+       totalprice: 0,
       id: "",
       cartData: "",
       delTemp: "",
@@ -404,7 +397,7 @@ export default {
         document.getElementById("ship_country").value='';
 	 }
 },
-getData (id) {
+ getData (id) {
       this.$axios({
         method: "GET",
         //url: "/getDataCartpage"
@@ -412,29 +405,42 @@ getData (id) {
       })
         .then(res => {
           this.cartData = res.data;
-          console.log("cartData", this.cartData);
-
+          for (let i in res.data) {
+            this.totalprice += res.data[i].price * res.data[i].qty
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+     getTotalData (id) {
+      this.$axios({
+        method: "GET",
+        url: `/gettotaldata/${this.$session.id()}`
+      })
+        .then(res => {
+          this.total = res.data[0].total;
+          let qty = res.data[0].qty;
+          this.price = res.data[0].price * qty;
         })
         .catch(err => {
           console.log(err);
         });
     },
     // for count total price in cart page
-    getTotalData (id) {
-      this.$axios({
-        method: "GET",
-        url: `/gettotaldata/${this.$session.id()}`
-      })
-        .then(res => {
-          this.total = res.data;
-          this.sub_total = res.data[0].price;
-          console.log("total11", this.total);
-          console.log("sub total", this.sub_total);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+    // getTotalData (id) {
+    //   this.$axios({
+    //     method: "GET",
+    //     url: `/gettotaldata/${this.$session.id()}`
+    //   })
+    //     .then(res => {
+    //       this.total = res.data;
+    //       this.sub_total = res.data[0].price;
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // },
     addData () {
       this.$axios({
         method: "POST",
@@ -462,9 +468,9 @@ getData (id) {
           ship_country: this.ship_country,
           //for order
           order_userId: this.$session.get('userId'),
-          order_amt: this.sub_total,
+          order_amt: this.totalprice,
           shippingcost: 10,
-          order_grand_total: this.sub_total
+          order_grand_total: this.totalprice+10
         }
       })
         .then(res => {
