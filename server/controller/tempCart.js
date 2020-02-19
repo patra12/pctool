@@ -89,5 +89,17 @@ module.exports = {
             console.log("update Query Error ",err);
             res.status(500).send('Error');
         });
-    }
+    },
+    async flushData (req, res) {
+
+        deleteQuery = "DELETE FROM temp_order WHERE sessionid = ?";
+        pool.query(deleteQuery,[req.params.id])
+            .then(row => {
+                res.send("cart is empty");
+            })
+            .catch(err => {
+                console.log("cart empty Query Error ", err);
+                res.end();
+            });
+    },
 }
