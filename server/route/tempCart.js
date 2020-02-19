@@ -7,5 +7,6 @@ app.post('/addProductId', tempCart.addProductId);
 app.get('/gettotaldata/:id', tempCart.gettotaldata);
 app.get('/getDataCartpage/:id', tempCart.getDataCartpage);
 app.delete('/delData/:id', tempCart.delData);
+app.put('/updatequantity',tempCart.updateQuantity);
 
 module.exports = app;

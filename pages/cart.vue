@@ -3,10 +3,7 @@
     <div class="container">
       <div class="card shopping-cart">
         <div class="card-header text-light">
-          <i
-            class="fa fa-shopping-cart"
-            aria-hidden="true"
-          ></i>
+          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
           Shipping cart
           <a
             href="/"
@@ -16,11 +13,7 @@
         </div>
         <div class="card-body">
           <!-- PRODUCT -->
-          <div
-            class="row"
-            v-for="(cart, index) in cartData"
-            :key="index"
-          >
+          <div class="row" v-for="(cart, index) in cartData" :key="index">
             <div class="col-12 col-sm-12 col-md-2 text-center">
               <img
                 class="img-responsive"
@@ -47,28 +40,17 @@
                   </strong>
                 </h6>
               </div>
+
               <div class="col-4 col-sm-4 col-md-4">
                 <div class="quantity">
                   <input
-                    type="button" @click="addData(cart.productId,cart.price)"
+                    type="button"
+                    @click="plus(cart.productId,cart.qty)"
                     value="+"
                     class="plus"
                   />
-                  <input
-                    step="1"
-                    max="99"
-                    min="1"
-                    value="1"
-                    title="Qty"
-                    class="qty"
-                    size="4"
-                  />
-                  <input
-                    type="button"  @click="minusButton(cart.tempId)"
-                    value="-"
-                    class="minus"
-                  />
-                  
+                  <input step="1" max="99" min="1" value="1" title="Qty" class="qty" size="4" />
+                  <input type="button" @click="minus(cart.productId,cart.qty)" value="-" class="minus" />
                 </div>
               </div>
               <div class="col-2 col-sm-2 col-md-2 text-right">
@@ -85,72 +67,58 @@
           <hr />
 
           <div v-if="total">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="coupon">
-                <div class="row">
-                  <div class="col-6">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="cupone code"
-                    />
-                  </div>
-                  <div class="col-6">
-                    <input
-                      type="submit"
-                      class="btn btn-default"
-                      value="Use cupone"
-                    />
+            <div class="row">
+              <div class="col-md-6">
+                <div class="coupon">
+                  <div class="row">
+                    <div class="col-6">
+                      <input type="text" class="form-control" placeholder="cupone code" />
+                    </div>
+                    <div class="col-6">
+                      <input type="submit" class="btn btn-default" value="Use cupone" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="pull-right">
-                <a
-               href="" onClick="alert('Please enter coupon code!');return false;"
-                  class="btn btn-outline-info pull-right"
-                >Update shopping cart</a>
+              <div class="col-md-6">
+                <div class="pull-right">
+                  <a
+                    href
+                    onclick="alert('Please enter coupon code!');return false;"
+                    class="btn btn-outline-info pull-right"
+                  >Update shopping cart</a>
+                </div>
               </div>
             </div>
           </div>
-          </div>
-            <div v-else>
-              <div>
-                    <center>
-                       <img src="~/assets/image/empty.png" height="" width="170px"/>
-                    <h4>Your cart is empty!</h4>
-                    <p>Add items to it now.</p>
-                    </center>
-                  </div>
+          <div v-else>
+            <div>
+              <center>
+                <img src="~/assets/image/empty.png" height width="170px" />
+                <h4>Your cart is empty!</h4>
+                <p>Add items to it now.</p>
+              </center>
             </div>
-
+          </div>
         </div>
         <div class="card-footer">
-          <div
-            class="pull-right"
-            style="margin: 10px"
-          >
+          <div class="pull-right" style="margin: 10px">
             <!-- <nuxt-link
-              to="/signin"
-              class="btn btn-info pull-right btnBuy" @click="nextPage()"
-            >Checkout</nuxt-link> -->
+to="/signin"
+class="btn btn-info pull-right btnBuy" @click="nextPage()"
+            >Checkout</nuxt-link>-->
             <div v-if="total">
-            <div @click="nextPage()" class="btn btn-info pull-right btnBuy">Checkout</div>
-            <div style="margin: 5px" class="pull-right" >
-              Total price: <b> ${{price}}.00</b>
-            </div>
+              <div @click="nextPage()" class="btn btn-info pull-right btnBuy">Checkout</div>
+              <div style="margin: 5px" class="pull-right">
+                Total price:
+                <b>${{price}}.00</b>
+              </div>
             </div>
             <div v-else>
-            <center>
-            <a
-            href="/"
-            class="btn btn-info pull-right btnBuy"
-          >Shop now</a>
-            </center>
-          </div>
-           
+              <center>
+                <a href="/" class="btn btn-info pull-right btnBuy">Shop now</a>
+              </center>
+            </div>
           </div>
         </div>
       </div>
@@ -159,36 +127,23 @@
     <!--Delete Dialog-->
 
     <v-row justify="center">
-      <v-dialog
-        v-model="dialog"
-        persistent
-        max-width="290"
-      >
+      <v-dialog v-model="dialog" persistent max-width="290">
         <v-card>
           <v-card-title class="headline">Delete Dialog</v-card-title>
           <v-card-text>Do you really want to Delete this data.</v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="green darken-1"
-              text
-              @click="delData()"
-            >yes</v-btn>
-            <v-btn
-              color="green darken-1"
-              text
-              @click="dialog = false"
-            >no</v-btn>
+            <v-btn color="green darken-1" text @click="delData()">yes</v-btn>
+            <v-btn color="green darken-1" text @click="dialog = false">no</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
     </v-row>
-
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       products: "",
       sessionid: "",
@@ -200,12 +155,13 @@ export default {
       total: "",
       dialog: false,
       snack: false,
-      timeout: 1000
+      timeout: 1000,
 
+      productQty: ""
     };
   },
   methods: {
-    addData (productId, price) {
+    addData(productId, price) {
       console.log("test productId", productId);
       console.log("test price", price);
       this.$axios({
@@ -219,13 +175,45 @@ export default {
       })
         .then(res => {
           //this.$router.push("/cart");
+          this.productQty++;
+          this.$session.set("productqty", this.productQty);
           window.location.replace("/cart");
         })
         .catch(err => {
           console.log(err);
         });
     },
-    getData (id) {
+    plus(pid, qty) {
+      var increasedQty = qty + 1;
+      console.log(increasedQty);
+      this.updateQty(pid, increasedQty);
+    },
+    minus(pid, qty) {
+      let decreasedQty = qty!= 0 ? qty - 1 :qty = 0;
+      console.log(decreasedQty);
+      this.updateQty(pid, decreasedQty);
+    },
+    updateQty(pid, qty) {
+      console.log("pid", pid);
+      console.log("qty", qty);
+      this.$axios({
+        method: "PUT",
+        url: "/updatequantity",
+        data: {
+          sessionid: this.$session.id(),
+          productId: pid,
+          quantity: qty
+        }
+      })
+        .then(res => {
+          console.log(res);
+          this.$router.go("/cart");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getData(id) {
       this.$axios({
         method: "GET",
         //url: "/getDataCartpage"
@@ -233,15 +221,16 @@ export default {
       })
         .then(res => {
           this.cartData = res.data;
-          console.log("cartData", this.cartData);
-
+          this.productQty = res.data.length;
+          this.$session.set("productqty", res.data.length);
+          console.log("cartData", res.data);
         })
         .catch(err => {
           console.log(err);
         });
     },
     // for count total price in cart page
-    getTotalData (id) {
+    getTotalData(id) {
       this.$axios({
         method: "GET",
         // url: '/gettotaldata/${this.$session.id()}'
@@ -249,20 +238,19 @@ export default {
       })
         .then(res => {
           this.total = res.data[0].total;
-          this.price=res.data[0].price * this.total;
+          this.price = res.data[0].price * this.total;
           //console.log("total1", total);
           //console.log("price check", this.price);
-
         })
         .catch(err => {
           console.log(err);
         });
     },
-    setId (id) {
+    setId(id) {
       this.dialog = true;
       this.id = id;
     },
-    delData () {
+    delData() {
       this.dialog = false;
       this.$axios({
         method: "DELETE",
@@ -277,7 +265,7 @@ export default {
           console.log(err);
         });
     },
-    minusButton (id) {
+    minusButton(id) {
       this.id = id;
       this.dialog = false;
       this.$axios({
@@ -293,21 +281,22 @@ export default {
           console.log(err);
         });
     },
-    nextPage(){
-    //console.log("check",this.$session.getAll());
-    if (!this.$session.get("email")) {
-      this.$router.push('/signin')
-    } else {
-       this.$router.push('/checkout') 
+    nextPage() {
+      //console.log("check",this.$session.getAll());
+      if (!this.$session.get("email")) {
+        this.$router.push("/signin");
+      } else {
+        this.$router.push("/checkout");
+      }
     }
-  }
   },
-  
-  mounted () {
-      console.log("email in cart",this.$session.getAll());
+
+  mounted() {
     this.getData();
-    
+
     this.getTotalData();
+    this.$session.set("product");
+    console.log("email in cart", this.$session.getAll());
   }
-}
+};
 </script>

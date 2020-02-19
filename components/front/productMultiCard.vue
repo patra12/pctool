@@ -85,15 +85,15 @@ export default {
         });
     },
     addData (productId, price) {
-      console.log("test productId", productId);
-      console.log("test price", price);
       this.$axios({
         method: "POST",
         url: "/addProductId",
         data: {
           sessionid: this.$session.id(),
           productId: productId,
-          price: price
+          price: price,
+          quantity:1
+
         }
       })
         .then(res => {

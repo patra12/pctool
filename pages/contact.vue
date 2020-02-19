@@ -58,7 +58,10 @@
 <script>
 export default {
   layout: "",
-  components: {}
+  components: {},
+  mounted(){
+      console.log(this.$session.getAll());
+  }
 };
 </script>
 <style>
