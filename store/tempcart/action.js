@@ -1,9 +1,9 @@
 `use strict`;
 
 export default {
-    async addpage ({ commit }, page) {
-        const x = (await this.$axios.post("/addProductId", page)).data;
-        commit("m_addTempData", x);
+    async addTempdata ({ commit }, page) {
+        const dbData = (await this.$axios.post("/addProductId", page)).data;
+        commit("m_addTempData", dbData);
         return true;
     },
 };

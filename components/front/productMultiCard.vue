@@ -8,10 +8,10 @@
       >
         <div class="product-grid">
           <div class="product-image">
-           <nuxt-link :to="'/productDetails/' +product.productId"> <img
-              class="pic-1"
-              src="~/assets/image/products/HAND-HELD-SAW.jpg"
-            /></nuxt-link>
+            <nuxt-link :to="'/productDetails/' +product.productId"> <img
+                class="pic-1"
+                src="~/assets/image/products/HAND-HELD-SAW.jpg"
+              /></nuxt-link>
             <!-- <img class="pic-1" :src="make_image_path(product.showing_img1)" />
               <img class="pic-2" :src="make_image_path(product.aminate_img2)" />-->
             <ul class="social">
@@ -84,25 +84,21 @@ export default {
           console.log(err);
         });
     },
-    addData (productId, price) {
-      this.$axios({
-        method: "POST",
-        url: "/addProductId",
-        data: {
-          sessionid: this.$session.id(),
-          productId: productId,
-          price: price,
-          quantity:1
+    async addData (productId, price) {
+      const formData = {
+        sessionid: this.$session.id(),
+        productId: productId,
+        price: price,
+        quantity: 1
 
-        }
-      })
-        .then(res => {
-          //this.$router.push("/cart");
-          window.location.replace("/cart");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      }
+      const tempdata = await this.$store.dispatch(
+        "tempcart/addTempdata", formData
+      );
+
+      if (tempdata) {
+        this.$router.push("/cart");
+      }
     }
   },
   mounted () {

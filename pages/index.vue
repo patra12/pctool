@@ -4,9 +4,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h1
-              class="w-50 hero-text-shadow"
-            >The K 535i is an excellent addition to Husqvarna Construction's power cutter range</h1>
+            <h1 class="w-50 hero-text-shadow">The K 535i is an excellent addition to Husqvarna Construction's power cutter range</h1>
           </div>
         </div>
       </div>
@@ -44,7 +42,20 @@ export default {
     CategorySidebar,
     MultiCard,
     SingleCard
-  }
+  },
+  data () {
+    return {
+      test: "",
+    }
+  },
+  async fetch ({ store }) {
+    // await store.dispatch("admin/page/getPageData");
+    // await store.dispatch("tempcart/getPageData");
+  },
+  mounted () {
+    console.log(this.$store);
+
+  },
 };
 </script>
 
