@@ -28,9 +28,9 @@
             <nuxt-link to="/signup">Sign Up</nuxt-link>
           </div>
           <div v-else>
-            <nuxt-link to="signUpBlock">
+            <a>
               <div @click="LogOut()">Sign out</div>
-            </nuxt-link>
+            </a>
           </div>
           <!-- <div class="signUpBlock">
             <nuxt-link to="/signin">Sign in</nuxt-link>
@@ -107,9 +107,9 @@
                 <p>SHOPPING ITEM</p>
                 <p>
                   <span>$</span>
-                  <span>{{totalprice}}.00</span>
+                  <span>{{getTotalPrice}}.00</span>
                   <span>|</span>
-                  <span>{{total}} ITEM</span>
+                  <span>{{getItemCount}} ITEM</span>
                 </p>
               </div>
               <div class="cartRight">
@@ -154,7 +154,7 @@
           />
         </a>
         <nuxt-link
-          to="/login"
+          to="/signin"
           class="wishlist-btn"
         >
           <v-icon>mdi-heart</v-icon>
@@ -168,25 +168,25 @@
 
 <script>
 import "~/assets/style/style.scss";
+import { mapGetters } from "vuex";
 export default {
   name: "SiteHeader",
   data () {
     return {
-      id: "",
-      total: "",
-      price: "",
       isSessionPresent: Boolean,
-      totalprice: 0,
     };
   },
   computed: {
+    ...mapGetters({
+      getItemCount: "tempcart/G_tempOrderCount",
+      getTotalPrice: "tempcart/G_tempOrderPrice"
+    }),
+
     is_session () {
       if (this.$session.get("email")) {
         this.isSessionPresent = true;
-        //console.log("inside sessions", this.isSessionPresent);
       } else {
         this.isSessionPresent = false;
-        //console.log("outside sessions", this.isSessionPresent);
       }
     }
   },
@@ -199,52 +199,26 @@ export default {
         x.className = "topnav";
       }
     },
-    getData (id) {
-      this.$axios({
-        method: "GET",
-        // url: '/gettotaldata/${this.$session.id()}'
-        url: `/gettotaldata/${this.$session.id()}`
-      })
-        .then(res => {
-          this.total = res.data[0].total;
-          this.price = res.data[0].price * this.total;
-          //console.log("total1", total);
-          //console.log("price check", this.price);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+
+    getData () {
+      const data = {
+        sessionId: this.$session.id()
+      }
+      this.$store.dispatch('tempcart/getTempDataBySession', data)
     },
-    getTotalData (id) {
-      this.$axios({
-        method: "GET",
-        //url: "/getDataCartpage"
-        url: `/getDataCartpage/${this.$session.id()}`
-      })
-        .then(res => {
-          this.cartData = res.data;
-          for (let i in res.data) {
-            this.totalprice += res.data[i].price * res.data[i].qty
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+
     LogOut () {
       this.$session.destroy();
-      window.location.replace("/");
-      //this.$router.go("/");
+      this.isSessionPresent = false;
+      this.$router.push("/");
     }
   },
+
   mounted () {
-    console.log(this);
     if (!this.$session.exists()) {
       this.$session.start();
     }
-
     this.getData();
-    this.getTotalData();
     this.is_session;
   }
 };
