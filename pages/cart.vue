@@ -8,17 +8,17 @@
             aria-hidden="true"
           ></i>
           Shipping cart
-          <a
-            href="/"
+          <nuxt-link
             class="btn btn-info btn-sm btnBuy pull-right"
-          >Continiu shopping</a>
+            to="/"
+          >Continiu shopping</nuxt-link>
           <div class="clearfix"></div>
         </div>
         <div class="card-body">
           <!-- PRODUCT -->
           <div
             class="row"
-            v-for="(cart, index) in cartData"
+            v-for="(cart, index) in TempProduct"
             :key="index"
           >
             <div class="col-12 col-sm-12 col-md-2 text-center">
@@ -86,7 +86,7 @@
           </div>
           <hr />
 
-          <div v-if="total">
+          <div v-if="getItemCount">
             <div class="row">
               <div class="col-md-6">
                 <div class="coupon">
@@ -142,7 +142,7 @@
 to="/signin"
 class="btn btn-info pull-right btnBuy" @click="nextPage()"
             >Checkout</nuxt-link>-->
-            <div v-if="total">
+            <div v-if="getItemCount">
               <div
                 @click="nextPage()"
                 class="btn btn-info pull-right btnBuy"
@@ -152,7 +152,7 @@ class="btn btn-info pull-right btnBuy" @click="nextPage()"
                 class="pull-right"
               >
                 Total price:
-                <b>${{totalprice}}.00</b>
+                <b>${{getTotalPrice}}.00</b>
               </div>
             </div>
             <div v-else>
@@ -198,17 +198,13 @@ class="btn btn-info pull-right btnBuy" @click="nextPage()"
   </div>
 </template>
 <script>
+import { mapState, mapGetters } from "vuex";
 export default {
   data () {
     return {
       products: "",
-      sessionid: "",
       productId: "",
-      price: "",
       id: "",
-      cartData: "",
-      delTemp: "",
-      total: "",
       dialog: false,
       snack: false,
       timeout: 1000,
@@ -216,130 +212,70 @@ export default {
       totalprice: 0,
     };
   },
+
+  computed: {
+    ...mapGetters({
+      getItemCount: "tempcart/G_tempOrderCount",
+      getTotalPrice: "tempcart/G_tempOrderPrice",
+    }),
+    ...mapState({
+      TempProduct: state =>
+        state.tempcart.tempCartProductData
+    }),
+  },
+
+
   methods: {
-    addData (productId, price) {
-      console.log("test productId", productId);
-      console.log("test price", price);
-      this.$axios({
-        method: "POST",
-        url: "/addProductId",
-        data: {
-          sessionid: this.$session.id(),
-          productId: productId,
-          price: price
-        }
-      })
-        .then(res => {
-          //this.$router.push("/cart");
-          this.productQty++;
-          this.$session.set("productqty", this.productQty);
-          window.location.replace("/cart");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+
+
+    // Listing of diffrent products in cart page from state
+    getTotalData () {
+      this.$store.dispatch(
+        "tempcart/getTempOrderProductDataBySession",
+        this.$session.id()
+      );
     },
+
+
+    // Increase product quantity 
     plus (pid, qty) {
-      var increasedQty = qty + 1;
-      console.log(increasedQty);
+      let increasedQty = qty + 1;
       this.updateQty(pid, increasedQty);
     },
+    //Decrease product quantity 
     minus (pid, qty) {
       let decreasedQty = qty != 1 ? qty - 1 : qty = 1;
-      console.log(decreasedQty);
       this.updateQty(pid, decreasedQty);
     },
     updateQty (pid, qty) {
-      console.log("pid", pid);
-      console.log("qty", qty);
-      this.$axios({
-        method: "PUT",
-        url: "/updatequantity",
-        data: {
-          sessionid: this.$session.id(),
-          productId: pid,
-          quantity: qty
-        }
-      })
-        .then(res => {
-          console.log(res);
-          this.$router.go("/cart");
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      const payload = {
+        sessionid: this.$session.id(),
+        productId: pid,
+        quantity: qty
+      }
+
+      this.$store.dispatch(
+        "tempcart/updateProductQuantity", payload
+      );
     },
-    getData (id) {
-      this.$axios({
-        method: "GET",
-        //url: "/getDataCartpage"
-        url: `/getDataCartpage/${this.$session.id()}`
-      })
-        .then(res => {
-          this.cartData = res.data;
-          for (let i in res.data) {
-            this.totalprice += res.data[i].price * res.data[i].qty
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-    // for count total price in cart page
-    getTotalData (id) {
-      this.$axios({
-        method: "GET",
-        // url: '/gettotaldata/${this.$session.id()}'
-        url: `/gettotaldata/${this.$session.id()}`
-      })
-        .then(res => {
-          this.total = res.data[0].total;
-          let qty = res.data[0].qty;
-          this.price = res.data[0].price * qty;
-          //console.log("total1", total);
-          //console.log("price check", this.price);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+
+
+    // Deleting producut form cart
     setId (id) {
       this.dialog = true;
       this.id = id;
     },
     delData () {
       this.dialog = false;
-      this.$axios({
-        method: "DELETE",
-        url: `/delData/${this.id}`
-      })
-        .then(res => {
-          this.delTemp = res.data;
-          this.$router.go("/cart");
-          console.log("data delete", this);
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      this.$store.dispatch(
+        "tempcart/deleteTempOrder",
+        this.id
+      );
     },
-    minusButton (id) {
-      this.id = id;
-      this.dialog = false;
-      this.$axios({
-        method: "DELETE",
-        url: `/delData/${this.id}`
-      })
-        .then(res => {
-          this.delTemp = res.data;
-          this.$router.go("/cart");
-          console.log("data delete", this.delTemp1);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
+
+
+    // Moving to next page after selection of profuct 
     nextPage () {
-      //console.log("check",this.$session.getAll());
       if (!this.$session.get("email")) {
         this.$router.push("/signin");
       } else {
@@ -348,12 +284,8 @@ export default {
     }
   },
 
-  mounted () {
-    this.getData();
-
+  async mounted () {
     this.getTotalData();
-    this.$session.set("product");
-    console.log("email in cart", this.$session.getAll());
   }
 };
 </script>
