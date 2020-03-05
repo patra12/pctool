@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="row login-container">
+    <div class="row signin-container">
       <div class="col-md-4 col-12 mx-auto">
         <div class="card">
           <article class="card-body">
@@ -14,7 +14,7 @@
               <div class="form-group">
                 <input
                   name="email"
-                   v-model="email"
+                  v-model="email"
                   class="form-control"
                   placeholder="Email"
                   type="email"
@@ -22,7 +22,7 @@
               </div>
               <div class="form-group">
                 <input
-                 v-model="password"
+                  v-model="password"
                   class="form-control"
                   placeholder="******"
                   type="password"
@@ -65,12 +65,13 @@ export default {
     async login () {
       let response = await this.get_login_data();
 
-        this.$session.set('email', this.email);
-        this.$session.set('userId',response)
-        //console.log("getAll check",this.$session.getAll());
+      this.$session.set('email', this.email);
+      this.$session.set('userId', response)
+      //console.log("getAll check",this.$session.getAll());
       if (response) {
         //this.$router.push("/cart");
         window.location.replace("/checkout");
+        // this.$router.push('/checkout')
       }
 
     },
@@ -82,30 +83,29 @@ export default {
       }
       //sending asynchronous data
       let login = await this.$axios.post('/loginUser', userCredentials);
-       
-      if(login.data[0] != undefined) 
-      {
+
+      if (login.data[0] != undefined) {
         //response data back 
         return login.data[0].no;
-        console.log("if in",login.data[0].no);
+        console.log("if in", login.data[0].no);
       }
-         
+
 
     }
   },
   mounted () {
-   
+
     // if (!this.$session.exists()) {
     //   this.$session.start();
-        this.$session.set('email', this.email)
+    this.$session.set('email', this.email)
     //}
     //console.log("session", this.$session.id());
   }
 };
 </script>
 <style>
-.login-container {
-  margin-top: 200px;
+.signin-container {
+  margin: 100px 0px;
 }
 .card {
   -webkit-box-shadow: 0px 0px 22px -10px rgba(0, 0, 0, 0.75);
