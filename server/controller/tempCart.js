@@ -29,11 +29,9 @@ module.exports = {
     },
 
     // for count total and show on add to cart button
-    async gettotaldata (req, res) {
+    async getTempDataBySession (req, res) {
 
-        let selectQuery = " SELECT count(sessionid) as total, ";
-        selectQuery += "productId, price, sellprice ,size, qty,";
-        selectQuery += " date, freeship from temp_order where sessionid = ?";
+        let selectQuery = " SELECT * from temp_order where sessionid = ?";
 
         pool.query(selectQuery, [req.params.id])
             .then(row => {
@@ -87,7 +85,7 @@ module.exports = {
         //Executing Query
         pool.query(updateQuery, [quantity, sessionid, proiductId])
             .then(row => {
-                res.end('Quantity updated');
+                res.send(true);
             })
             .catch(err => {
                 console.log("update Query Error ", err);
@@ -99,7 +97,7 @@ module.exports = {
         deleteQuery = "DELETE FROM temp_order WHERE sessionid = ?";
         pool.query(deleteQuery, [req.params.id])
             .then(row => {
-                res.send("cart is empty");
+                res.send(true);
             })
             .catch(err => {
                 console.log("cart empty Query Error ", err);
