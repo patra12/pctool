@@ -26,14 +26,23 @@ export const getters = {
         return state.pages.find(pos => pos.pageId == id)
     }
 }
+/***
+ * I have encounter that I can also write promise based 
+ * axios call and callback based also here is the 
+ * promise basedcall.
+ * ------------------------Code-------------------------
+ * await this.$axios.get("/getpage")
+ *  .then(row => {
+ *      commit('setPageData', row.data);
+ *   })
+ *   .catch(err => {
+ *       console.log(err);
+ *   })
+ * ------------------------------------------------------
+ * In this project i used minimised axios call to reduce 
+ * code writing.
+ */
 
-// await this.$axios.get("/getpage")
-//     .then(row => {
-//         commit('setPageData', row.data);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     })
 export const actions = {
     async getPageData ({ commit }) {
         const getdata = (await this.$axios.get("/getpage")).data;
@@ -46,8 +55,6 @@ export const actions = {
     },
     async addpage ({ commit }, page) {
         const x = (await this.$axios.post("/addpage", page)).data;
-        console.log("x==>", x);
-        console.log("page==>", x);
         commit("addpage", x);
         return true;
     },
