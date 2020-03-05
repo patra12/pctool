@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row">
-
+      <!-- shiping form start comented by sp -->
       <div class="col-md-4 order-md-2 mb-4 ">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span>Shipping Address</span>
@@ -23,15 +23,19 @@
               for="same-address"
             >Shipping address is the same as my billing address</label>
           </div> -->
-          <input type="checkbox" value="" name="filltoo" id="filltoo" @click="filladd()" />Shipping address is the same as my billing address   <br/>
+          <input
+            type="checkbox"
+            value=""
+            name="filltoo"
+            id="filltoo"
+            @click="filladd()"
+          />Shipping address is the same as my billing address <br />
 
           <!-- <v-btn
             @click="filladd()" name="filltoo" id="filltoo"
             class="btn-primary"
           >check</v-btn> -->
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -44,9 +48,7 @@
             >
           </div>
 
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -58,9 +60,7 @@
             >
           </div>
 
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -72,9 +72,7 @@
             >
           </div>
 
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -85,9 +83,7 @@
             >
           </div>
 
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -98,13 +94,7 @@
             >
           </div>
 
-          <!-- <div style="max-width: 100%;" class="col-md-6 mb-3">
-          <input type="text" class="form-control" id="ship_state"  v-model="ship_state" placeholder="State" required="">
-         </div> -->
-
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -115,9 +105,7 @@
             >
           </div>
 
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -128,9 +116,7 @@
             >
           </div>
 
-          <div
-            class="col-md-6 mb-3 ship_width"
-          >
+          <div class="col-md-6 mb-3 ship_width">
             <input
               type="text"
               class="form-control"
@@ -142,8 +128,9 @@
           </div>
         </form>
       </div>
-      <div class="vl"></div>
+      <!-- End of shiping comented by sp -->
 
+      <!-- Billing form start comented by sp -->
       <div class="col-md-8 order-md-1">
         <h4 class="mb-3">Billing Address</h4>
         <form
@@ -175,7 +162,7 @@
             >
           </div>
 
-            <div class="col-md-6 mb-3">
+          <div class="col-md-6 mb-3">
             <input
               type="text"
               class="form-control"
@@ -245,7 +232,7 @@
               required=""
             >
           </div>
-
+          <!-- End of Billing comented by sp -->
           <hr class="mb-4">
           <h4 class="mb-3">Order Summary</h4>
           <ul class="list-group mb-3">
@@ -275,7 +262,7 @@
                 <small class="text-muted order_sum">${{cart.price * cart.qty}}</small>
               </div>
             </li>
-            <li class="d-flex justify-content-between lh-condensed" >
+            <li class="d-flex justify-content-between lh-condensed">
               <div>
                 <p class="sub_tot">Sub Total :</p>
               </div>
@@ -310,13 +297,13 @@
       </div>
     </div>
   </div>
-  
+
 </template>
 <script>
 export default {
   data () {
     return {
-       totalprice: 0,
+      totalprice: 0,
       id: "",
       cartData: "",
       delTemp: "",
@@ -357,52 +344,31 @@ export default {
   methods: {
 
     //for checkbox click same address billing and shipping
-    filladd(){
-	 if(filltoo.checked == true) 
-     {
-      var bill_firstname11 =document.getElementById("bill_firstname").value;
-			var bill_lastname11 =document.getElementById("bill_lastname").value;
-      var bill_email11 =document.getElementById("bill_email").value;
-      var bill_address11 =document.getElementById("bill_address").value;
-      var bill_city11 =document.getElementById("bill_city").value;
-      var bill_zipcode11 =document.getElementById("bill_zipcode").value;
-      var bill_phone11 =document.getElementById("bill_phone").value;
-      var bill_country11 =document.getElementById("bill_country").value;
-        
-            var copybill_firstname =bill_firstname11 ;
-            var copybill_lastname =bill_lastname11 ;
-            var copybill_email =bill_email11 ;
-            var copybill_address =bill_address11 ;
-            var copybill_city =bill_city11 ;
-            var copybill_zipcode =bill_zipcode11 ;
-            var copybill_phone =bill_phone11 ;
-            var copybill_country =bill_country11 ;
-
-            document.getElementById("ship_firstname").value = copybill_firstname;
-            document.getElementById("ship_lastname").value = copybill_lastname;
-            document.getElementById("ship_email").value = copybill_email;
-            document.getElementById("ship_address").value = copybill_address;
-            document.getElementById("ship_city").value = copybill_city;
-            document.getElementById("ship_zipcode").value = copybill_zipcode;
-            document.getElementById("ship_phone").value = copybill_phone;
-            document.getElementById("ship_country").value = copybill_country;
-	 }
-	 else if(filltoo.checked == false)
-	 {
-        document.getElementById("ship_firstname").value='';
-        document.getElementById("ship_lastname").value='';
-        document.getElementById("ship_email").value='';
-        document.getElementById("ship_address").value='';
-        document.getElementById("ship_city").value='';
-        document.getElementById("ship_zipcode").value='';
-        document.getElementById("ship_phone").value='';
-        document.getElementById("ship_country").value='';
-	 }
-},
- getData (id) {
+    filladd () {
+      if (filltoo.checked == true) {
+        this.ship_firstname = this.bill_firstname;
+        this.ship_lastname = this.bill_lastname;
+        this.ship_email = this.bill_email;
+        this.ship_address = this.bill_address;
+        this.ship_city = this.bill_city;
+        this.ship_zipcode = this.bill_zipcode;
+        this.ship_country = this.bill_country;
+        this.ship_phone = this.bill_phone;
+      }
+      else if (filltoo.checked == false) {
+        this.ship_firstname = "";
+        this.ship_lastname = "";
+        this.ship_email = "";
+        this.ship_address = "";
+        this.ship_city = "";
+        this.ship_zipcode = "";
+        this.ship_country = "";
+        this.ship_phone = "";
+      }
+    },
+    getData (id) {
       this.$axios({
         method: "GET",
-        //url: "/getDataCartpage"
         url: `/getDataCartpage/${this.$session.id()}`
       })
         .then(res => {
@@ -415,7 +381,7 @@ export default {
           console.log(err);
         });
     },
-     getTotalData (id) {
+    getTotalData (id) {
       this.$axios({
         method: "GET",
         url: `/gettotaldata/${this.$session.id()}`
@@ -429,7 +395,7 @@ export default {
           console.log(err);
         });
     },
-    
+
     addData () {
       this.$axios({
         method: "POST",
@@ -459,12 +425,10 @@ export default {
           order_userId: this.$session.get('userId'),
           order_amt: this.totalprice,
           shippingcost: 10,
-          order_grand_total: this.totalprice+10
+          order_grand_total: this.totalprice + 10
         }
       })
         .then(res => {
-          console.log("data inserted");
-         // this.$router.go("thankyou");
           window.location.replace("/thankyou");
         })
         .catch(err => {
@@ -487,15 +451,13 @@ export default {
           console.log(err);
         });
     },
-    
   },
-  
+
   mounted () {
     this.getData();
     this.getTotalData();
-    
   }
-  
+
 }
 </script> 
  
