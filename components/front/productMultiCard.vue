@@ -30,7 +30,7 @@
               </li>
               <li>
                 <span
-                  @click.prevent='addData(product.productId,product.price)'
+                  @click.prevent='addToCart(product.productId,product.price)'
                   data-tip="Add to Cart"
                 >
                   <v-icon class="white--text">mdi-cart</v-icon>
@@ -40,6 +40,7 @@
           </div>
 
           <div class="product-content">
+            <!-- <span>{{product}}</span> -->
             <p class="product-title">
               <nuxt-link :to="'/productDetails/' +product.productId">{{product.product_name}}</nuxt-link>
             </p>
@@ -55,6 +56,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "productMultiCard",
   data () {
@@ -66,6 +68,12 @@ export default {
       dialog: false,
       id: "",
     };
+  },
+  computed: {
+    ...mapGetters({
+      checkProductPresnce: "tempcart/G_checkProductInTempProduct",
+      row: "tempcart/G_gettingProductInTempProduct"
+    })
   },
   methods: {
     make_image_path (img_name) {
@@ -84,6 +92,34 @@ export default {
           console.log(err);
         });
     },
+    /**
+     * This is calling addData or updateQty function
+     * based on same item is present in cart or not
+     */
+    addToCart (productId, price, qty) {
+
+      if (this.checkProductPresnce(productId)) {
+        // getting the updated quantity form state and add 1
+        // for update quantity
+        let quantity = this.row(productId).qty + 1;
+
+        // updating quantity
+        let tempdata = this.updateQty(productId, quantity);
+
+        // checking update is occure or not
+        if (tempdata) {
+          this.$router.push("/cart");
+        }
+      }
+      else {
+        //adding quantity
+        this.addData(productId, price);
+        this.$store.dispatch(
+          "tempcart/getTempOrderProductDataBySession",
+          this.$session.id()
+        );
+      }
+    },
     async addData (productId, price) {
       const formData = {
         sessionid: this.$session.id(),
@@ -99,10 +135,21 @@ export default {
       if (tempdata) {
         this.$router.push("/cart");
       }
-    }
+    },
+    async updateQty (pid, qty) {
+      const payload = {
+        sessionid: this.$session.id(),
+        productId: pid,
+        quantity: qty
+      }
+      return await this.$store.dispatch(
+        "tempcart/updateProductQuantity", payload
+      );
+    },
   },
   mounted () {
     this.getData();
+
   }
 };
 </script>
