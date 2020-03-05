@@ -124,13 +124,13 @@ export default {
 
   /**
    * we can fetch getters diffrent ways
-   * i found this tow type is crutial for everything
+   * i found this two type is crutial for everything
    * ----------------------------------------
    * calling getter from diffrent module without mapgetter
    * -----------------------------------------------------
    * let data = this.$store.getters["admin/page/findPage"](id);
    *
-   * calling getter from diffrent module mapgetter
+   * calling getter from diffrent module with mapgetter
    * -----------------------------------------------
    * let data_mod = this.findPagex(id);
    */
