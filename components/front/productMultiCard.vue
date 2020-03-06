@@ -97,16 +97,10 @@ export default {
      * based on same item is present in cart or not
      */
     addToCart (productId, price, qty) {
-
       if (this.checkProductPresnce(productId)) {
-        // getting the updated quantity form state and add 1
-        // for update quantity
+        //updating quantity
         let quantity = this.row(productId).qty + 1;
-
-        // updating quantity
         let tempdata = this.updateQty(productId, quantity);
-
-        // checking update is occure or not
         if (tempdata) {
           this.$router.push("/cart");
         }
