@@ -1,5 +1,5 @@
-var pool = require("../db/db")
-var tableName = 'product';
+const pool = require("../db/db")
+const tableName = 'product';
 const fs = require('fs');
 const fpath = require('path');
 const product_image_location_on_disk = "upload/products/"
