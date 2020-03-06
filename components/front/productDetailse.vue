@@ -70,7 +70,7 @@
                   <td>Free Shipping</td>
                 </tr>
               </table>
-              <div class="qty-changer"><label for="quant">Quantity</label>
+              <!-- <div class="qty-changer"><label for="quant">Quantity</label>
                 <button class="qty-change">-</button>
                 <input
                   class="qty-input form-group"
@@ -78,20 +78,23 @@
                   value="1"
                 />
                 <button class="qty-change">+</button>
-              </div>
-              <nuxt-link to="/cart"><button class="btn btn-primary btnBuy"  @click="addData(product.productId,product.price)">Buy Now</button></nuxt-link>
+              </div> -->
+              <nuxt-link to="/cart"><button
+                  class="btn btn-primary btnBuy"
+                  @click="addToCart(product.productId,product.price)"
+                >Buy Now</button></nuxt-link>
               <div class="lineBreak"></div>
 
               <div class="productAllDetails">
                 <div>
-                  
-                      <v-card
-                        flat
-                        tile
-                      >
-                        <v-card-text>{{product.product_desc}}</v-card-text>
-                      </v-card>
-                    <!-- </v-tab-item>
+
+                  <v-card
+                    flat
+                    tile
+                  >
+                    <v-card-text>{{product.product_desc}}</v-card-text>
+                  </v-card>
+                  <!-- </v-tab-item>
                   </v-tabs>   -->
                 </div>
               </div>
@@ -106,6 +109,7 @@
 
 </template>
 <script>
+import { mapGetters } from "vuex";
 export default {
   data () {
     return {
@@ -120,8 +124,14 @@ export default {
       nextIcon: false,
       right: false,
       tabs: 3,
-      product:""
+      product: ""
     }
+  },
+  computed: {
+    ...mapGetters({
+      checkProductPresnce: "tempcart/G_checkProductInTempProduct",
+      row: "tempcart/G_gettingProductInTempProduct"
+    })
   },
   methods: {
     imageChange () {
@@ -136,41 +146,63 @@ export default {
         });
       });
     },
-   getData () {
+    getData () {
       this.$axios({
         url: "/monoproduct/" + this.$route.params.id,
         method: "get"
       })
-        .then(res => {       
-          this.product =res.data[0];
+        .then(res => {
+          this.product = res.data[0];
         })
         .catch(err => {
           // handle errorr
           console.log(err);
         });
     },
-    addData (productId, price) {
-      console.log("test productId", productId);
-      console.log("test price", price);
-      this.$axios({
-        method: "POST",
-        url: "/addProductId",
-        data: {
-          sessionid: this.$session.id(),
-          productId: productId,
-          price: price
+    addToCart (productId, price, qty) {
+      if (this.checkProductPresnce(productId)) {
+        //updating quantity
+        let quantity = this.row(productId).qty + 1;
+        let tempdata = this.updateQty(productId, quantity);
+        if (tempdata) {
+          this.$router.push("/cart");
         }
-      })
-        .then(res => {
-          //this.$router.push("/cart");
-          window.location.replace("/cart");
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    }
-},
-     mounted () {
+      }
+      else {
+        //adding quantity
+        this.addData(productId, price);
+        this.$store.dispatch(
+          "tempcart/getTempOrderProductDataBySession",
+          this.$session.id()
+        );
+      }
+    },
+    async addData (productId, price) {
+      const formData = {
+        sessionid: this.$session.id(),
+        productId: productId,
+        price: price,
+        quantity: 1
+      }
+      const tempdata = await this.$store.dispatch(
+        "tempcart/addTempdata", formData
+      );
+      if (tempdata) {
+        this.$router.push("/cart");
+      }
+    },
+    async updateQty (pid, qty) {
+      const payload = {
+        sessionid: this.$session.id(),
+        productId: pid,
+        quantity: qty
+      }
+      return await this.$store.dispatch(
+        "tempcart/updateProductQuantity", payload
+      );
+    },
+  },
+  mounted () {
     this.getData();
   }
 
