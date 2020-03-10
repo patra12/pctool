@@ -223,6 +223,7 @@ export default {
         console.log(file);
         form.append("productImage", file);
       }
+      form.append("imageCount", this.$refs.productimg.files.length)
 
       /**this is for showing all form app */
 

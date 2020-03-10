@@ -6,12 +6,15 @@
         class="col-md-4 col-sm-6"
         :key="index"
       >
+
         <div class="product-grid">
           <div class="product-image">
             <nuxt-link :to="'/productDetails/' +product.productId"> <img
                 class="pic-1"
                 src="~/assets/image/products/HAND-HELD-SAW.jpg"
               /></nuxt-link>
+
+            <!--  :src="image[index]" -->
             <!-- <img class="pic-1" :src="make_image_path(product.showing_img1)" />
               <img class="pic-2" :src="make_image_path(product.aminate_img2)" />-->
             <ul class="social">
@@ -67,6 +70,7 @@ export default {
       price: "",
       dialog: false,
       id: "",
+      image: [],
     };
   },
   computed: {
@@ -76,10 +80,12 @@ export default {
     })
   },
   methods: {
-    make_image_path (img_name) {
-      //must have to change to server baseurl path
-      return require(`~/assets/image/products/${img_name}`);
-    },
+    // make_image_path (img_name) {
+    //   //must have to change to server baseurl path
+    //   return process.env.BASE_URL + "/product/" + img_name;
+    //   console.log("imagenaem" + img_name);
+
+    // },
     getData () {
       this.$axios({
         method: "GET",
@@ -91,6 +97,36 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+    getImageData () {
+      this.$axios({
+        method: "GET",
+        url: "/getproductwithimage"
+      })
+        .then(res => { console.log("checking image", res) })
+
+    },
+    // parseImage (objects) {
+    //   for (let obj in objects) {
+    //     console.log(objects[obj].imageloc);
+    //   }
+    //   // return process.env.BASE_URL + "/category/" + imageName;
+    // },
+    async getImage (id) {
+      let x = await this.$axios({
+        url: "/getimages/" + id,
+        method: "GET",
+      })
+        .then(res => {
+          return res.data[0].imageloc;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+      console.log(x);
+      this.image.push(process.env.BASE_URL + "/product/" + x);
+      console.log(this.image);
+      return x;
     },
     /**
      * This is calling addData or updateQty function
@@ -143,6 +179,7 @@ export default {
   },
   mounted () {
     this.getData();
+    this.getImageData();
 
   }
 };

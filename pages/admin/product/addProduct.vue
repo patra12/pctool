@@ -3,23 +3,44 @@
     <v-row class="form pt-0">
       <v-col class="pt-0">
         <v-row>
-          <v-col outlined class="head">
+          <v-col
+            outlined
+            class="head"
+          >
             <h4 class="font-weight-light text-light">Add Product</h4>
             <nuxt-link to="/admin/product">
-              <v-icon title="back" class="right" color="white darken-1">mdi-arrow-left-bold</v-icon>
+              <v-icon
+                title="back"
+                class="right"
+                color="white darken-1"
+              >mdi-arrow-left-bold</v-icon>
             </nuxt-link>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="bg-content">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="productName" label="Product Name"></v-text-field>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-text-field
+                v-model="productName"
+                label="Product Name"
+              ></v-text-field>
 
-              <v-text-field v-model="productCode" label="SKU"></v-text-field>
+              <v-text-field
+                v-model="productCode"
+                label="SKU"
+              ></v-text-field>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Product Description</p>
 
-              <div v-model="productDescription" v-quill:product class="quill-editor"></div>
+              <div
+                v-model="productDescription"
+                v-quill:product
+                class="quill-editor"
+              ></div>
 
               <v-select
                 :items="category"
@@ -28,17 +49,32 @@
                 label="Category"
               ></v-select>
 
-              <v-text-field v-model="seoUrl" label="seo URL"></v-text-field>
+              <v-text-field
+                v-model="seoUrl"
+                label="seo URL"
+              ></v-text-field>
 
               <!-- <v-text-field v-model="ptype" label="ptype"></v-text-field> -->
 
-              <v-text-field v-model="price" label="price" type="number"></v-text-field>
+              <v-text-field
+                v-model="price"
+                label="price"
+                type="number"
+              ></v-text-field>
 
-              <v-text-field v-model="sellPrice" label="Sell Price" type="number"></v-text-field>
+              <v-text-field
+                v-model="sellPrice"
+                label="Sell Price"
+                type="number"
+              ></v-text-field>
 
               <!-- <v-text-field v-model="sellingQuantity" label="Sell Quantity" type="number"></v-text-field> -->
 
-              <v-text-field v-model="availability" label="Availability" type="number"></v-text-field>
+              <v-text-field
+                v-model="availability"
+                label="Availability"
+                type="number"
+              ></v-text-field>
 
               <!-- <p class="grey--text text--darken-1 pt-3 mb-0">Return Policy</p> -->
 
@@ -57,9 +93,19 @@
 
               <!-- <v-text-field v-model="featureProduct" label="Feature Product"></v-text-field> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Feature Product</p>
-              <v-radio-group v-model="featureProduct" class="mt-0" row>
-                <v-radio label="Yes" value="Y"></v-radio>
-                <v-radio label="No" value="N"></v-radio>
+              <v-radio-group
+                v-model="featureProduct"
+                class="mt-0"
+                row
+              >
+                <v-radio
+                  label="Yes"
+                  value="Y"
+                ></v-radio>
+                <v-radio
+                  label="No"
+                  value="N"
+                ></v-radio>
               </v-radio-group>
 
               <!-- <v-text-field v-model="addedOn" label="Added On"></v-text-field> -->
@@ -68,9 +114,19 @@
 
               <!-- <v-select v-model="status" :items="items" label="Status"></v-select> -->
               <p class="grey--text text--darken-1 pt-3 mb-0">Status</p>
-              <v-radio-group v-model="status" class="mt-0" row>
-                <v-radio label="Active" value="Y"></v-radio>
-                <v-radio label="Not Active" value="N"></v-radio>
+              <v-radio-group
+                v-model="status"
+                class="mt-0"
+                row
+              >
+                <v-radio
+                  label="Active"
+                  value="Y"
+                ></v-radio>
+                <v-radio
+                  label="Not Active"
+                  value="N"
+                ></v-radio>
               </v-radio-group>
 
               <p class="grey--text text--darken-1 pt-3 mb-0">Select Image</p>
@@ -87,7 +143,12 @@
                 <v-radio label="Active" value="Y"></v-radio>
                 <v-radio label="Not Active" value="N"></v-radio>
               </v-radio-group>-->
-              <v-btn @click="addData()" class="my-5 float-right" large color="primary">Save</v-btn>
+              <v-btn
+                @click="addData()"
+                class="my-5 float-right"
+                large
+                color="primary"
+              >Save</v-btn>
             </v-form>
           </v-col>
         </v-row>
@@ -128,11 +189,11 @@ export default {
   }),
 
   methods: {
-    onFileChange() {
+    onFileChange () {
       var file = this.$refs.productimg.files;
       this.image = file;
     },
-    addData() {
+    addData () {
       const form = new FormData();
       form.append("product_name", this.productName);
       form.append("product_code", this.productCode);
@@ -160,6 +221,8 @@ export default {
         form.append("productImage", file);
       }
 
+      form.append("imageCount", this.$refs.productimg.files.length)
+
       // for (var datax of form.entries()) {
       //   console.log(datax[0], "=>", datax[1]);
       // }
@@ -182,7 +245,7 @@ export default {
           console.log(error);
         });
     },
-    getCategoryNames() {
+    getCategoryNames () {
       this.$axios({
         method: "GET",
         url: "/getallctegorynames"
@@ -194,7 +257,7 @@ export default {
           console.log(err);
         });
     },
-    getCategoryId() {
+    getCategoryId () {
       this.$axios({
         method: "POST",
         url: "/getctegoryid",
@@ -212,7 +275,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.getCategoryNames();
   }
 };

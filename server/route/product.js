@@ -3,6 +3,7 @@ const product = require('../controller/product');
 
 // All Routes for API
 app.get('/getproduct', product.getProduct);
+app.get('/getproductwithimage', product.getProductWithImage);
 app.get('/monoproduct/:id', product.monoProduct);
 app.post('/addproduct', product.addProduct); // upload.array('productImage', 5),
 app.put('/putproduct/:id', product.putProduct);

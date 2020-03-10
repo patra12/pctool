@@ -11,7 +11,7 @@ module.exports = {
 
 	//get any value form catagory table
 	// get all Record from a table
-	async getCategory(req, res) {
+	async getCategory (req, res) {
 
 		// query
 		selectQuery = "SELECT * FROM " + tableName;
@@ -22,13 +22,13 @@ module.exports = {
 				res.send(row);
 			})
 			.catch(err => {
-				console.log(' Query Error', err)
+				console.log('getcategory Query Error', err)
 				res.end();
 			})
 	},
 
 	// get all Category name from category table
-	async getCategoryNames(req, res) {
+	async getCategoryNames (req, res) {
 		// query
 		selectQuery = "SELECT `categoryname` FROM " + tableName;
 
@@ -48,7 +48,7 @@ module.exports = {
 	},
 
 	// get single Categoryid agianest category name
-	async getCategoryId(req, res) {
+	async getCategoryId (req, res) {
 		// query
 		categoryname = req.body.categoryname;
 		selectQuery = "SELECT `categoryId` FROM " + tableName + " where `categoryname`= ?";
@@ -65,7 +65,7 @@ module.exports = {
 	},
 
 	// get single Record from table
-	async monoCategory(req, res) {
+	async monoCategory (req, res) {
 		// query
 		selectQuery = "SELECT * FROM " + tableName + " where `categoryId`= ?";
 
@@ -82,7 +82,7 @@ module.exports = {
 	},
 
 	// insert Record into table
-	async addCategory(req, res) {
+	async addCategory (req, res) {
 
 		//Data for updation
 		parentId = '1';
@@ -163,7 +163,7 @@ module.exports = {
 	 * or frontend.
 	 * @param {json,string,any} res send the response after proccess is compleate
 	 */
-	async delCategory(req, res) {
+	async delCategory (req, res) {
 		/**
 		 * Getting the image name from db.
 		 * if got the image then delete the image first
@@ -213,7 +213,7 @@ module.exports = {
 	 * or frontend.
 	 * @param {*} res send the response after proccess is compleate
 	 */
-	async putCategory(req, res) {
+	async putCategory (req, res) {
 
 		//if image is not get then update without deleting and moving image
 		if (req.files == null) {
