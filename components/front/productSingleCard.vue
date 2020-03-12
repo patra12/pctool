@@ -6,10 +6,17 @@
     </div>
 
     <div class="col-md-12 col-sm-12">
-      <div v-for="(product,index) in products" class="product-grid mb-5" :key="index">
+      <div
+        v-for="(product,index) in products"
+        class="product-grid mb-5"
+        :key="index"
+      >
         <div class="product-image">
           <a href="#">
-            <img class="pic-1" :src=" make_image_path(product.image)" />
+            <img
+              class="pic-0"
+              :src=" make_image_path(product.image)"
+            />
           </a>
         </div>
         <div class="product-content">
@@ -25,7 +32,7 @@
 <script>
 export default {
   name: "productSingleCard",
-  data() {
+  data () {
     return {
       products: [
         {
@@ -44,7 +51,7 @@ export default {
     };
   },
   methods: {
-    make_image_path(img_name) {
+    make_image_path (img_name) {
       //must have to change to server baseurl path
       return require(`~/assets/image/products/${img_name}`);
     }

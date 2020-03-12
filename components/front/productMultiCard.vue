@@ -9,14 +9,22 @@
 
         <div class="product-grid">
           <div class="product-image">
-            <nuxt-link :to="'/productDetails/' +product.productId"> <img
-                class="pic-1"
-                src="~/assets/image/products/HAND-HELD-SAW.jpg"
+            <!-- ====== Showing image start ======= -->
+            <!-- We do not use loop because we only need tow image and 
+                 if there is more image that will not create conflict. -->
+            <nuxt-link :to="'/productDetails/' +product.productId">
+              <img
+                class="pic-0"
+                :src="makeImagePath(product.image[0])"
               /></nuxt-link>
-
-            <!--  :src="image[index]" -->
-            <!-- <img class="pic-1" :src="make_image_path(product.showing_img1)" />
-              <img class="pic-2" :src="make_image_path(product.aminate_img2)" />-->
+            <nuxt-link
+              v-if="product.image.length == 2"
+              :to="'/productDetails/' +product.productId"
+            > <img
+                class="pic-1"
+                :src="makeImagePath(product.image[1])"
+              /></nuxt-link>
+            <!-- ====== Showing image End ======= -->
             <ul class="social">
               <li>
                 <span data-tip="Quick View">
@@ -43,7 +51,6 @@
           </div>
 
           <div class="product-content">
-            <!-- <span>{{product}}</span> -->
             <p class="product-title">
               <nuxt-link :to="'/productDetails/' +product.productId">{{product.product_name}}</nuxt-link>
             </p>
@@ -80,16 +87,14 @@ export default {
     })
   },
   methods: {
-    // make_image_path (img_name) {
-    //   //must have to change to server baseurl path
-    //   return process.env.BASE_URL + "/product/" + img_name;
-    //   console.log("imagenaem" + img_name);
-
-    // },
+    /*=== For showing products and image ===*/
+    makeImagePath (img_name) {
+      return process.env.BASE_URL + "/product/" + img_name;
+    },
     getData () {
       this.$axios({
         method: "GET",
-        url: "/getproduct"
+        url: "/getproductwithimage"
       })
         .then(res => {
           this.products = res.data;
@@ -98,40 +103,10 @@ export default {
           console.log(err);
         });
     },
-    getImageData () {
-      this.$axios({
-        method: "GET",
-        url: "/getproductwithimage"
-      })
-        .then(res => { console.log("checking image", res) })
+    /*=== For cart functionality eith out page reloading ===*/
 
-    },
-    // parseImage (objects) {
-    //   for (let obj in objects) {
-    //     console.log(objects[obj].imageloc);
-    //   }
-    //   // return process.env.BASE_URL + "/category/" + imageName;
-    // },
-    async getImage (id) {
-      let x = await this.$axios({
-        url: "/getimages/" + id,
-        method: "GET",
-      })
-        .then(res => {
-          return res.data[0].imageloc;
-        })
-        .catch(err => {
-          console.log(err);
-        });
-      console.log(x);
-      this.image.push(process.env.BASE_URL + "/product/" + x);
-      console.log(this.image);
-      return x;
-    },
-    /**
-     * This is calling addData or updateQty function
-     * based on same item is present in cart or not
-     */
+    // This is calling addData or updateQty function
+    // based on same item is present in cart or not
     addToCart (productId, price, qty) {
       if (this.checkProductPresnce(productId)) {
         //updating quantity
@@ -156,12 +131,10 @@ export default {
         productId: productId,
         price: price,
         quantity: 1
-
       }
       const tempdata = await this.$store.dispatch(
         "tempcart/addTempdata", formData
       );
-
       if (tempdata) {
         this.$router.push("/cart");
       }
@@ -179,8 +152,6 @@ export default {
   },
   mounted () {
     this.getData();
-    this.getImageData();
-
   }
 };
 </script>

@@ -17,47 +17,32 @@ module.exports = {
       .catch(err => { console.log(err + "getproduct query error") });
     // res.json(data);
   },
-  imageDb (id) {
-    const data = select.findImagebyId(id)
-      .then(row => { return row })
-      .catch(err => { console.log("getImages query error" + err) });
-    console.log(data);
-    return data;
-  },
+
+  // get all Record fo product along with it images
   async getProductWithImage (req, res) {
-    https://drive.google.com/open?id=1ykQTsayWhXby1nj9zALn4GCRjUNx0d5x
     select.find()
       .then(async row => {
 
-        jsonData = [];
-        console.log("len", row.length);
+        let jsonData = [];
+        //for getting individual product object
         for (product in row) {
+          var imagearray = [];
 
-          console.log(row[product].productId);
-          console.log('{');
-          let data = "{";
-          Object.keys(row[product]).forEach(async function (key) {
-            console.table(key + ': ' + row[product][key])
-            data += key + ': ' + row[product][key] + ','
-            data += product == row.length ? "" : ',';
-          })
-          const datax = await select.findImagebyId(row[product].productId)
+          const imageobjects = await select.findImagebyId(row[product].productId)
             .then(row => { return row })
             .catch(err => { console.log("monoProduct query error") });
-          console.log("image:{");
-          var imagearray = [];
-          for (image in datax) {
-            imagearray.push(datax[image].imageloc);
+          // extracting image names and storing into array
+          for (image in imageobjects) {
+            imagearray.push(imageobjects[image].imageloc);
           }
-          console.log('}');
-          data += "}";
-          console.log('}');
-          console.log("crafted : ", data);
+          //adding extracted image array into product object
+          row[product].image = imagearray
+          //puting crafted product object into an global array
+          jsonData.push(row[product]);
         }
-        res.json(row)
+        res.send(jsonData)
       })
       .catch(err => { console.log(err + "getproduct query error") });
-    // res.json(data);
   },
 
   // get single Record from table
