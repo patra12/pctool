@@ -92,7 +92,7 @@
                     flat
                     tile
                   >
-                    <v-card-text>{{product.product_desc}}</v-card-text>
+                    <v-card-text v-html="product.product_desc"></v-card-text>
                   </v-card>
                   <!-- </v-tab-item>
                   </v-tabs>   -->
