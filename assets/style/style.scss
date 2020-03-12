@@ -315,21 +315,21 @@
     width: 100%;
     height: auto;
   }
-  .product-grid .pic-1 {
+  .product-grid .pic-0 {
     opacity: 1;
     transition: all 0.3s ease-out 0s;
   }
-  .product-grid:hover .pic-1 {
+  .product-grid:hover .pic-0 {
     opacity: 1;
   }
-  .product-grid .pic-2 {
+  .product-grid .pic-1 {
     opacity: 0;
     position: absolute;
     top: 0;
     left: 0;
     transition: all 0.3s ease-out 0s;
   }
-  .product-grid:hover .pic-2 {
+  .product-grid:hover .pic-1 {
     opacity: 1;
   }
   .product-grid .social {
