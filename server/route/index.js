@@ -32,4 +32,8 @@ app.use(tempCart);
 const checkout = require('./checkout.js');
 app.use(checkout);
 
+// Importing mail routes
+const mail = require('./mail.js');
+app.use(mail);
+
 module.exports = app;
