@@ -15,15 +15,15 @@
             <nuxt-link :to="'/productDetails/' +product.productId">
               <img
                 class="pic-0"
-                :src="makeImagePath(product.image[0])"
+                src="~/assets/image/products/HAND-HELD-SAW-2.jpg"
               /></nuxt-link>
-            <nuxt-link
+            <!-- <nuxt-link
               v-if="product.image.length == 2"
               :to="'/productDetails/' +product.productId"
             > <img
                 class="pic-1"
                 :src="makeImagePath(product.image[1])"
-              /></nuxt-link>
+              /></nuxt-link> -->
             <!-- ====== Showing image End ======= -->
             <ul class="social">
               <li>
