@@ -3,16 +3,33 @@
     <v-row>
       <v-col class="pt-0">
         <v-row>
-          <v-col outlined class="bg">
+          <v-col
+            outlined
+            class="bg"
+          >
             <h4 class="font-weight-light">Settings</h4>
           </v-col>
         </v-row>
         <v-row class="border">
           <v-col class="bg-content">
-            <v-form ref="form" v-model="valid" lazy-validation>
-              <v-text-field v-model="siteName" :rules="siteNameRules" label="Site Name" required></v-text-field>
+            <v-form
+              ref="form"
+              v-model="valid"
+              lazy-validation
+            >
+              <v-text-field
+                v-model="siteName"
+                :rules="siteNameRules"
+                label="Site Name"
+                required
+              ></v-text-field>
 
-              <v-text-field v-model="siteUrl" :rules="siteUrlRules" label="Site URL" required></v-text-field>
+              <v-text-field
+                v-model="siteUrl"
+                :rules="siteUrlRules"
+                label="Site URL"
+                required
+              ></v-text-field>
 
               <v-text-field
                 v-model="adminEmail"
@@ -21,13 +38,49 @@
                 required
               ></v-text-field>
 
-              <v-text-field v-model="paypalEmail" label="Paypal Email" required></v-text-field>
+              <v-text-field
+                v-model="paypalEmail"
+                label="Paypal Email"
+                required
+              ></v-text-field>
 
-              <v-text-field v-model="results" :rules="resultsRules" label="Results" required></v-text-field>
-              <v-text-field v-model="homeMetaTitle" label="Home Meta Title" required></v-text-field>
-              <v-text-field v-model="homeMetaKeyword" label="Home Meta Keyword" required></v-text-field>
-              <v-text-field v-model="ganalytyc" label="Google Analytics" required></v-text-field>
-              <v-text-field v-model="fbUrl" :rules="fbUrlRules" label="Facebook URL" required></v-text-field>
+              <v-text-field
+                v-model="results"
+                :rules="resultsRules"
+                label="Results"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="address"
+                label="Address"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="phone"
+                label="Phone"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="homeMetaTitle"
+                label="Home Meta Title"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="homeMetaKeyword"
+                label="Home Meta Keyword"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="ganalytyc"
+                label="Google Analytics"
+                required
+              ></v-text-field>
+              <v-text-field
+                v-model="fbUrl"
+                :rules="fbUrlRules"
+                label="Facebook URL"
+                required
+              ></v-text-field>
               <v-text-field
                 v-model="instagramUrl"
                 :rules="instagramUrlRules"
@@ -37,15 +90,27 @@
 
               <p style="color:blue;">{{ message }}</p>
 
-              <v-btn class="my-5 float-right" large color="primary" @click="updateSettings()">Update</v-btn>
+              <v-btn
+                class="my-5 float-right"
+                large
+                color="primary"
+                @click="updateSettings()"
+              >Update</v-btn>
             </v-form>
           </v-col>
         </v-row>
       </v-col>
     </v-row>
-    <v-snackbar v-model="snackbar" :timeout="timeout">
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
       {{ text }}
-      <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >Close</v-btn>
     </v-snackbar>
   </div>
 </template>
@@ -54,7 +119,7 @@
 export default {
   name: "Settings",
   layout: "admin/defaultAdmin",
-  data() {
+  data () {
     return {
       valid: true,
       message: "",
@@ -70,6 +135,10 @@ export default {
       paypalEmailRules: [v => !!v || "Paypal Email is Required"],
       results: "",
       resultsRules: [v => !!v || "Results is required"],
+      address: "",
+      addressRules: [v => !!v || "Address is required"],
+      phone: "",
+      phoneRules: [v => !!v || "Phone is required"],
       homeMetaTitle: "",
       // homeMetaTitleRules: [(v) => !!v || 'Home Meta-Title is required'],
       homeMetaKeyword: "",
@@ -89,7 +158,7 @@ export default {
     };
   },
   methods: {
-    fetchSettings() {
+    fetchSettings () {
       this.$axios({
         method: "GET",
         url: "/getSetings"
@@ -100,6 +169,8 @@ export default {
           this.adminEmail = res.data[0].admin_email;
           this.paypalEmail = res.data[0].paypal_email;
           this.results = res.data[0].results;
+          this.address = res.data[0].address;
+          this.phone = res.data[0].phone;
           this.homeMetaTitle = res.data[0].homemetatitle;
           this.homeMetaKeyword = res.data[0].homemetakeyword;
           // this.paypalEmailRules = res.data[0].site_name;
@@ -111,7 +182,7 @@ export default {
           console.log(err);
         });
     },
-    updateSettings() {
+    updateSettings () {
       this.$axios({
         method: "PUT",
         url: "/updateSetings",
@@ -121,6 +192,8 @@ export default {
           admin_email: this.adminEmail,
           paypal_email: this.paypalEmail,
           results: this.results,
+          address: this.address,
+          phone: this.phone,
           homemetatitle: this.homeMetaTitle,
           homemetakeyword: this.homeMetaKeyword,
           homemetadescription: "",
@@ -138,7 +211,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.fetchSettings();
   }
 };

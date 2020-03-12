@@ -25,6 +25,8 @@ module.exports = {
     const adminEmail = req.body.admin_email
     const paypalEmail = req.body.paypal_email
     const results = req.body.results
+    const address = req.body.address
+    const phone = req.body.phone
     const homeMetaTitle = req.body.homemetatitle
     const homeMetaKeyword = req.body.homemetakeyword
     const homeMetaDescription = req.body.homemetadescription
@@ -39,6 +41,8 @@ module.exports = {
     updateQuery += "`admin_email`=?,";
     updateQuery += "`paypal_email`=?,";
     updateQuery += "`results`=?,";
+    updateQuery += "`address`=?,";
+    updateQuery += "`phone`=?,";
     updateQuery += "`homemetatitle`=?,";
     updateQuery += "`homemetakeyword`=?,";
     updateQuery += "`homemetadescription`=?,";
@@ -46,7 +50,8 @@ module.exports = {
     updateQuery += "`fburl`=?,";
     updateQuery += "`instagramurl`=?";
 
-    pool.query(updateQuery, [siteName, siteUrl, adminEmail, paypalEmail, results, homeMetaTitle, homeMetaKeyword, homeMetaDescription, ganalytyc, fbUrl, instagramUrl])
+    pool.query(updateQuery, [siteName, siteUrl, adminEmail,
+      paypalEmail, results, address, phone, homeMetaTitle, homeMetaKeyword, homeMetaDescription, ganalytyc, fbUrl, instagramUrl])
       .then(row => {
         //send data to frontend
         res.send('data updated')
