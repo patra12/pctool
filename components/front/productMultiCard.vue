@@ -12,6 +12,7 @@
             <!-- ====== Showing image start ======= -->
             <!-- We do not use loop because we only need tow image and 
                  if there is more image that will not create conflict. -->
+            {{makeImagePath(product.image[1])}}
             <nuxt-link :to="'/productDetails/' +product.productId">
               <img
                 class="pic-0"
