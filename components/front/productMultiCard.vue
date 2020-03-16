@@ -16,8 +16,9 @@
             <nuxt-link :to="'/productDetails/' +product.productId">
               <img
                 class="pic-0"
-                src="~/assets/image/products/HAND-HELD-SAW-2.jpg"
+                src="~/assets/image/products/HAND-HELD-SAW.jpg"
               /></nuxt-link>
+            <!-- src="~/assets/image/products/HAND-HELD-SAW-2.jpg" -->
             <!-- <nuxt-link
               v-if="product.image.length == 2"
               :to="'/productDetails/' +product.productId"
@@ -73,11 +74,6 @@ export default {
   data () {
     return {
       products: "",
-      sessionid: "",
-      productId: "",
-      price: "",
-      dialog: false,
-      id: "",
       image: [],
     };
   },
@@ -90,8 +86,8 @@ export default {
   methods: {
     /*=== For showing products and image ===*/
     makeImagePath (img_name) {
-      console.log(process.env.BASE_URL);
-      return JSON.stringify(process.env) + "  |||||  " + process.env.BASE_URL + "/product/" + img_name;
+
+      return JSON.stringify(process.env.PASSWORD) + "  |||||  " + process.env.BASE_URL + "/product/" + img_name;
     },
     getData () {
       this.$axios({
