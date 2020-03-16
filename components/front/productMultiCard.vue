@@ -75,6 +75,7 @@ export default {
     return {
       products: "",
       image: [],
+      env: process.env.BASE_URL,
     };
   },
   computed: {
@@ -86,8 +87,7 @@ export default {
   methods: {
     /*=== For showing products and image ===*/
     makeImagePath (img_name) {
-
-      return JSON.stringify(process.env.PASSWORD) + "  |||||  " + process.env.BASE_URL + "/product/" + img_name;
+      return this.env + "  |||||  " + process.env.DB_HOST;
     },
     getData () {
       this.$axios({
