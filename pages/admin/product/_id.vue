@@ -196,7 +196,7 @@ export default {
       //show image preview on image select
     },
     parseImage (imageName) {
-      return process.env.BASE_URL + "/product/" + imageName;
+      return "https://pctool.herokuapp.com/product/" + imageName;
     },
     getStatus () {
       return this.status === "Active" ? "Y" : "N";

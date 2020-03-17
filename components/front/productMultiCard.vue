@@ -19,13 +19,13 @@
                 :src="makeImagePath(product.image[0])"
               /></nuxt-link>
             <!-- src="~/assets/image/products/HAND-HELD-SAW-2.jpg" -->
-            <!-- <nuxt-link
+            <nuxt-link
               v-if="product.image.length == 2"
               :to="'/productDetails/' +product.productId"
             > <img
                 class="pic-1"
                 :src="makeImagePath(product.image[1])"
-              /></nuxt-link> -->
+              /></nuxt-link>
             <!-- ====== Showing image End ======= -->
             <ul class="social">
               <li>
@@ -87,7 +87,7 @@ export default {
   methods: {
     /*=== For showing products and image ===*/
     makeImagePath (img_name) {
-      return process.env.BASE_URL + "/product/" + img_name;
+      return "https://pctool.herokuapp.com/product/" + img_name;
     },
     getData () {
       this.$axios({
