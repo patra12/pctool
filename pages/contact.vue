@@ -161,7 +161,6 @@ export default {
       this.checkName();
       this.checkEmail();
       this.checkMessage();
-      // console.log("sd");
       if (this.error == 0) {
         var mailData = {
           name: this.name,
@@ -174,7 +173,6 @@ export default {
           data: mailData
         })
           .then(res => {
-            console.log("test");
             (this.name = ""),
               (this.email = ""),
               (this.message = ""),
@@ -186,7 +184,6 @@ export default {
             console.log(error);
           });
       }
-      console.log(this.error, "ph =>" + this.message);
     }
   },
   mounted () {

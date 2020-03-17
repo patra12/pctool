@@ -48,14 +48,6 @@ export default {
       test: "",
     }
   },
-  async fetch ({ store }) {
-    // await store.dispatch("admin/page/getPageData");
-    // await store.dispatch("tempcart/getPageData");
-  },
-  mounted () {
-    console.log(this.$store);
-
-  },
 };
 </script>
 

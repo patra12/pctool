@@ -15,11 +15,15 @@
               >
                 <div class="product-gallery-thumbnails">
                   <ol class="thumbnails-list list-unstyled">
-                    <li><img
-                        src="~/assets/image/products/electric-concrete-saw-712x712.jpg"
+                    <li
+                      v-for="(image,index) in  images"
+                      :key="index"
+                    ><img
+                        :src="makeImagePath(image.imageloc)"
                         alt=""
+                        @mousemove="showImage(makeImagePath(image.imageloc))"
                       ></li>
-                    <li><img
+                    <!-- <li><img
                         src="~/assets/image/products/HAND-HELD-SAW-2.jpg"
                         alt=""
                       ></li>
@@ -30,12 +34,12 @@
                     <li><img
                         src="~/assets/image/products/electric-concrete-saw-712x712.jpg"
                         alt=""
-                      ></li>
+                      ></li> -->
                   </ol>
                 </div>
                 <div class="product-gallery-featured">
                   <img
-                    src="~/assets/image/products/electric-concrete-saw-712x712.jpg"
+                    :src="showPrimaryImage"
                     alt=""
                   >
                 </div>
@@ -124,7 +128,9 @@ export default {
       nextIcon: false,
       right: false,
       tabs: 3,
-      product: ""
+      product: "",
+      images: '',
+      showPrimaryImage: ""
     }
   },
   computed: {
@@ -134,17 +140,25 @@ export default {
     })
   },
   methods: {
-    imageChange () {
-      let galleryThumbnail = document.querySelectorAll(".thumbnails-list li");
-      let galleryFeatured = document.querySelector(".product-gallery-featured img");
-
-      // loop all items
-      galleryThumbnail.forEach((item) => {
-        item.addEventListener("mouseover", function () {
-          let image = item.children[0].src;
-          galleryFeatured.src = image;
+    makeImagePath (img_name) {
+      return "https://pctool.herokuapp.com/product/" + img_name;
+    },
+    showImage (image) {
+      this.showPrimaryImage = image;
+    },
+    getImages () {
+      this.$axios({
+        url: "/getimages/" + this.$route.params.id,
+        method: "get"
+      })
+        .then(res => {
+          this.images = res.data
+          this.showPrimaryImage = this.makeImagePath(res.data[0].imageloc);
+        })
+        .catch(err => {
+          // handle errorr
+          console.log(err);
         });
-      });
     },
     getData () {
       this.$axios({
@@ -153,6 +167,8 @@ export default {
       })
         .then(res => {
           this.product = res.data[0];
+
+
         })
         .catch(err => {
           // handle errorr
@@ -204,6 +220,7 @@ export default {
   },
   mounted () {
     this.getData();
+    this.getImages();
   }
 
 }

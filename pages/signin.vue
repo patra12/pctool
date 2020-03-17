@@ -67,7 +67,6 @@ export default {
 
       this.$session.set('email', this.email);
       this.$session.set('userId', response)
-      //console.log("getAll check",this.$session.getAll());
       if (response) {
         //this.$router.push("/cart");
         window.location.replace("/checkout");
@@ -87,7 +86,6 @@ export default {
       if (login.data[0] != undefined) {
         //response data back 
         return login.data[0].no;
-        console.log("if in", login.data[0].no);
       }
 
 
@@ -99,7 +97,6 @@ export default {
     //   this.$session.start();
     this.$session.set('email', this.email)
     //}
-    //console.log("session", this.$session.id());
   }
 };
 </script>

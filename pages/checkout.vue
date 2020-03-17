@@ -445,7 +445,6 @@ export default {
           this.delTemp = res.data;
           //this.$router.go("/thankyou");
           window.location.replace("/thankyou");
-          console.log("flush temp data", this);
         })
         .catch(err => {
           console.log(err);

@@ -18,7 +18,7 @@ module.exports = {
     // res.json(data);
   },
 
-  // get all Record fo product along with it images
+  // get all Record of product along with it images
   async getProductWithImage (req, res) {
     select.find()
       .then(async row => {
