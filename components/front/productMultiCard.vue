@@ -12,11 +12,11 @@
             <!-- ====== Showing image start ======= -->
             <!-- We do not use loop because we only need tow image and 
                  if there is more image that will not create conflict. -->
-            {{makeImagePath(product.image[1])}}
+            {{makeImagePath(product.image[0])}}
             <nuxt-link :to="'/productDetails/' +product.productId">
               <img
                 class="pic-0"
-                :src="makeImagePath(product.image[1])"
+                :src="makeImagePath(product.image[0])"
               /></nuxt-link>
             <!-- src="~/assets/image/products/HAND-HELD-SAW-2.jpg" -->
             <!-- <nuxt-link
@@ -96,12 +96,13 @@ export default {
       })
         .then(res => {
           this.products = res.data;
+          console.log(res)
         })
         .catch(err => {
           console.log(err);
         });
     },
-    /*=== For cart functionality eith out page reloading ===*/
+    /*=== For cart functionality with out page reloading ===*/
 
     // This is calling addData or updateQty function
     // based on same item is present in cart or not
