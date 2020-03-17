@@ -87,7 +87,7 @@ export default {
   methods: {
     /*=== For showing products and image ===*/
     makeImagePath (img_name) {
-      return "https://pctool.herokuapp.com/product/" + img_name;
+      return process.env.BASE_URL + "/product/" + img_name;
     },
     getData () {
       this.$axios({
