@@ -25,7 +25,7 @@
 
     /*============ list style ============*/
     
-    /***** list head style  */
+    /*-------- list head style------------*/
 
     .bg {
       background-color: #60bb23;
@@ -33,6 +33,15 @@
       border-top-left-radius: 5px;
       color: white;
       border-top-right-radius: 5px;
+      position: relative;
+      a{
+        position: absolute;
+        right: 10px;
+        top:10px;
+        .right{
+          font-size: 35px;
+        }
+      }
     }
     h4 {
       padding: 12px 35px;
@@ -42,7 +51,7 @@
 
 
 
-    /***** list body style  */
+    /*---------- list body style -------------*/
 
     .list{
         
@@ -50,12 +59,12 @@
           background: white;
         }
 
-        .right {
-          position: absolute;
-          right: 35px;
-          top: 10px;
-          font-size: 33px;
-        }
+        // .right {
+        //   position: absolute;
+        //   right: 35px;
+        //   top: 10px;
+        //   font-size: 33px;
+        // }
         .w-100{
           width: 100%;
         }
